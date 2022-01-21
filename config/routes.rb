@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   resources :budgets, only: [:new,:edit,:create,:update,:show]
 
 
-  # get '*path', to: 'application#render_404'
+  get '*path', to: 'application#render_404'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -189,7 +189,7 @@
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="#{percent_rent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_rent}%">#{percent_rent}%</div>
                   </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["家賃"]}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.rent}円</span>
+                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["家賃"].to_i}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.rent}円</span>
                 - else 
                   p.bottom <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
                   p.s_right.icon-red #{rent_float_sum * -1}円オーバー<i class="fas fa-skull-crossbones"></i>

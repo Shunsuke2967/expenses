@@ -3,7 +3,7 @@ class Month < ApplicationRecord
   has_many :days,dependent: :destroy
   has_many :budgets,dependent: :destroy
   validates :income, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
-  validate :month_new_record
+  validate :month_new_record,on: :create
 
   private
 
