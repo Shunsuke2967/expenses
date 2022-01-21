@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  months: one
+  rent: 
+  cost_of_living: 
+  food_expenses: 
+  entertainment: 
+  others: 
+  car_cost: 
+  insurance: 
+
+two:
+  months: two
+  rent: 
+  cost_of_living: 
+  food_expenses: 
+  entertainment: 
+  others: 
+  car_cost: 
+  insurance: 

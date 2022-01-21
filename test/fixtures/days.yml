@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day_at: 
+  icon: MyString
+  memo: MyString
+  income_and_outgo: false
+  money: 
+  month: one
+
+two:
+  day_at: 
+  icon: MyString
+  memo: MyString
+  income_and_outgo: false
+  money: 
+  month: two

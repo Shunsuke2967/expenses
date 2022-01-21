@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title
+      | Expenses
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    / = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Kosugi+Maru&display=swap" rel="stylesheet">
+  body style="padding-bottom: 5rem"
+    .header.navbar.navbar-expand-sm.header.navbar-dark
+      .container
+        = link_to "家計簿",root_path, class: "navbar-brand"
+        ul.navbar-nav
+          - if current_user
+            li.nav-item.text-white #{current_month.month_at.year}年#{current_month.month_at.month}月
+          - else
+            li.nav-item
+              = link_to '新規登録',new_user_path, class: 'nav-link'
+            li.nav-item
+              = link_to 'ログイン',sessions_path, class: 'nav-link'
+    .container
+      #errors
+      - if flash.notice.present?
+        .alert.alert-success= flash.notice
+      = yield
+
+

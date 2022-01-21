@@ -1,0 +1,320 @@
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+html {
+}
+
+.page-link {
+  color:gray !important;
+}
+
+.page-item.active .page-link {
+  background-color: lightgoldenrodyellow !important;
+
+  border-color: lightgray !important;
+}
+
+.pagination>li>a:hover {        
+  background-color: lightgoldenrodyellow !important;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.full{
+  width: 100vw;
+  height: 100vh;
+
+  background: #F3F3F3;
+}
+
+.progress-bar.bg-primary {
+  background-color: #4094be !important;
+}
+
+.progress-bar.bg-danger {
+  background-color: #DA5019 !important;
+}
+
+.progress-bar.bg-warning {
+  background-color: #ddb500 !important;
+}
+
+.progress-bar.bg-success {
+  background-color: #20990e !important;
+}
+
+.progress-bar.bg-violetgreen{
+  background-color: darkolivegreen;
+}
+
+.progress-bar.bg-violet{
+  background-color: violet;
+}
+
+.progress-bar.bg-secondary {
+  background-color: #AAAAAA !important;
+}
+
+body {
+  font-size: 1rem;
+  font-family: 'Hina Mincho', serif;
+  font-family: 'Kosugi Maru', sans-serif;
+  line-height: 1.7;
+  color: #432;
+}
+
+.header{
+  background: #D6A802;
+}
+
+.fixed-bottom {
+    padding: 10px;
+}
+
+.fixed-bottom.icon {
+    margin-bottom: 60px;
+    margin-right: 5px;
+    text-align: right;
+}
+.nav-pills.fixed-bottom .nav-link.active, .nav-pills .show > .nav-link {
+    color: initial;
+    background-color: initial;    
+    color: white;
+}
+
+ /* === ボタンを表示するエリア ============================== */
+.switchArea {
+  line-height    : 72px;                /* 1行の高さ          */
+  letter-spacing : 0;                   /* 文字間             */
+  text-align     : center;              /* 文字位置は中央     */
+  font-size      : 33px;                /* 文字サイズ         */
+
+  position       : relative;            /* 親要素が基点       */
+  margin         : auto;                /* 中央寄せ           */
+  width          : 205px;               /* ボタンの横幅       */
+  background     : #fff;                /* デフォルト背景色   */
+}
+
+ /* === チェックボックス ==================================== */
+.switchArea input[type="checkbox"] {
+  display        : none;            /* チェックボックス非表示 */
+}
+
+ /* === チェックボックスのラベル（標準） ==================== */
+.switchArea label {
+  display        : block;               /* ボックス要素に変更 */
+  box-sizing     : border-box;          /* 枠線を含んだサイズ */
+  height         : 72px;                /* ボタンの高さ       */
+  border         : 2px solid #DA5019;   /* 未選択タブのの枠線 */
+  border-radius  : 36px;                /* 角丸               */
+}
+
+ /* === チェックボックスのラベル（ONのとき） ================ */
+.switchArea input[type="checkbox"]:checked +label {
+  border-color   : #4094be;              /* 選択タブの枠線     */
+}
+
+ /* === 表示する文字（標準） ================================ */
+.switchArea label span:after{
+  content        : "支出";               /* 表示する文字       */
+  padding        : 0 0 0 43px;          /* 表示する位置       */
+  color          : #DA5019;             /* 文字色             */
+}
+
+ /* === 表示する文字（ONのとき） ============================ */
+.switchArea  input[type="checkbox"]:checked + label span:after{
+  content        : "収入";                /* 表示する文字       */
+  padding        : 0 43px 0 0;          /* 表示する位置       */
+  color          : #4094be;             /* 文字色             */
+}
+
+ /* === 丸部分のSTYLE（標準） =============================== */
+.switchArea #swImg {
+  position       : absolute;            /* 親要素からの相対位置*/
+  width          : 64px;                /* 丸の横幅           */
+  height         : 64px;                /* 丸の高さ           */
+  background     : #DA5019;             /* カーソルタブの背景 */
+  top            : 4px;                 /* 親要素からの位置   */
+  left           : 4px;                 /* 親要素からの位置   */
+  border-radius  : 32px;                /* 角丸               */
+  transition     : .2s;                 /* 滑らか変化         */
+}
+
+ /* === 丸部分のSTYLE（ONのとき） =========================== */
+.switchArea input[type="checkbox"]:checked ~ #swImg {
+  transform      : translateX(133px);    /* 丸も右へ移動       */
+  background     : #4094be;              /* カーソルタブの背景 */
+}
+.form-control.bottom-only{
+  border: initial;
+  border-radius: initial;
+  border-bottom: 1px solid #afafaf;
+}
+
+.text-right::placeholder {
+  text-align: right;
+}
+
+.form-control-lg.lg{
+  font-size: 1.5rem
+}
+.btn.btn-warning {
+    color: white;
+}
+.btn.btn-warning:hover {
+    color: white;
+}
+
+.btn.btn-outline-warning:hover {
+    color: white;
+}
+
+button.nav-link{
+  color: rgba(255, 255, 255, 0.55);
+}
+
+a.icon-nav{
+  color: red;
+}
+
+.nav-link.link:hover, .nav-link.link:focus {
+  color: white;
+  transform: scale(1.3, 1.3);
+}
+
+
+.table th, .table td {
+    border-top: initial;
+}
+
+.table th,
+.table td {
+  border:none;
+}
+
+
+.icon-blue{
+  color: #4094be;
+}
+
+.icon-red{
+  color: #DA5019;
+}
+
+p span.s_right{
+   float: right;
+}
+
+p.bottom{
+  margin-bottom: initial;
+}
+
+span.s_right{
+  float: right;
+}
+
+p.s_right{
+  margin-top: 0;
+  margin-bottom: initial;
+  text-align: right;
+}
+
+p .svg-inline--fa.fa-w-14 {
+  color: #DA5019;
+}
+
+.s_margin_left{
+  margin-left: 10%;
+}
+
+.s_margin_right{
+  margin-right: 5%;
+}
+
+.int-color-blue{
+  color: #4094be;
+}
+
+.int-color-red{
+  color: #DA5019;
+}
+
+.icon-color-gray{
+  color: #8d8d8d;
+}
+
+.icon-color-red{
+  color: #DA5019;
+}
+
+.icon-color-green{
+  color: #20990e;
+}
+
+.icon-color-lightblue{
+  color:#4094be;
+}
+
+.icon-color-yellow{
+  color: #ddb500;
+}
+
+.icon-color-violet {
+  color: blueviolet;
+}
+
+.icon-color-violetgreen {
+  color: darkolivegreen;
+}
+
+.gray{
+  color: #8d8d8d;
+}
+
+
+.text-right{
+  text-align: right;
+}
+
+.color-white {
+    background: #fff;
+}
+
+.svg-inline--fa.fa-w-14 {
+    width: 0.875em;
+    color: black;
+}
+
+.white-box {
+    background-color: white;
+    border-radius: 2px;
+    padding: 10px 10px 5px 10px;
+    margin: 10px 0 0 0;
+    box-shadow: 0px 1px 2px 1px #d8d8d8, 0px 1px 2px 2px #f9f9f9 inset;
+}
+
+.form-select.white{
+  display: inline-block;
+  width: auto;
+}
+
+a.edit-link{
+  text-decoration: none;
+}
+
+.font-size {
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 550px){
+  .stay {
+    font-size: 0.9rem;
+  }
+}
+@media(min-width: 550px){
+  .font-size {
+    font-size: 35px;
+  }
+}
+

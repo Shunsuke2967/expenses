@@ -1,0 +1,3 @@
+var postsPaginate = document.querySelector('#month_list'); //ここで設定したidを特定。constでも動くかも
+postsPaginate.innerHTML = "<%= j render 'form_month_list', current_user_month_list: @current_user_month_list%> "//innerHTMLで中身を置き換える。
+history.replaceState( "", "" ,"?page=<%= @page %>");//リロードできる様にURLを書き換えている

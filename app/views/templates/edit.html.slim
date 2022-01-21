@@ -1,0 +1,25 @@
+.mb-5
+.row
+  .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+    = form_with model: @template do |f|
+      .switchArea
+        = f.check_box :income_and_outgo, {checked: @template.income_and_outgo}, "true", "false"
+        = f.label :income_and_outgo
+          span
+        div#swImg
+      .mb-5
+      .form-group
+        = f.number_field :money,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
+      .mb-5
+      .form-group
+        = f.select :icon, [['家賃','家賃'],['食費','食費'],['生活費','生活費'],['娯楽費','娯楽費'],['自動車費','自動車費'],['保険','保険'],['入金','入金'],['その他','その他']], { include_blank: '費用項目' },class: 'form-select form-control-lg lg select fs-11-imp',:required => true
+      .mb-5
+      .form-group
+        = f.text_field :memo,class: 'form-control form-control-lg lg bottom-only fs-20-imp', placeholder: "詳細"
+      .mb-5
+      = f.submit '修正する',class: "btn btn-warning btn-lg form-control form-control-lg lg"
+      .mb-2
+      = link_to '削除する', @template, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-lg form-control form-control-lg lg'
+      .mb-2
+      = link_to 'キャンセル', root_path, class: 'btn btn-outline-warning btn-lg form-control form-control-lg lg'
+      .mb-5

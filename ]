@@ -1,0 +1,18 @@
+class ApplicationController < ActionController::Base
+  helper_method :current_user,:current_month
+  before_action :login_required
+
+
+  private
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  end
+
+  def current_month
+    @current_month ||= Month.find_by(id: session[:month_date]) if session[:month_date]
+  end
+
+  def login_required
+    redirect_to users_path unless current_user
+  end
+end

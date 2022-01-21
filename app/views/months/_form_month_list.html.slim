@@ -1,0 +1,35 @@
+table.table.text-left
+  tbody
+    tr
+      td= paginate current_user_month_list,theme: 'bootstrap-5', remote: true 
+
+- current_int_sum = current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income
+- current_float_sum = current_month.days.where(income_and_outgo: false).sum(:money).to_i
+- current_subtraction = current_int_sum - current_float_sum
+div
+  table.white-box.table.text-left.stay 
+    tbody
+      tr
+        - if current_subtraction.positive?
+          td.gray <strong>#{current_month.month_at.year}年#{current_month.month_at.month}月</strong><span class="gray">　ログイン中...</span><br><span class="s_right s_margin_right"><i class="fas fa-sign-in-alt fa-2x"></i></span><br><span class="gray">収支</span>　<span class="int-color-blue">#{current_subtraction}　<i class="fas fa-angle-double-up icon-blue"></i></span>
+        - else 
+          td.gray <strong>#{current_month.month_at.year}年#{current_month.month_at.month}月</strong><span class="gray">　ログイン中...</span><br><span class="s_right s_margin_right"><i class="fas fa-sign-in-alt fa-2x"></i></span><br><span class="gray">収支</span>　<span class="int-color-red">#{current_subtraction}　<i class="fas fa-angle-double-down icon-red"></i></span>
+      tr
+        td.gray 
+          = link_to 'ログイン中の家計簿を削除',current_month,method: :delete,data: { confirm: "#{current_month.month_at.year}年#{current_month.month_at.month}月の家計簿を削除します。よろしいですか？" } ,class: 'btn btn-warning mb-10 w-100'
+
+- current_user_month_list.each do |month|
+  - int_sum = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income
+  - float_sum = month.days.where(income_and_outgo: false).sum(:money).to_i
+  - subtraction = int_sum - float_sum
+
+  - if current_month != month
+    = link_to "/monthcurrent/#{month.id}",method: :post, class: "edit-link"
+      div
+        table.white-box.table.table-hover.text-left.stay 
+          tbody
+            tr
+              -if subtraction.positive?
+                td <strong>#{month.month_at.year}年#{month.month_at.month}月</strong><br><span class="s_right s_margin_right"><i class="fas fa-sign-in-alt fa-2x"></i></span><br><span class="gray">収支</span>　<span class="int-color-blue">#{subtraction}　<i class="fas fa-angle-double-up icon-blue"></i></span>
+              - else 
+                td <strong>#{month.month_at.year}年#{month.month_at.month}月</strong><br><span class="s_right s_margin_right"><i class="fas fa-sign-in-alt fa-2x"></i></span><br><span class="gray">収支</span>　<span class="int-color-red">#{subtraction}　<i class="fas fa-angle-double-down icon-red"></i></span>
