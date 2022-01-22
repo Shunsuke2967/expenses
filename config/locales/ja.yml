@@ -20,12 +20,14 @@ ja:
       template: テンプレート
       month_at: 家計簿
       day: 収支記録
+      budget: 予算費
     attributes:
       user:
         id: ID
         name: 名前
         email: メールアドレス
-        password_digest: パスワード
+        password: パスワード
+        password_confirmation: パスワード(確認)
       month:
         month_at: 年月
         income: 収入
@@ -34,11 +36,20 @@ ja:
         icon: 費用項目
         memo: メモ
         money: 金額
+        icome_and_outgo: 収支
       template:
         day_at: 日付
         icon: 費用項目
         memo: メモ
         money: 金額
+      budget:
+        rent: 家賃
+        cost_of_living: 生活費
+        food_expenses: 食費
+        entertainment: 娯楽
+        others: その他
+        car_cost: 自動車費
+        insurance: 保険
 
 
   date:
