@@ -15,6 +15,24 @@
       table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left
         tbody
           tr
+            - subtraction_a = 0
+
+            - @current_user_month_list.where("month_at <= ?" , current_month.month_at).each do |month|
+              - int_sum_a = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income
+              - float_sum_a = month.days.where(income_and_outgo: false).sum(:money).to_i
+              - subtraction_a += int_sum_a + (float_sum_a * -1)
+            - subtraction_c = (subtraction_a - (current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income)) + current_month.days.where(income_and_outgo: false).sum(:money).to_i
+            td
+              h6 今月の家計簿<br>
+              - if (subtraction_a - subtraction_c).positive?
+                p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-lightblue">+#{(subtraction_a - subtraction_c).to_s(:delimited)} <i class="fas fa-angle-double-up icon-blue"></i></span>
+              - else 
+                p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-red">#{(subtraction_a - subtraction_c).to_s(:delimited)} <i class="fas fa-angle-double-down icon-red"></i></span>
+              
+              p <span class="gray pt-10">口座残高</span><span class="fs-20 s_right">#{subtraction_a.to_s(:delimited)}円</span>
+      table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left
+        tbody
+          tr
             td
               h6 今月の収支
               .mb-3
