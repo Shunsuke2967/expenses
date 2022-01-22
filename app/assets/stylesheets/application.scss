@@ -170,6 +170,9 @@ body {
   transform      : translateX(133px);    /* 丸も右へ移動       */
   background     : #4094be;              /* カーソルタブの背景 */
 }
+
+.switchArea {transform: translate3d(0,0,0);}
+
 .form-control.bottom-only{
   border: initial;
   border-radius: initial;
