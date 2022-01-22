@@ -1,3 +1,4 @@
+.mb-3
 h1 ログイン 
 
 = form_with scope: :session,local: true do |f|
@@ -8,5 +9,6 @@ h1 ログイン
     = f.label :password, 'パスワード'
     = f.password_field :password, class: 'form-control'
   .mb-3
-  = f.submit 'ログインする',class: 'btn btn-primary'
+  = f.submit 'ログインする',class: 'btn btn-warning c'
 
+div.text-center = link_to '新規登録はこちら',new_user_path, class: "nav-link c"

@@ -19,11 +19,6 @@ html
         ul.navbar-nav
           - if current_user
             li.nav-item.text-white #{current_month.month_at.year}年#{current_month.month_at.month}月
-          - else
-            li.nav-item
-              = link_to '新規登録',new_user_path, class: 'nav-link'
-            li.nav-item
-              = link_to 'ログイン',sessions_path, class: 'nav-link'
     .container
       #errors
       - if flash.notice.present?

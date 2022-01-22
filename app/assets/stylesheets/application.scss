@@ -2,6 +2,26 @@
 html {
 }
 
+
+.size-width{
+  max-width: 250px;
+}
+
+
+.btn-warning.c {
+  background-color: #D6A802;
+  border-color: #D6A802;
+}
+
+.nav-link.c:hover,.nav-link.c:focus{
+  color: rgb(243, 232, 82);
+}
+
+.nav-link.c{
+  color: #D6A802;
+}
+
+
 .page-link {
   color:gray !important;
 }
@@ -142,6 +162,7 @@ body {
 
  /* === 丸部分のSTYLE（ONのとき） =========================== */
 .switchArea input[type="checkbox"]:checked ~ #swImg {
+  will-change: transform;
   transform      : translateX(133px);    /* 丸も右へ移動       */
   background     : #4094be;              /* カーソルタブの背景 */
 }
@@ -310,6 +331,13 @@ a.edit-link{
 @media (max-width: 550px){
   .stay {
     font-size: 0.9rem;
+  }
+
+  .main-container{
+    background-image: url("records/6.png") ;
+    min-height: 40vh;
+    background-size: cover;
+    background-position: center top;
   }
 }
 @media(min-width: 550px){
