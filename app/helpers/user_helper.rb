@@ -24,4 +24,21 @@ module UserHelper
     month_hash["data"] = month_money
     return line_chart_date = [month_hash,month_hash_average]
   end
+
+  def area_chart_date_hash(user)
+    month_money = []
+    month_hash = {}
+    sum_month = 0
+    month_hash["name"] = "口座残高"
+    user.months.order(:month_at).each do |month|
+      int_sum = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income
+      float_sum = month.days.where(income_and_outgo: false).sum(:money).to_i
+      subtraction = int_sum - float_sum
+      sum_month += subtraction
+      month_money << ["#{month.month_at.year}年#{month.month_at.month}月",sum_month]
+    end
+
+    month_hash["data"] = month_money
+    return line_chart_date = [month_hash]
+  end
 end
