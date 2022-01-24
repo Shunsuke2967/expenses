@@ -200,8 +200,12 @@
                 - car_cost_float_sum = @current_budget.car_cost - chart_date["自動車費"].to_i
                 - insurance_float_sum = @current_budget.insurance - chart_date["保険"].to_i
                 - others_float_sum = @current_budget.others - chart_date["その他"].to_i
+
                 - if rent_float_sum.positive?
-                  p.bottom <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
+                  p.bottom 
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
+                    </a>
                   - percent_rent = ((chart_date["家賃"].to_f/@current_budget.rent)*100).to_i
                   p.s_right <span class="gray">残り</span>　#{rent_float_sum.to_s(:delimited)}円
                   <div class="progress">
@@ -209,17 +213,49 @@
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["家賃"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.rent.to_s(:delimited)}円</span>
                 - else 
-                  p.bottom <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
+                  p.bottom
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
+                    </a>
                   p.s_right.icon-red #{(rent_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["家賃"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.rent.to_s(:delimited)}円</span>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body">
+                    table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
+                      tbody
+                        tr
+                          td colspan="6"
+                            h6 明細一覧
+                            .mb-3
+                        - current_month.days.where(icon: "家賃").order("day_at").each do |day|
+                          tr.color-none
+                            - if "#{day.day_at.day}".length == 1 
+                              td.gray width="18%" = "0#{day.day_at.day}日"
+                            - else
+                              td.gray width="18%" = "#{day.day_at.day}日"
+                            td.icon-color-red width="12%" align="center" <i class="fas fa-home"></i>
+                            td width="32%" = day.memo
+                            - if day.income_and_outgo
+                              td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
+                            - else
+                              td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
+                            td width="2%"
+                            td width="10%"
+                              = link_to edit_day_path(day)
+                                i.fas.fa-pencil-alt
+                  </div>
+                </div>
                 hr width="100%"
 
 
                 - if car_cost_float_sum.positive?
-                  p.bottom <span class="icon-color-violetgreen"><i class="fas fa-car-side"></i></span> 自動車費
+                  p.bottom
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                     <span class="icon-color-violetgreen"><i class="fas fa-car-side"></i></span> 自動車費
+                    </a>
                   - percent_car = ((chart_date["自動車費"].to_f/@current_budget.car_cost)*100).to_i
                   p.s_right <span class="gray">残り</span>　#{car_cost_float_sum.to_s(:delimited)}円
                   <div class="progress">
@@ -227,17 +263,49 @@
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["自動車費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.car_cost.to_s(:delimited)}円</span>
                 - else 
-                  p.bottom <span class="icon-color-violetgreen"><i class="fas fa-car-side"></i></span> 自動車費
+                  p.bottom
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                     <span class="icon-color-violetgreen"><i class="fas fa-car-side"></i></span> 自動車費
+                    </a>
                   p.s_right.icon-red #{(car_cost_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["自動車費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.car_cost.to_s(:delimited)}円</span>
+                <div class="collapse" id="collapseExample2">
+                  <div class="card card-body">
+                    table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
+                      tbody
+                        tr
+                          td colspan="6"
+                            h6 明細一覧
+                            .mb-3
+                        - current_month.days.where(icon: "自動車費").order("day_at").each do |day|
+                          tr.color-none
+                            - if "#{day.day_at.day}".length == 1 
+                              td.gray width="18%" = "0#{day.day_at.day}日"
+                            - else
+                              td.gray width="18%" = "#{day.day_at.day}日"
+                            td.icon-color-violetgreen width="12%" align="center" <i class="fas fa-car-side"></i>
+                            td width="32%" = day.memo
+                            - if day.income_and_outgo
+                              td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
+                            - else
+                              td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
+                            td width="2%"
+                            td width="10%"
+                              = link_to edit_day_path(day)
+                                i.fas.fa-pencil-alt
+                  </div>
+                </div>
                 hr width="100%"
 
 
                 - if insurance_float_sum.positive?
-                  p.bottom <span class="icon-color-violet"><i class="fas fa-hospital-user"></i></span> 保険
+                  p.bottom
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-violet"><i class="fas fa-hospital-user"></i></span> 保険
+                    </a>
                   - percent_insurance = ((chart_date["保険"].to_f/@current_budget.insurance)*100).to_i
                   p.s_right <span class="gray">残り</span>　#{insurance_float_sum.to_s(:delimited)}円
                   <div class="progress">
@@ -245,17 +313,49 @@
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["保険"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.insurance.to_s(:delimited)}円</span>
                 - else 
-                  p.bottom <span class="icon-color-red"><i class="fas fa-hospital-user"></i></span> 保険
+                  p.bottom
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-violet"><i class="fas fa-hospital-user"></i></span> 保険
+                    </a>
                   p.s_right.icon-red #{(insurance_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["保険"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.insurance.to_s(:delimited)}円</span>
+                <div class="collapse" id="collapseExample3">
+                  <div class="card card-body">
+                    table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
+                      tbody
+                        tr
+                          td colspan="6"
+                            h6 明細一覧
+                            .mb-3
+                        - current_month.days.where(icon: "保険").order("day_at").each do |day|
+                          tr.color-none
+                            - if "#{day.day_at.day}".length == 1 
+                              td.gray width="18%" = "0#{day.day_at.day}日"
+                            - else
+                              td.gray width="18%" = "#{day.day_at.day}日"
+                            td.icon-color-violet width="12%" align="center" <i class="fas fa-hospital-user"></i>
+                            td width="32%" = day.memo
+                            - if day.income_and_outgo
+                              td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
+                            - else
+                              td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
+                            td width="2%"
+                            td width="10%"
+                              = link_to edit_day_path(day)
+                                i.fas.fa-pencil-alt
+                  </div>
+                </div>
                 hr width="100%"
 
 
                 - if cost_float_sum.positive?
-                  p.bottom <span class="icon-color-lightblue"><i class="fas fa-faucet"></i></span> 生活費
+                  p.bottom
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-lightblue"><i class="fas fa-faucet"></i></span> 生活費
+                    </a>
                   - cost_percent = ((chart_date["生活費"].to_f/@current_budget.cost_of_living)*100).to_i
                   p.s_right <span class="gray">残り</span>　#{cost_float_sum.to_s(:delimited)}円
                   <div class="progress">
@@ -263,17 +363,49 @@
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["生活費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.cost_of_living.to_s(:delimited)}円</span>
                 - else 
-                  p.bottom <span class="icon-color-lightblue"><i class="fas fa-faucet"></i></span> 生活費
+                  p.bottom
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-lightblue"><i class="fas fa-faucet"></i></span> 生活費
+                    </a>
                   p.s_right.icon-red #{(cost_float_sum* -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["生活費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.cost_of_living.to_s(:delimited)}円</span>
+                <div class="collapse" id="collapseExample4">
+                  <div class="card card-body">
+                    table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
+                      tbody
+                        tr
+                          td colspan="6"
+                            h6 明細一覧
+                            .mb-3
+                        - current_month.days.where(icon: "生活費").order("day_at").each do |day|
+                          tr.color-none
+                            - if "#{day.day_at.day}".length == 1 
+                              td.gray width="18%" = "0#{day.day_at.day}日"
+                            - else
+                              td.gray width="18%" = "#{day.day_at.day}日"
+                            td.icon-color-lightblue width="12%" align="center" <i class="fas fa-faucet"></i>
+                            td width="32%" = day.memo
+                            - if day.income_and_outgo
+                              td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
+                            - else
+                              td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
+                            td width="2%"
+                            td width="10%"
+                              = link_to edit_day_path(day)
+                                i.fas.fa-pencil-alt
+                  </div>
+                </div>
                 hr width="100%"
 
 
                 - if entertainment_float_sum.positive?
-                  p.bottom <span class="icon-color-green"><i class="fas fa-shopping-cart"></i></span> 娯楽費
+                  p.bottom 
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-green"><i class="fas fa-shopping-cart"></i></span> 娯楽費
+                    </a>
                   - entertainment_percent = ((chart_date["娯楽費"].to_f/@current_budget.entertainment)*100).to_i
                   p.s_right <span class="gray">残り</span>　#{entertainment_float_sum.to_s(:delimited)}円
                   <div class="progress">
@@ -281,17 +413,49 @@
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["娯楽費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.entertainment.to_s(:delimited)}円</span>
                 - else 
-                  p.bottom <span class="icon-color-green"><i class="fas fa-shopping-cart"></i></span> 娯楽費
+                  p.bottom 
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-green"><i class="fas fa-shopping-cart"></i></span> 娯楽費
+                    </a>
                   p.s_right.icon-red #{(entertainment_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["娯楽費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.entertainment.to_s(:delimited)}円</span>
+                <div class="collapse" id="collapseExample5">
+                  <div class="card card-body">
+                    table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
+                      tbody
+                        tr
+                          td colspan="6"
+                            h6 明細一覧
+                            .mb-3
+                        - current_month.days.where(icon: "娯楽費").order("day_at").each do |day|
+                          tr.color-none
+                            - if "#{day.day_at.day}".length == 1 
+                              td.gray width="18%" = "0#{day.day_at.day}日"
+                            - else
+                              td.gray width="18%" = "#{day.day_at.day}日"
+                            td.icon-color-green width="12%" align="center" <i class="fas fa-shopping-cart"></i>
+                            td width="32%" = day.memo
+                            - if day.income_and_outgo
+                              td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
+                            - else
+                              td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
+                            td width="2%"
+                            td width="10%"
+                              = link_to edit_day_path(day)
+                                i.fas.fa-pencil-alt
+                  </div>
+                </div>
                 hr width="100%"
 
 
                 - if food_float_sum.positive?
-                  p.bottom <span class="icon-color-yellow"><i class="fas fa-utensils"></i></span> 食費
+                  p.bottom
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample9" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-yellow"><i class="fas fa-utensils"></i></span> 食費
+                    </a>
                   - food_percent = ((chart_date["食費"].to_f/@current_budget.food_expenses)*100).to_i
                   p.s_right <span class="gray">残り</span>　#{food_float_sum.to_s(:delimited)}円
                   <div class="progress">
@@ -299,17 +463,49 @@
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["食費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.food_expenses.to_s(:delimited)}円</span>
                 - else 
-                  p.bottom <span class="icon-color-yellow"><i class="fas fa-utensils"></i></span> 食費
+                  p.bottom
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample9" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-yellow"><i class="fas fa-utensils"></i></span> 食費
+                    </a>
                   p.s_right.icon-red #{(food_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["食費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.food_expenses.to_s(:delimited)}円</span>
+                <div class="collapse" id="collapseExample9">
+                  <div class="card card-body">
+                    table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
+                      tbody
+                        tr
+                          td colspan="6"
+                            h6 明細一覧
+                            .mb-3
+                        - current_month.days.where(icon: "食費").order("day_at").each do |day|
+                          tr.color-none
+                            - if "#{day.day_at.day}".length == 1 
+                              td.gray width="18%" = "0#{day.day_at.day}日"
+                            - else
+                              td.gray width="18%" = "#{day.day_at.day}日"
+                            td.icon-color-yellow width="12%" align="center" <i class="fas fa-utensils"></i>
+                            td width="32%" = day.memo
+                            - if day.income_and_outgo
+                              td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
+                            - else
+                              td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
+                            td width="2%"
+                            td width="10%"
+                              = link_to edit_day_path(day)
+                                i.fas.fa-pencil-alt
+                  </div>
+                </div>
                 hr width="100%"
 
 
                 - if others_float_sum.positive?
-                  p.bottom <span class="icon-color-gray"><i class="far fa-question-circle"></i></span > その他
+                  p.bottom
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-gray"><i class="far fa-question-circle"></i></span > その他
+                    </a>
                   - others_percent = ((chart_date["その他"].to_f/@current_budget.others)*100).to_i
                   p.s_right <span class="gray">残り</span>　#{others_float_sum.to_s(:delimited)}円
                   <div class="progress">
@@ -317,12 +513,41 @@
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["その他"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.others.to_s(:delimited)}円</span>
                 - else 
-                  p.bottom <span class="icon-color-gray"><i class="far fa-question-circle"></i></span > その他
+                  p.bottom
+                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <span class="icon-color-gray"><i class="far fa-question-circle"></i></span > その他
+                    </a>
                   p.s_right.icon-red #{(others_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["その他"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.others.to_s(:delimited)}円</span>
+                <div class="collapse" id="collapseExample8">
+                  <div class="card card-body">
+                    table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
+                      tbody
+                        tr
+                          td colspan="6"
+                            h6 明細一覧
+                            .mb-3
+                        - current_month.days.where(icon: "その他").order("day_at").each do |day|
+                          tr.color-none
+                            - if "#{day.day_at.day}".length == 1 
+                              td.gray width="18%" = "0#{day.day_at.day}日"
+                            - else
+                              td.gray width="18%" = "#{day.day_at.day}日"
+                            td.icon-color-gray width="12%" align="center" <i class="far fa-question-circle"></i>
+                            td width="32%" = day.memo
+                            - if day.income_and_outgo
+                              td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
+                            - else
+                              td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
+                            td width="2%"
+                            td width="10%"
+                              = link_to edit_day_path(day)
+                                i.fas.fa-pencil-alt
+                  </div>
+                </div>
               - else 
                 p.bottom <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
                 p.s_right <span class="gray">残り</span>　0円

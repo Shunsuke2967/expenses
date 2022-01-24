@@ -351,6 +351,24 @@ a.edit-link{
   text-decoration: none;
 }
 
+a.style-none {
+  color: black;
+  text-decoration: initial;
+}
+
+a.style-none:hover,a.style-none:focus{
+  color: black;
+}
+
+table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay {
+  margin: 0;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: initial !important;
+}
+
 .font-size {
   font-size: 14px;
   text-align: center;
@@ -362,7 +380,7 @@ a.edit-link{
   }
 
   .main-container{
-    background-image: url("records/6.png") ;
+    background-image: url("6.png") ;
     min-height: 40vh;
     background-size: cover;
     background-position: center top;
