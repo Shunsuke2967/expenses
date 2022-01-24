@@ -31,7 +31,6 @@
                   p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-red">#{(subtraction_a - subtraction_c).to_s(:delimited)} <i class="fas fa-angle-double-down icon-red"></i></span>
                 
                 p <span class="gray pt-10">口座残高</span><span class="fs-20 s_right">#{subtraction_a.to_s(:delimited)}円</span>
-                <i class="fas fa-chevron-down gray"></i>
               </a>
           tr 
             td.pad-0
@@ -201,7 +200,7 @@
         tbody
           tr 
             td
-              h6 項目別
+              h6 項目別<br><span class="gray f-s">※アイコンをタッチすると明細が見れます</span>
           tr
             td
               - if @current_budget

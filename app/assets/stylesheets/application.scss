@@ -15,6 +15,13 @@ p.w-100.text-right.fs-07 {
   margin-bottom: 0;
 }
 
+.mar-0{
+  margin-bottom: initial !important;
+  text-align: center;
+  // float: center;
+  width: 100%;
+}
+
 
 .btn-warning.c {
   background-color: #D6A802;
@@ -364,6 +371,10 @@ a.style-none {
   text-decoration: initial;
 }
 
+.f-s{
+  font-size: 13px;
+}
+
 .pad-0{
   padding: initial !important;
   pointer-events: none;
@@ -374,7 +385,7 @@ a.style-none {
   padding-top: initial !important;
 }
 
-.text-right.none-hover{
+.none-hover{
   pointer-events: none;
 }
 
