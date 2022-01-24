@@ -23,13 +23,24 @@
               - subtraction_a += int_sum_a + (float_sum_a * -1)
             - subtraction_c = (subtraction_a - (current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income)) + current_month.days.where(income_and_outgo: false).sum(:money).to_i
             td
-              h6 今月の家計簿<br>
-              - if (subtraction_a - subtraction_c).positive?
-                p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-lightblue">+#{(subtraction_a - subtraction_c).to_s(:delimited)} <i class="fas fa-angle-double-up icon-blue"></i></span>
-              - else 
-                p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-red">#{(subtraction_a - subtraction_c).to_s(:delimited)} <i class="fas fa-angle-double-down icon-red"></i></span>
-              
-              p <span class="gray pt-10">口座残高</span><span class="fs-20 s_right">#{subtraction_a.to_s(:delimited)}円</span>
+              <a class="style-none" data-bs-toggle="collapse" href="#collapseExample10" role="button" aria-expanded="false" aria-controls="collapseExample">
+                h6 今月の家計簿<br>
+                - if (subtraction_a - subtraction_c).positive?
+                  p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-lightblue">+#{(subtraction_a - subtraction_c).to_s(:delimited)} <i class="fas fa-angle-double-up icon-blue"></i></span>
+                - else 
+                  p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-red">#{(subtraction_a - subtraction_c).to_s(:delimited)} <i class="fas fa-angle-double-down icon-red"></i></span>
+                
+                p <span class="gray pt-10">口座残高</span><span class="fs-20 s_right">#{subtraction_a.to_s(:delimited)}円</span>
+              </a>
+          tr 
+            td.pad-0
+              <div class="collapse" id="collapseExample10">
+                .mb-3
+                h6 　口座残高推移<br>
+                .mb-3
+                = area_chart area_chart_date_hash(current_user)
+              </div>
+
       table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left
         tbody
           tr
@@ -228,7 +239,7 @@
                       tbody
                         tr
                           td colspan="6"
-                            h6 明細一覧
+                            h6 家賃明細
                             .mb-3
                         - current_month.days.where(icon: "家賃").order("day_at").each do |day|
                           tr.color-none
@@ -278,7 +289,7 @@
                       tbody
                         tr
                           td colspan="6"
-                            h6 明細一覧
+                            h6 自動車費明細
                             .mb-3
                         - current_month.days.where(icon: "自動車費").order("day_at").each do |day|
                           tr.color-none
@@ -328,7 +339,7 @@
                       tbody
                         tr
                           td colspan="6"
-                            h6 明細一覧
+                            h6 保険明細
                             .mb-3
                         - current_month.days.where(icon: "保険").order("day_at").each do |day|
                           tr.color-none
@@ -378,7 +389,7 @@
                       tbody
                         tr
                           td colspan="6"
-                            h6 明細一覧
+                            h6 生活費明細
                             .mb-3
                         - current_month.days.where(icon: "生活費").order("day_at").each do |day|
                           tr.color-none
@@ -428,7 +439,7 @@
                       tbody
                         tr
                           td colspan="6"
-                            h6 明細一覧
+                            h6 娯楽費明細
                             .mb-3
                         - current_month.days.where(icon: "娯楽費").order("day_at").each do |day|
                           tr.color-none
@@ -478,7 +489,7 @@
                       tbody
                         tr
                           td colspan="6"
-                            h6 明細一覧
+                            h6 食費明細
                             .mb-3
                         - current_month.days.where(icon: "食費").order("day_at").each do |day|
                           tr.color-none
@@ -528,7 +539,7 @@
                       tbody
                         tr
                           td colspan="6"
-                            h6 明細一覧
+                            h6 その他明細
                             .mb-3
                         - current_month.days.where(icon: "その他").order("day_at").each do |day|
                           tr.color-none

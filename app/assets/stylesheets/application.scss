@@ -356,6 +356,11 @@ a.style-none {
   text-decoration: initial;
 }
 
+.pad-0{
+  padding: initial !important;
+  pointer-events: none;
+}
+
 a.style-none:hover,a.style-none:focus{
   color: black;
 }
