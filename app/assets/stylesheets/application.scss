@@ -187,6 +187,10 @@ body {
   border-bottom: 1px solid #afafaf;
 }
 
+.fa-chevron-down.fa-w-14.gray {
+  font-size: 16px;
+}
+
 .text-right::placeholder {
   text-align: right;
 }
@@ -239,6 +243,10 @@ a.icon-nav{
 
 p span.s_right{
    float: right;
+}
+
+.s_center{
+  float: center;
 }
 
  td.fs-07{
