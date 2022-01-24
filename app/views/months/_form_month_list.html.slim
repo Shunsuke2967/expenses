@@ -3,7 +3,7 @@ table.table.text-left
     tr
       td= paginate current_user_month_list,theme: 'bootstrap-5', remote: true 
 
-- current_int_sum = current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income
+- current_int_sum = current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income.to_i + current_month.income2.to_i + current_month.income3.to_i + current_month.income4.to_i
 - current_float_sum = current_month.days.where(income_and_outgo: false).sum(:money).to_i
 - current_subtraction = current_int_sum - current_float_sum
 div
@@ -19,7 +19,7 @@ div
           = link_to 'ログイン中の家計簿を削除',current_month,method: :delete,data: { confirm: "#{current_month.month_at.year}年#{current_month.month_at.month}月の家計簿を削除します。よろしいですか？" } ,class: 'btn btn-warning mb-10 w-100'
 
 - current_user_month_list.each do |month|
-  - int_sum = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income
+  - int_sum = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income.to_i + month.income2.to_i + month.income3.to_i + month.income4.to_i
   - float_sum = month.days.where(income_and_outgo: false).sum(:money).to_i
   - subtraction = int_sum - float_sum
 

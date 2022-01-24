@@ -18,10 +18,10 @@
             - subtraction_a = 0
 
             - @current_user_month_list.where("month_at <= ?" , current_month.month_at).each do |month|
-              - int_sum_a = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income
+              - int_sum_a = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income.to_i + month.income2.to_i + month.income3.to_i + month.income4.to_i
               - float_sum_a = month.days.where(income_and_outgo: false).sum(:money).to_i
               - subtraction_a += int_sum_a + (float_sum_a * -1)
-            - subtraction_c = (subtraction_a - (current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income)) + current_month.days.where(income_and_outgo: false).sum(:money).to_i
+            - subtraction_c = (subtraction_a - (current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income.to_i + current_month.income2.to_i + current_month.income3.to_i + current_month.income4.to_i)) + current_month.days.where(income_and_outgo: false).sum(:money).to_i
             td
               <a class="style-none" data-bs-toggle="collapse" href="#collapseExample10" role="button" aria-expanded="false" aria-controls="collapseExample">
                 h6 今月の家計簿<br>
@@ -47,7 +47,7 @@
             td
               h6 今月の収支
               .mb-3
-              - int_sum = current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income
+              - int_sum = current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income.to_i + current_month.income2.to_i + current_month.income3.to_i + current_month.income4.to_i
               - float_sum = current_month.days.where(income_and_outgo: false).sum(:money).to_i
               - subtraction = int_sum - float_sum
               p <span class="s_margin_left gray">収入</span><span class="s_right s_margin_right int-color-blue">#{int_sum.to_s(:delimited)}円　</span>
@@ -625,9 +625,60 @@
               = link_to '収入を再設定する',edit_month_path(current_month), class:"btn btn-outline-secondary btn-sm radius"
           tr
             td.gray.text-right width="50%"
-              h4 収入設定額
+              <a class="style-none gray" data-bs-toggle="collapse" href="#collapseExample11" role="button" aria-expanded="false" aria-controls="collapseExample">
+                h4 収入設定総額
+              </a>
             td width="50%"
-              h4 = "#{current_month.income.to_i.to_s(:delimited)}円"
+              <a class="style-none" data-bs-toggle="collapse" href="#collapseExample11" role="button" aria-expanded="false" aria-controls="collapseExample">
+                h4
+                  = "#{(current_month.income.to_i + current_month.income2.to_i + current_month.income3.to_i + current_month.income4.to_i).to_s(:delimited)}円"
+              </a>
+          tr
+            td.pad-0-1 width="50%"
+              <div class="collapse" id="collapseExample11">
+                h6 収入詳細
+              </div>
+            td.pad-0-1 width="50%"
+          - if current_month.income.to_i > 0
+              tr
+                td.pad-0-1.gray.text-right width="50%"
+                  <div class="collapse" id="collapseExample11">
+                    h5 収入１
+                  </div>
+                td.pad-0-1 width="50%"
+                  <div class="collapse" id="collapseExample11">
+                    h5 = "#{(current_month.income.to_i).to_s(:delimited)}円"
+                  </div>
+          - if current_month.income2.to_i.to_i > 0
+            tr
+              td.pad-0-1.gray.text-right width="50%"
+                <div class="collapse" id="collapseExample11">
+                  h5 収入２
+                </div>
+              td.pad-0-1 width="50%"
+                <div class="collapse" id="collapseExample11">
+                  h5 = "#{(current_month.income2.to_i).to_s(:delimited)}円"
+                </div>
+          - if current_month.income3.to_i > 0
+            tr
+              td.pad-0-1.gray.text-right width="50%"
+                <div class="collapse" id="collapseExample11">
+                  h5 収入３
+                </div>
+              td.pad-0-1 width="50%"
+                <div class="collapse" id="collapseExample11">
+                  h5 = "#{(current_month.income3.to_i).to_s(:delimited)}円"
+                </div>
+          - if current_month.income4.to_i > 0
+            tr
+              td.pad-0-1.gray.text-right width="50%"
+                <div class="collapse" id="collapseExample11">
+                  h5 収入４
+                </div>
+              td.pad-0-1 width="50%"
+                <div class="collapse" id="collapseExample11">
+                  h5 = "#{(current_month.income4.to_i).to_s(:delimited)}円"
+                </div>
 
     .col-md-10.offset-md-1.col-lg-8.offset-lg-2
       table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left.stay

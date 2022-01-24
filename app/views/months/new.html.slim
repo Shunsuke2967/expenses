@@ -8,9 +8,20 @@
        = f.select :month_at, [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6'],['7','7'],['8','8'],['9','9'],['10','10'],['11','11'],['12','12']], { include_blank: 'xx' },class: 'form-select white form-control-lg lg',:required => true
        span 　月　
       .mb-5
+      h5 収入設定
+      .mb-5
       .form-group
-        = f.label :income, '収入設定金額'
-        = f.number_field :income,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "収入設定額"
+        = f.label :income, '収入1※入力必須'
+        = f.number_field :income,value: current_month.income,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp'
+      .form-group
+        = f.label :income2, '収入2'
+        = f.number_field :income2,value: current_month.income2,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
+      .form-group
+        = f.label :income3, '収入3'
+        = f.number_field :income3,value: current_month.income3,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
+      .form-group
+        = f.label :income4, '収入4'
+        = f.number_field :income4,value: current_month.income4,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
       .mb-5
 
       = f.submit '作成する',class: "btn btn-warning btn-lg form-control form-control-lg lg"

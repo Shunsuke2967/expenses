@@ -317,7 +317,7 @@ p .svg-inline--fa.fa-w-14 {
 }
 
 .gray{
-  color: #8d8d8d;
+  color: #8d8d8d !important;
 }
 
 
@@ -358,6 +358,15 @@ a.style-none {
 
 .pad-0{
   padding: initial !important;
+  pointer-events: none;
+}
+
+.pad-0-1{
+  padding-bottom: initial !important;
+  padding-top: initial !important;
+}
+
+.text-right.none-hover{
   pointer-events: none;
 }
 

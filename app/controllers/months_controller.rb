@@ -12,7 +12,7 @@ class MonthsController < ApplicationController
 
   def create
     month_at = "#{month_params[:year_at]}-#{month_params[:month_at]}-1".in_time_zone
-    @month = current_user.months.new(income: month_params[:income],month_at: month_at)
+    @month = current_user.months.new(income: month_params[:income],income2: month_params[:income2],income3: month_params[:income3],income4: month_params[:income4],month_at: month_at)
     month = current_user.months.order(month_at: "DESC").first
 
     if @month.save
@@ -57,11 +57,11 @@ class MonthsController < ApplicationController
   private
 
   def income_params
-    params.require(:month).permit(:income)
+    params.require(:month).permit(:income,:income,:income2,:income3,:income4)
   end
 
   def month_params
-    params.require(:month).permit(:month_at,:income,:year_at)
+    params.require(:month).permit(:month_at,:income,:income2,:income3,:income4,:year_at)
   end
 
 end
