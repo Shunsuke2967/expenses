@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
           pie: {
             dataLabels: {
               enabled: true, 
-              distance: 10, # ラベルの位置調節
+              distance: 5, # ラベルの位置調節
               allowOverlap: false, # ラベルが重なったとき、非表示にする
               style: { #ラベルフォントの設定
                 color: 'lightgray',
@@ -96,8 +96,8 @@ class ApplicationController < ActionController::Base
                 textOutline: 0, #デフォルトではラベルが白枠で囲まれていてダサいので消す
               }
             },
-            innerSize: '60%', # ドーナツグラフの中の円の大きさ
-            size: '80%',
+            innerSize: '57%', # ドーナツグラフの中の円の大きさ
+            size: '75%',
             borderWidth: 0,
           }
         },

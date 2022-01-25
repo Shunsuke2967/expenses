@@ -2,9 +2,12 @@ class MonthsController < ApplicationController
   def index
     @page = params[:page]
     @months = current_user.months
+    @q = current_month.days.ransack(params[:q])
+    @current_days = @q.result
     @current_budget = current_month.budgets.first
     @current_user_month_list = current_user.months.order(month_at: "DESC").page(params[:page])
   end
+
 
   def new
     @month = current_user.months.new

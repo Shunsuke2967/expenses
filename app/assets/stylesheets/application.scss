@@ -371,6 +371,42 @@ a.style-none {
   text-decoration: initial;
 }
 
+input.btn.btn-warning.form-control.form-control-lg.w-90 {
+  width: 90%;
+}
+
+input[type=text].costom {
+	-webkit-appearance: none;
+	display: inline-block;
+	// margin-right: 0;
+	margin-bottom: 20px;
+	padding: 10px;
+	width: 90%;
+	height: 40px;
+	font-size: 100%;
+	box-sizing: border-box;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #ccc;
+	// border-right: none;
+}
+input[type=submit].costom  {
+	-webkit-appearance: none;
+	display: inline-block;
+	padding: 0 10px;
+	color: #fff;
+	width: 50px;
+	height: 40px;
+	font-size: 100%;
+	vertical-align: top;
+	border: none;
+	border-radius: 0 5px 5px 0;
+	background: #1f76e2;
+}
+
+td.s_center {
+  text-align: center;
+}
+
 .f-s{
   font-size: 13px;
 }

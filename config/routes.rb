@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   post '/monthcurrent/:id', to: 'months#monthcurrent'
   post '/add', to: 'templates#createadd'
   resources :users
-  resources :months
+  resources :months do
+    collection do
+     get 'search'
+    end
+  end
   resources :sessions, only: [:index,:create]
   resources :days, only: [:new,:create,:destroy,:edit,:update]
   resources :templates, only: [:new,:edit,:update,:destroy,:create]
