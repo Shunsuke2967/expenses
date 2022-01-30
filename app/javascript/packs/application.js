@@ -12,9 +12,9 @@ import "bootstrap"
 import "bootstrap/scss/bootstrap.scss"
 import "./flash.js"
 require("@fortawesome/fontawesome-free/js/all")
-// import "chartkick/chart.js"
 
 require("chartkick").use(require("highcharts"))
+require('test.js')
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

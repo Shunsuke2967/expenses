@@ -15,22 +15,22 @@
       table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left
         tbody
           tr
-            - subtraction_a = 0
+            - current_user_months_sum_computation = 0
 
             - @current_user_month_list.where("month_at <= ?" , current_month.month_at).each do |month|
-              - int_sum_a = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income.to_i + month.income2.to_i + month.income3.to_i + month.income4.to_i
-              - float_sum_a = month.days.where(income_and_outgo: false).sum(:money).to_i
-              - subtraction_a += int_sum_a + (float_sum_a * -1)
-            - subtraction_c = (subtraction_a - (current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income.to_i + current_month.income2.to_i + current_month.income3.to_i + current_month.income4.to_i)) + current_month.days.where(income_and_outgo: false).sum(:money).to_i
+              - month_total_income = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income.to_i + month.income2.to_i + month.income3.to_i + month.income4.to_i
+              - current_month_total_spending = month.days.where(income_and_outgo: false).sum(:money).to_i
+              - current_user_months_sum_computation += month_total_income + (current_month_total_spending * -1)
+            - current_month_except_months_sum = (current_user_months_sum_computation - (current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income.to_i + current_month.income2.to_i + current_month.income3.to_i + current_month.income4.to_i)) + current_month.days.where(income_and_outgo: false).sum(:money).to_i
             td
               <a class="style-none" data-bs-toggle="collapse" href="#collapseExample10" role="button" aria-expanded="false" aria-controls="collapseExample">
                 h6 今月の家計簿<br>
-                - if (subtraction_a - subtraction_c).positive?
-                  p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-lightblue">+#{(subtraction_a - subtraction_c).to_s(:delimited)} <i class="fas fa-angle-double-up icon-blue"></i></span>
+                - if (current_user_months_sum_computation - current_month_except_months_sum).positive?
+                  p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-lightblue">+#{(current_user_months_sum_computation - current_month_except_months_sum).to_s(:delimited)} <i class="fas fa-angle-double-up icon-blue"></i></span>
                 - else 
-                  p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-red">#{(subtraction_a - subtraction_c).to_s(:delimited)} <i class="fas fa-angle-double-down icon-red"></i></span>
+                  p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-red">#{(current_user_months_sum_computation - current_month_except_months_sum).to_s(:delimited)} <i class="fas fa-angle-double-down icon-red"></i></span>
                 
-                p <span class="gray pt-10">口座残高</span><span class="fs-20 s_right">#{subtraction_a.to_s(:delimited)}円</span>
+                p <span class="gray pt-10">口座残高</span><span class="fs-20 s_right">#{current_user_months_sum_computation.to_s(:delimited)}円</span>
               </a>
           tr 
             td.pad-0
@@ -40,6 +40,7 @@
                 .mb-3
                 = area_chart area_chart_date_hash(current_user)
               </div>
+
     .col-md-10.offset-md-1.col-lg-8.offset-lg-2
       table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left.stay
         tbody
@@ -63,63 +64,21 @@
             td
               h6 今月の収支
               .mb-3
-              - int_sum = @current_days.where(income_and_outgo: true).sum(:money).to_i + current_month.income.to_i + current_month.income2.to_i + current_month.income3.to_i + current_month.income4.to_i
-              - float_sum = @current_days.where(income_and_outgo: false).sum(:money).to_i
-              - subtraction = int_sum - float_sum
-              p <span class="s_margin_left gray">収入</span><span class="s_right s_margin_right int-color-blue">#{int_sum.to_s(:delimited)}円　</span>
-              p <span class="s_margin_left gray">支出</span><span class="s_right s_margin_right int-color-red">#{float_sum.to_s(:delimited)}円　</span>
+              - current_month_incomes_sum = @current_days.where(income_and_outgo: true).sum(:money).to_i + current_month.income.to_i + current_month.income2.to_i + current_month.income3.to_i + current_month.income4.to_i
+              - current_month_total_spending = @current_days.where(income_and_outgo: false).sum(:money).to_i
+              - current_month_sum_computation = current_month_incomes_sum - current_month_total_spending
+              p <span class="s_margin_left gray">収入</span><span class="s_right s_margin_right int-color-blue">#{current_month_incomes_sum.to_s(:delimited)}円　</span>
+              p <span class="s_margin_left gray">支出</span><span class="s_right s_margin_right int-color-red">#{current_month_total_spending.to_s(:delimited)}円　</span>
               hr width="100%"
-              - if subtraction.positive? 
-                p <span class="s_margin_left gray">収支</span> <span class="s_right s_margin_right icon-blue">+#{subtraction.to_s(:delimited)}円　<i class="fas fa-angle-double-up icon-blue"></i></span>
+              - if current_month_sum_computation.positive? 
+                p <span class="s_margin_left gray">収支</span> <span class="s_right s_margin_right icon-blue">+#{current_month_sum_computation.to_s(:delimited)}円　<i class="fas fa-angle-double-up icon-blue"></i></span>
               - else
-                p <span class="s_margin_left gray">収支</span> <span class="s_right s_margin_right icon-red">#{subtraction.to_s(:delimited)}円　<i class="fas fa-angle-double-down icon-red"></i></span>
+                p <span class="s_margin_left gray">収支</span> <span class="s_right s_margin_right icon-red">#{current_month_sum_computation.to_s(:delimited)}円　<i class="fas fa-angle-double-down icon-red"></i></span>
 
     
     .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-      table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left.stay
-        tbody
-          tr
-            td colspan="6"
-              h6 明細一覧
-              .mb-3
+      = render 'list_of_details', current_days: @current_days
 
-          - @current_days.order("day_at").each do |day|
-            tr.color-none
-              - if "#{day.day_at.day}".length == 1 
-                td.gray width="17%" = "0#{day.day_at.day}日"
-              - else
-                td.gray width="17%" = "#{day.day_at.day}日"
-              - case day.icon
-                - when "家賃"
-                  td.icon-color-red width="12%" align="center" <i class="fas fa-home"></i>
-                - when "食費"
-                  td.icon-color-yellow width="12%" align="center" <i class="fas fa-utensils"></i>
-                - when "生活費"
-                  td.icon-color-lightblue width="12%" align="center" <i class="fas fa-faucet"></i>
-                - when "娯楽費"
-                  td.icon-color-green width="12%" align="center" <i class="fas fa-shopping-cart"></i>
-                - when "自動車費"
-                  td.icon-color-violetgreen width="12%" align="center" <i class="fas fa-car-side"></i>
-                - when "保険"
-                  td.icon-color-violet width="12%" align="center" <i class="fas fa-hospital-user"></i>
-                - when "入金"
-                  td.icon-color-gray width="12%" align="center" <i class="fas fa-yen-sign"></i>
-                - when "その他"
-                  td.icon-color-gray width="12%" align="center" <i class="far fa-question-circle"></i>
-              td width="32%" = day.memo
-              - if day.income_and_outgo
-                td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
-              - else
-                td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
-              td width="2%"
-              td width="10%"
-                = link_to edit_day_path(day)
-                  i.fas.fa-pencil-alt
-      table
-        tbody
-          tr
-            td
-              .mb-5
   </div>
   - if nav == "予算費を再設定しました"
     <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -185,28 +144,28 @@
             td.text-right
               - if @current_budget
                 = link_to '予算の再設定',edit_budget_path(@current_budget), class:"btn btn-outline-secondary btn-sm radius"
-                - sum_budget = @current_budget.rent + @current_budget.cost_of_living + @current_budget.food_expenses + @current_budget.entertainment + @current_budget.others + @current_budget.car_cost + @current_budget.insurance
-                - float_budget_sum = sum_budget - float_sum
+                - overall_budget = @current_budget.rent + @current_budget.cost_of_living + @current_budget.food_expenses + @current_budget.entertainment + @current_budget.others + @current_budget.car_cost + @current_budget.insurance
+                - budget_sum_computation = overall_budget - current_month_total_spending
               - else
                 = link_to '予算の設定',new_budget_path, class:"btn btn-outline-secondary btn-sm radius"
           tr
             td colspan="2"
               - if @current_budget
-                - if float_budget_sum.positive?
+                - if budget_sum_computation.positive? || budget_sum_computation == 0
                   p.bottom 全体
-                  - percent = ((float_sum.to_f/sum_budget)*100).to_i
-                  p.s_right <span class="gray">残り</span>　#{float_budget_sum.to_s(:delimited)}円
+                  - percent = ((current_month_total_spending.to_f/overall_budget)*100).to_i
+                  p.s_right <span class="gray">残り</span>　#{budget_sum_computation.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="#{percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent}%">#{percent}%</div>
                   </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{float_sum.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{sum_budget.to_s(:delimited)}円</span>
+                  div <span class="s_left"><span class="gray">支出</span>　#{current_month_total_spending.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{overall_budget.to_s(:delimited)}円</span>
                 - else 
                   p.bottom 全体
-                  p.s_right.icon-red #{(float_budget_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
+                  p.s_right.icon-red #{(budget_sum_computation * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{float_sum.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{sum_budget.to_s(:delimited)}円</span>
+                  div <span class="s_left"><span class="gray">支出</span>　#{current_month_total_spending.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{overall_budget.to_s(:delimited)}円</span>
               - else 
                   p.bottom 全体
                   p.s_right <span class="gray">残り</span>　0円
@@ -222,21 +181,21 @@
           tr
             td
               - if @current_budget
-                - rent_float_sum = @current_budget.rent - chart_date["家賃"].to_i
-                - cost_float_sum = @current_budget.cost_of_living - chart_date["生活費"].to_i
-                - entertainment_float_sum = @current_budget.entertainment - chart_date["娯楽費"].to_i
-                - food_float_sum = @current_budget.food_expenses - chart_date["食費"].to_i
-                - car_cost_float_sum = @current_budget.car_cost - chart_date["自動車費"].to_i
-                - insurance_float_sum = @current_budget.insurance - chart_date["保険"].to_i
-                - others_float_sum = @current_budget.others - chart_date["その他"].to_i
+                - rent_current_month_total_spending = @current_budget.rent - chart_date["家賃"].to_i
+                - cost_current_month_total_spending = @current_budget.cost_of_living - chart_date["生活費"].to_i
+                - entertainment_current_month_total_spending = @current_budget.entertainment - chart_date["娯楽費"].to_i
+                - food_current_month_total_spending = @current_budget.food_expenses - chart_date["食費"].to_i
+                - car_cost_current_month_total_spending = @current_budget.car_cost - chart_date["自動車費"].to_i
+                - insurance_current_month_total_spending = @current_budget.insurance - chart_date["保険"].to_i
+                - others_current_month_total_spending = @current_budget.others - chart_date["その他"].to_i
 
-                - if rent_float_sum.positive?
+                - if rent_current_month_total_spending.positive? || rent_current_month_total_spending == 0
                   p.bottom 
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
                     </a>
                   - percent_rent = ((chart_date["家賃"].to_f/@current_budget.rent)*100).to_i
-                  p.s_right <span class="gray">残り</span>　#{rent_float_sum.to_s(:delimited)}円
+                  p.s_right <span class="gray">残り</span>　#{rent_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="#{percent_rent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_rent}%">#{percent_rent}%</div>
                   </div>  
@@ -246,7 +205,7 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
                     </a>
-                  p.s_right.icon-red #{(rent_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
+                  p.s_right.icon-red #{(rent_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
@@ -280,13 +239,13 @@
                 hr width="100%"
 
 
-                - if car_cost_float_sum.positive?
+                - if car_cost_current_month_total_spending.positive? ||car_cost_current_month_total_spending == 0
                   p.bottom
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
                      <span class="icon-color-violetgreen"><i class="fas fa-car-side"></i></span> 自動車費
                     </a>
                   - percent_car = ((chart_date["自動車費"].to_f/@current_budget.car_cost)*100).to_i
-                  p.s_right <span class="gray">残り</span>　#{car_cost_float_sum.to_s(:delimited)}円
+                  p.s_right <span class="gray">残り</span>　#{car_cost_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-violetgreen" role="progressbar" aria-valuenow="#{percent_car}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_car}%">#{percent_car}%</div>
                   </div>  
@@ -296,7 +255,7 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
                      <span class="icon-color-violetgreen"><i class="fas fa-car-side"></i></span> 自動車費
                     </a>
-                  p.s_right.icon-red #{(car_cost_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
+                  p.s_right.icon-red #{(car_cost_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
@@ -330,13 +289,13 @@
                 hr width="100%"
 
 
-                - if insurance_float_sum.positive?
+                - if insurance_current_month_total_spending.positive? || insurance_current_month_total_spending == 0
                   p.bottom
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-violet"><i class="fas fa-hospital-user"></i></span> 保険
                     </a>
                   - percent_insurance = ((chart_date["保険"].to_f/@current_budget.insurance)*100).to_i
-                  p.s_right <span class="gray">残り</span>　#{insurance_float_sum.to_s(:delimited)}円
+                  p.s_right <span class="gray">残り</span>　#{insurance_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-violet" role="progressbar" aria-valuenow="#{percent_insurance}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_insurance}%">#{percent_insurance}%</div>
                   </div>  
@@ -346,7 +305,7 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-violet"><i class="fas fa-hospital-user"></i></span> 保険
                     </a>
-                  p.s_right.icon-red #{(insurance_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
+                  p.s_right.icon-red #{(insurance_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
@@ -380,13 +339,13 @@
                 hr width="100%"
 
 
-                - if cost_float_sum.positive?
+                - if cost_current_month_total_spending.positive? || cost_current_month_total_spending == 0
                   p.bottom
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-lightblue"><i class="fas fa-faucet"></i></span> 生活費
                     </a>
                   - cost_percent = ((chart_date["生活費"].to_f/@current_budget.cost_of_living)*100).to_i
-                  p.s_right <span class="gray">残り</span>　#{cost_float_sum.to_s(:delimited)}円
+                  p.s_right <span class="gray">残り</span>　#{cost_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuenow="#{cost_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{cost_percent}%">#{cost_percent}%</div>
                   </div>  
@@ -396,7 +355,7 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-lightblue"><i class="fas fa-faucet"></i></span> 生活費
                     </a>
-                  p.s_right.icon-red #{(cost_float_sum* -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
+                  p.s_right.icon-red #{(cost_current_month_total_spending* -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
@@ -430,13 +389,13 @@
                 hr width="100%"
 
 
-                - if entertainment_float_sum.positive?
+                - if entertainment_current_month_total_spending.positive? || entertainment_current_month_total_spending == 0
                   p.bottom 
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-green"><i class="fas fa-shopping-cart"></i></span> 娯楽費
                     </a>
                   - entertainment_percent = ((chart_date["娯楽費"].to_f/@current_budget.entertainment)*100).to_i
-                  p.s_right <span class="gray">残り</span>　#{entertainment_float_sum.to_s(:delimited)}円
+                  p.s_right <span class="gray">残り</span>　#{entertainment_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-success " role="progressbar" aria-valuenow="#{entertainment_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{entertainment_percent}%">#{entertainment_percent}%</div>
                   </div>  
@@ -446,7 +405,7 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-green"><i class="fas fa-shopping-cart"></i></span> 娯楽費
                     </a>
-                  p.s_right.icon-red #{(entertainment_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
+                  p.s_right.icon-red #{(entertainment_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
@@ -480,13 +439,13 @@
                 hr width="100%"
 
 
-                - if food_float_sum.positive?
+                - if food_current_month_total_spending.positive? || food_current_month_total_spending == 0
                   p.bottom
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample9" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-yellow"><i class="fas fa-utensils"></i></span> 食費
                     </a>
                   - food_percent = ((chart_date["食費"].to_f/@current_budget.food_expenses)*100).to_i
-                  p.s_right <span class="gray">残り</span>　#{food_float_sum.to_s(:delimited)}円
+                  p.s_right <span class="gray">残り</span>　#{food_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="#{food_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{food_percent}%">#{food_percent}%</div>
                   </div>  
@@ -496,7 +455,7 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample9" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-yellow"><i class="fas fa-utensils"></i></span> 食費
                     </a>
-                  p.s_right.icon-red #{(food_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
+                  p.s_right.icon-red #{(food_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
@@ -530,13 +489,13 @@
                 hr width="100%"
 
 
-                - if others_float_sum.positive?
+                - if others_current_month_total_spending.positive? || others_current_month_total_spending == 0
                   p.bottom
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-gray"><i class="far fa-question-circle"></i></span > その他
                     </a>
                   - others_percent = ((chart_date["その他"].to_f/@current_budget.others)*100).to_i
-                  p.s_right <span class="gray">残り</span>　#{others_float_sum.to_s(:delimited)}円
+                  p.s_right <span class="gray">残り</span>　#{others_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" role="progressbar" aria-valuenow="#{others_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{others_percent}%">#{others_percent}%</div>
                   </div>  
@@ -546,7 +505,7 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-gray"><i class="far fa-question-circle"></i></span > その他
                     </a>
-                  p.s_right.icon-red #{(others_float_sum * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
+                  p.s_right.icon-red #{(others_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
                   </div>  
