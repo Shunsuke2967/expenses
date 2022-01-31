@@ -153,7 +153,8 @@
               - if @current_budget
                 - if budget_sum_computation.positive? || budget_sum_computation == 0
                   p.bottom 全体
-                  - percent = ((current_month_total_spending.to_f/overall_budget)*100).to_i
+                  - percent = ((current_month_total_spending.to_f/overall_budget)*100).to_i if budget_sum_computation != 0
+                  - percent = 100 if budget_sum_computation == 0
                   p.s_right <span class="gray">残り</span>　#{budget_sum_computation.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="#{percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent}%">#{percent}%</div>
@@ -194,7 +195,8 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
                     </a>
-                  - percent_rent = ((chart_date["家賃"].to_f/@current_budget.rent)*100).to_i
+                  - percent_rent = ((chart_date["家賃"].to_f/@current_budget.rent)*100).to_i if rent_current_month_total_spending != 0
+                  - percent_rent = 100 if rent_current_month_total_spending == 0
                   p.s_right <span class="gray">残り</span>　#{rent_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="#{percent_rent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_rent}%">#{percent_rent}%</div>
@@ -244,7 +246,8 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
                      <span class="icon-color-violetgreen"><i class="fas fa-car-side"></i></span> 自動車費
                     </a>
-                  - percent_car = ((chart_date["自動車費"].to_f/@current_budget.car_cost)*100).to_i
+                  - percent_car = ((chart_date["自動車費"].to_f/@current_budget.car_cost)*100).to_i if car_cost_current_month_total_spending != 0
+                  - percent_car = 100 if car_cost_current_month_total_spending == 0
                   p.s_right <span class="gray">残り</span>　#{car_cost_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-violetgreen" role="progressbar" aria-valuenow="#{percent_car}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_car}%">#{percent_car}%</div>
@@ -294,7 +297,8 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-violet"><i class="fas fa-hospital-user"></i></span> 保険
                     </a>
-                  - percent_insurance = ((chart_date["保険"].to_f/@current_budget.insurance)*100).to_i
+                  - percent_insurance = ((chart_date["保険"].to_f/@current_budget.insurance)*100).to_i if insurance_current_month_total_spending != 0
+                  - percent_insurance = 100 if insurance_current_month_total_spending == 0
                   p.s_right <span class="gray">残り</span>　#{insurance_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-violet" role="progressbar" aria-valuenow="#{percent_insurance}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_insurance}%">#{percent_insurance}%</div>
@@ -344,7 +348,8 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-lightblue"><i class="fas fa-faucet"></i></span> 生活費
                     </a>
-                  - cost_percent = ((chart_date["生活費"].to_f/@current_budget.cost_of_living)*100).to_i
+                  - cost_percent = ((chart_date["生活費"].to_f/@current_budget.cost_of_living)*100).to_i if cost_current_month_total_spending != 0
+                  - cost_percent = 100 if cost_current_month_total_spending == 0
                   p.s_right <span class="gray">残り</span>　#{cost_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuenow="#{cost_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{cost_percent}%">#{cost_percent}%</div>
@@ -394,7 +399,8 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-green"><i class="fas fa-shopping-cart"></i></span> 娯楽費
                     </a>
-                  - entertainment_percent = ((chart_date["娯楽費"].to_f/@current_budget.entertainment)*100).to_i
+                  - entertainment_percent = ((chart_date["娯楽費"].to_f/@current_budget.entertainment)*100).to_i if entertainment_current_month_total_spending != 0
+                  - entertainment_percent = 100 if entertainment_current_month_total_spending == 0
                   p.s_right <span class="gray">残り</span>　#{entertainment_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-success " role="progressbar" aria-valuenow="#{entertainment_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{entertainment_percent}%">#{entertainment_percent}%</div>
@@ -444,7 +450,8 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample9" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-yellow"><i class="fas fa-utensils"></i></span> 食費
                     </a>
-                  - food_percent = ((chart_date["食費"].to_f/@current_budget.food_expenses)*100).to_i
+                  - food_percent = ((chart_date["食費"].to_f/@current_budget.food_expenses)*100).to_i if food_current_month_total_spending != 0
+                  - food_percent = 100 if food_current_month_total_spending == 0
                   p.s_right <span class="gray">残り</span>　#{food_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="#{food_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{food_percent}%">#{food_percent}%</div>
@@ -494,7 +501,8 @@
                     <a class="style-none" data-bs-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample">
                       <span class="icon-color-gray"><i class="far fa-question-circle"></i></span > その他
                     </a>
-                  - others_percent = ((chart_date["その他"].to_f/@current_budget.others)*100).to_i
+                  - others_percent = ((chart_date["その他"].to_f/@current_budget.others)*100).to_i if others_current_month_total_spending != 0
+                  - others_percent = 100 if others_current_month_total_spending == 0
                   p.s_right <span class="gray">残り</span>　#{others_current_month_total_spending.to_s(:delimited)}円
                   <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" role="progressbar" aria-valuenow="#{others_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{others_percent}%">#{others_percent}%</div>
