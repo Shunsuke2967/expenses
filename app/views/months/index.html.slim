@@ -16,30 +16,42 @@
         tbody
           tr
             - current_user_months_sum_computation = 0
-
             - @current_user_month_list.where("month_at <= ?" , current_month.month_at).each do |month|
               - month_total_income = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income.to_i + month.income2.to_i + month.income3.to_i + month.income4.to_i
               - current_month_total_spending = month.days.where(income_and_outgo: false).sum(:money).to_i
               - current_user_months_sum_computation += month_total_income + (current_month_total_spending * -1)
             - current_month_except_months_sum = (current_user_months_sum_computation - (current_month.days.where(income_and_outgo: true).sum(:money).to_i + current_month.income.to_i + current_month.income2.to_i + current_month.income3.to_i + current_month.income4.to_i)) + current_month.days.where(income_and_outgo: false).sum(:money).to_i
             td
-              <a class="style-none" data-bs-toggle="collapse" href="#collapseExample10" role="button" aria-expanded="false" aria-controls="collapseExample">
+              a.style-none[data-bs-toggle="collapse" href="#collapseExample10" role="button" aria-expanded="false" aria-controls="collapseExample"]
                 h6 今月の家計簿<br>
                 - if (current_user_months_sum_computation - current_month_except_months_sum).positive?
-                  p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-lightblue">+#{(current_user_months_sum_computation - current_month_except_months_sum).to_s(:delimited)} <i class="fas fa-angle-double-up icon-blue"></i></span>
+                  p.w-100.text-right.fs-07 colspan="2"
+                    span.gray
+                      | 前月比
+                    span.icon-color-lightblue
+                      | +#{(current_user_months_sum_computation - current_month_except_months_sum).to_s(:delimited)} 
+                      i.fas.fa-angle-double-up.icon-blue
                 - else 
-                  p.w-100.text-right.fs-07 colspan="2" <span class="gray">前月比</span><span class="icon-color-red">#{(current_user_months_sum_computation - current_month_except_months_sum).to_s(:delimited)} <i class="fas fa-angle-double-down icon-red"></i></span>
+                  p.w-100.text-right.fs-07 colspan="2"
+                    span.gray
+                      | 前月比
+                    span.icon-color-red
+                      | #{(current_user_months_sum_computation - current_month_except_months_sum).to_s(:delimited)} 
+                      i.fas.fa-angle-double-down.icon-red
                 
-                p <span class="gray pt-10">口座残高</span><span class="fs-20 s_right">#{current_user_months_sum_computation.to_s(:delimited)}円</span>
-              </a>
+                p
+                  span.gray.pt-10
+                    | 口座残高
+                  span.fs-20.s_right
+                    | #{current_user_months_sum_computation.to_s(:delimited)}円
           tr 
             td.pad-0
-              <div class="collapse" id="collapseExample10">
+              #collapseExample10.collapse
                 .mb-3
-                h6 　口座残高推移<br>
+                h6 　口座残高推移
+                br
                 .mb-3
                 = area_chart area_chart_date_hash(current_user)
-              </div>
 
     .col-md-10.offset-md-1.col-lg-8.offset-lg-2
       table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left.stay
@@ -53,7 +65,7 @@
             td.s_center
               = search_form_for @q, url: root_path do |f|
                 = f.text_field :memo_cont, class: "search-form costom", placeholder: "キーワードを含むメモ検索"
-                <br>
+                br
                 = f.text_field :memo_not_cont, class: "search-form costom", placeholder: "キーワードを含まないメモ検索"
                 = f.submit 'メモ検索',class: "btn btn-warning  form-control form-control-lg w-90"
 
@@ -67,13 +79,31 @@
               - current_month_incomes_sum = @current_days.where(income_and_outgo: true).sum(:money).to_i + current_month.income.to_i + current_month.income2.to_i + current_month.income3.to_i + current_month.income4.to_i
               - current_month_total_spending = @current_days.where(income_and_outgo: false).sum(:money).to_i
               - current_month_sum_computation = current_month_incomes_sum - current_month_total_spending
-              p <span class="s_margin_left gray">収入</span><span class="s_right s_margin_right int-color-blue">#{current_month_incomes_sum.to_s(:delimited)}円　</span>
-              p <span class="s_margin_left gray">支出</span><span class="s_right s_margin_right int-color-red">#{current_month_total_spending.to_s(:delimited)}円　</span>
+              p
+                span.s_margin_left.gray
+                  | 収入
+                span.s_right.s_margin_right.int-color-blue
+                  | #{current_month_incomes_sum.to_s(:delimited)}円　
+              p
+                span.s_margin_left.gray
+                  | 支出
+                span.s_right.s_margin_right.int-color-red
+                  | #{current_month_total_spending.to_s(:delimited)}円　
               hr width="100%"
               - if current_month_sum_computation.positive? 
-                p <span class="s_margin_left gray">収支</span> <span class="s_right s_margin_right icon-blue">+#{current_month_sum_computation.to_s(:delimited)}円　<i class="fas fa-angle-double-up icon-blue"></i></span>
+                p
+                  span.s_margin_left.gray
+                    | 収支
+                  span.s_right.s_margin_right.icon-blue
+                    | +#{current_month_sum_computation.to_s(:delimited)}円　
+                    i.fas.fa-angle-double-up.icon-blue
               - else
-                p <span class="s_margin_left gray">収支</span> <span class="s_right s_margin_right icon-red">#{current_month_sum_computation.to_s(:delimited)}円　<i class="fas fa-angle-double-down icon-red"></i></span>
+                p
+                  span.s_margin_left.gray
+                    | 収支
+                  span.s_right.s_margin_right.icon-red
+                    | #{current_month_sum_computation.to_s(:delimited)}円　
+                    i.fas.fa-angle-double-down.icon-red
 
     
     .col-md-10.offset-md-1.col-lg-8.offset-lg-2
@@ -155,30 +185,63 @@
                   p.bottom 全体
                   - percent = ((current_month_total_spending.to_f/overall_budget)*100).to_i if budget_sum_computation != 0
                   - percent = 100 if budget_sum_computation == 0
-                  p.s_right <span class="gray">残り</span>　#{budget_sum_computation.to_s(:delimited)}円
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="#{percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent}%">#{percent}%</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{current_month_total_spending.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{overall_budget.to_s(:delimited)}円</span>
+                  p.s_right
+                    span.gray
+                      | 残り
+                    | 　#{budget_sum_computation.to_s(:delimited)}円
+                  .progress
+                    .progress-bar.progress-bar-striped.progress-bar-animated[role="progressbar" aria-valuenow="#{percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent}%"]
+                      | #{percent}%
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{current_month_total_spending.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{overall_budget.to_s(:delimited)}円
                 - else 
                   p.bottom 全体
                   p.s_right.icon-red #{(budget_sum_computation * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{current_month_total_spending.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{overall_budget.to_s(:delimited)}円</span>
+                  .progress
+                    .progress-bar.progress-bar-striped.bg-bad[role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"]
+                      | 予算オーバー
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{current_month_total_spending.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{overall_budget.to_s(:delimited)}円
               - else 
                   p.bottom 全体
-                  p.s_right <span class="gray">残り</span>　0円
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　0円</span><span class="s_right"><span class="gray">予算費</span>　0円</span>
+                  p.s_right
+                    span.gray
+                      | 残り
+                    | 　0円
+                  .progress
+                    .progress-bar[role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"]
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　0円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　0円
       table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
         tbody
           tr 
             td
-              h6 項目別<br><span class="gray f-s">※アイコンをタッチすると明細が見れます</span>
+              h6
+                |  項目別
+                br
+                span.gray.f-s
+                  | ※アイコンをタッチすると明細が見れます
           tr
             td
               - if @current_budget
@@ -192,28 +255,49 @@
 
                 - if rent_current_month_total_spending.positive? || rent_current_month_total_spending == 0
                   p.bottom 
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-red
+                        i.fas.fa-home
+                      |  家賃 
                   - percent_rent = ((chart_date["家賃"].to_f/@current_budget.rent)*100).to_i if rent_current_month_total_spending != 0
                   - percent_rent = 100 if rent_current_month_total_spending == 0
-                  p.s_right <span class="gray">残り</span>　#{rent_current_month_total_spending.to_s(:delimited)}円
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuenow="#{percent_rent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_rent}%">#{percent_rent}%</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["家賃"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.rent.to_s(:delimited)}円</span>
+                  p.s_right
+                    span.gray
+                      | 残り
+                    | 　#{rent_current_month_total_spending.to_s(:delimited)}円
+                  .progress
+                    .progress-bar.progress-bar-striped.progress-bar-animated.bg-danger[role="progressbar" aria-valuenow="#{percent_rent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_rent}%"]
+                      | #{percent_rent}%
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["家賃"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.rent.to_s(:delimited)}円
                 - else 
                   p.bottom
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-red
+                        i.fas.fa-home
+                      |  家賃 
                   p.s_right.icon-red #{(rent_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["家賃"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.rent.to_s(:delimited)}円</span>
-                <div class="collapse" id="collapseExample">
-                  <div class="card card-body">
+                  .progress
+                    .progress-bar.progress-bar-striped.bg-bad[role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"]
+                      | 予算オーバー 
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["家賃"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.rent.to_s(:delimited)}円
+                #collapseExample.collapse
+                  .card.card-body
                     table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
                       tbody
                         tr
@@ -236,35 +320,51 @@
                             td width="10%"
                               = link_to edit_day_path(day)
                                 i.fas.fa-pencil-alt
-                  </div>
-                </div>
                 hr width="100%"
 
 
                 - if car_cost_current_month_total_spending.positive? ||car_cost_current_month_total_spending == 0
                   p.bottom
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
-                     <span class="icon-color-violetgreen"><i class="fas fa-car-side"></i></span> 自動車費
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-violetgreen
+                        i.fas.fa-car-side
+                      |  自動車費 
                   - percent_car = ((chart_date["自動車費"].to_f/@current_budget.car_cost)*100).to_i if car_cost_current_month_total_spending != 0
                   - percent_car = 100 if car_cost_current_month_total_spending == 0
                   p.s_right <span class="gray">残り</span>　#{car_cost_current_month_total_spending.to_s(:delimited)}円
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-violetgreen" role="progressbar" aria-valuenow="#{percent_car}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_car}%">#{percent_car}%</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["自動車費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.car_cost.to_s(:delimited)}円</span>
+                  .progress
+                    .progress-bar.progress-bar-striped.progress-bar-animated.bg-violetgreen[role="progressbar" aria-valuenow="#{percent_car}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_car}%"]
+                      | #{percent_car}% 
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["自動車費"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.car_cost.to_s(:delimited)}円
                 - else 
                   p.bottom
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
-                     <span class="icon-color-violetgreen"><i class="fas fa-car-side"></i></span> 自動車費
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-violetgreen
+                        i.fas.fa-car-side
+                      |  自動車費 
                   p.s_right.icon-red #{(car_cost_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["自動車費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.car_cost.to_s(:delimited)}円</span>
-                <div class="collapse" id="collapseExample2">
-                  <div class="card card-body">
+                  .progress
+                    .progress-bar.progress-bar-striped.bg-bad[role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"]
+                      | 予算オーバー 
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["自動車費"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.car_cost.to_s(:delimited)}円
+                #collapseExample2.collapse
+                  .card.card-body
                     table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
                       tbody
                         tr
@@ -287,35 +387,54 @@
                             td width="10%"
                               = link_to edit_day_path(day)
                                 i.fas.fa-pencil-alt
-                  </div>
-                </div>
                 hr width="100%"
 
 
                 - if insurance_current_month_total_spending.positive? || insurance_current_month_total_spending == 0
                   p.bottom
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-violet"><i class="fas fa-hospital-user"></i></span> 保険
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-violet
+                        i.fas.fa-hospital-user
+                      |  保険 
                   - percent_insurance = ((chart_date["保険"].to_f/@current_budget.insurance)*100).to_i if insurance_current_month_total_spending != 0
                   - percent_insurance = 100 if insurance_current_month_total_spending == 0
-                  p.s_right <span class="gray">残り</span>　#{insurance_current_month_total_spending.to_s(:delimited)}円
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-violet" role="progressbar" aria-valuenow="#{percent_insurance}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_insurance}%">#{percent_insurance}%</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["保険"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.insurance.to_s(:delimited)}円</span>
+                  p.s_right
+                    span.gray
+                      | 残り
+                    | 　#{insurance_current_month_total_spending.to_s(:delimited)}円
+                  .progress
+                    .progress-bar.progress-bar-striped.progress-bar-animated.bg-violet[role="progressbar" aria-valuenow="#{percent_insurance}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent_insurance}%"]
+                      | #{percent_insurance}%
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["保険"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.insurance.to_s(:delimited)}円
                 - else 
                   p.bottom
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-violet"><i class="fas fa-hospital-user"></i></span> 保険
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-violet
+                        i.fas.fa-hospital-user
+                      |  保険 
                   p.s_right.icon-red #{(insurance_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-bad role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["保険"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.insurance.to_s(:delimited)}円</span>
-                <div class="collapse" id="collapseExample3">
-                  <div class="card card-body">
+                  .progress
+                    .progress-bar.progress-bar-striped.bg-bad[role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"]
+                      | 予算オーバー 
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["保険"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.insurance.to_s(:delimited)}円
+                #collapseExample3.collapse
+                  .card.card-body
                     table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
                       tbody
                         tr
@@ -338,35 +457,51 @@
                             td width="10%"
                               = link_to edit_day_path(day)
                                 i.fas.fa-pencil-alt
-                  </div>
-                </div>
                 hr width="100%"
 
 
                 - if cost_current_month_total_spending.positive? || cost_current_month_total_spending == 0
                   p.bottom
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-lightblue"><i class="fas fa-faucet"></i></span> 生活費
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-lightblue
+                        i.fas.fa-faucet
+                      |  生活費 
                   - cost_percent = ((chart_date["生活費"].to_f/@current_budget.cost_of_living)*100).to_i if cost_current_month_total_spending != 0
                   - cost_percent = 100 if cost_current_month_total_spending == 0
                   p.s_right <span class="gray">残り</span>　#{cost_current_month_total_spending.to_s(:delimited)}円
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-valuenow="#{cost_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{cost_percent}%">#{cost_percent}%</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["生活費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.cost_of_living.to_s(:delimited)}円</span>
+                  .progress
+                    .progress-bar.progress-bar-striped.progress-bar-animated.bg-primary[role="progressbar" aria-valuenow="#{cost_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{cost_percent}%"]
+                      | #{cost_percent}%
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["生活費"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.cost_of_living.to_s(:delimited)}円
                 - else 
                   p.bottom
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-lightblue"><i class="fas fa-faucet"></i></span> 生活費
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-lightblue
+                        i.fas.fa-faucet
+                      |  生活費 
                   p.s_right.icon-red #{(cost_current_month_total_spending* -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["生活費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.cost_of_living.to_s(:delimited)}円</span>
-                <div class="collapse" id="collapseExample4">
-                  <div class="card card-body">
+                  .progress
+                    .progress-bar.progress-bar-striped.bg-bad[role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"]
+                      | 予算オーバー
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["生活費"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.cost_of_living.to_s(:delimited)}円
+                #collapseExample4.collapse
+                  .card.card-body
                     table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
                       tbody
                         tr
@@ -389,35 +524,54 @@
                             td width="10%"
                               = link_to edit_day_path(day)
                                 i.fas.fa-pencil-alt
-                  </div>
-                </div>
                 hr width="100%"
 
 
                 - if entertainment_current_month_total_spending.positive? || entertainment_current_month_total_spending == 0
                   p.bottom 
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-green"><i class="fas fa-shopping-cart"></i></span> 娯楽費
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-green
+                        i.fas.fa-shopping-cart
+                      |  娯楽費 
                   - entertainment_percent = ((chart_date["娯楽費"].to_f/@current_budget.entertainment)*100).to_i if entertainment_current_month_total_spending != 0
                   - entertainment_percent = 100 if entertainment_current_month_total_spending == 0
-                  p.s_right <span class="gray">残り</span>　#{entertainment_current_month_total_spending.to_s(:delimited)}円
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success " role="progressbar" aria-valuenow="#{entertainment_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{entertainment_percent}%">#{entertainment_percent}%</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["娯楽費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.entertainment.to_s(:delimited)}円</span>
+                  p.s_right
+                    span.gray
+                      | 残り
+                    | 　#{entertainment_current_month_total_spending.to_s(:delimited)}円
+                  .progress
+                    .progress-bar.progress-bar-striped.progress-bar-animated.bg-success[role="progressbar" aria-valuenow="#{entertainment_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{entertainment_percent}%"]
+                      | #{entertainment_percent}%
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["娯楽費"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.entertainment.to_s(:delimited)}円
                 - else 
                   p.bottom 
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-green"><i class="fas fa-shopping-cart"></i></span> 娯楽費
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-green
+                        i.fas.fa-shopping-cart
+                      |  娯楽費 
                   p.s_right.icon-red #{(entertainment_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["娯楽費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.entertainment.to_s(:delimited)}円</span>
-                <div class="collapse" id="collapseExample5">
-                  <div class="card card-body">
+                  .progress
+                    .progress-bar.progress-bar-striped.bg-bad[role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"]
+                      | 予算オーバー 
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["娯楽費"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.entertainment.to_s(:delimited)}円
+                #collapseExample5.collapse
+                  .card.card-body
                     table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
                       tbody
                         tr
@@ -440,35 +594,46 @@
                             td width="10%"
                               = link_to edit_day_path(day)
                                 i.fas.fa-pencil-alt
-                  </div>
-                </div>
                 hr width="100%"
 
 
                 - if food_current_month_total_spending.positive? || food_current_month_total_spending == 0
                   p.bottom
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample9" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-yellow"><i class="fas fa-utensils"></i></span> 食費
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample9" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-yellow
+                        i.fas.fa-utensils
+                      |  食費 
                   - food_percent = ((chart_date["食費"].to_f/@current_budget.food_expenses)*100).to_i if food_current_month_total_spending != 0
                   - food_percent = 100 if food_current_month_total_spending == 0
-                  p.s_right <span class="gray">残り</span>　#{food_current_month_total_spending.to_s(:delimited)}円
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="#{food_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{food_percent}%">#{food_percent}%</div>
-                  </div>  
+                  p.s_right
+                    span.gray
+                      | 残り
+                    | 　#{food_current_month_total_spending.to_s(:delimited)}円 
+                  .progress
+                    .progress-bar.progress-bar-striped.progress-bar-animated.bg-warning[role="progressbar" aria-valuenow="#{food_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{food_percent}%"]
+                      | #{food_percent}% 
                   div <span class="s_left"><span class="gray">支出</span>　#{chart_date["食費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.food_expenses.to_s(:delimited)}円</span>
                 - else 
                   p.bottom
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample9" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-yellow"><i class="fas fa-utensils"></i></span> 食費
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample9" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-yellow
+                        i.fas.fa-utensils
+                      |  食費 
                   p.s_right.icon-red #{(food_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["食費"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.food_expenses.to_s(:delimited)}円</span>
-                <div class="collapse" id="collapseExample9">
-                  <div class="card card-body">
+                  .progress
+                    .progress-bar.progress-bar-striped.bg-bad[role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"]
+                      | 予算オーバー
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["食費"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.food_expenses.to_s(:delimited)}円
+                #collapseExample9.collapse
+                  .card.card-body
                     table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
                       tbody
                         tr
@@ -491,35 +656,54 @@
                             td width="10%"
                               = link_to edit_day_path(day)
                                 i.fas.fa-pencil-alt
-                  </div>
-                </div>
                 hr width="100%"
 
 
                 - if others_current_month_total_spending.positive? || others_current_month_total_spending == 0
                   p.bottom
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-gray"><i class="far fa-question-circle"></i></span > その他
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-gray
+                        i.far.fa-question-circle
+                      |  その他 
                   - others_percent = ((chart_date["その他"].to_f/@current_budget.others)*100).to_i if others_current_month_total_spending != 0
                   - others_percent = 100 if others_current_month_total_spending == 0
-                  p.s_right <span class="gray">残り</span>　#{others_current_month_total_spending.to_s(:delimited)}円
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" role="progressbar" aria-valuenow="#{others_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{others_percent}%">#{others_percent}%</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["その他"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.others.to_s(:delimited)}円</span>
+                  p.s_right
+                    span.gray
+                      | 残り
+                    | 　#{others_current_month_total_spending.to_s(:delimited)}円
+                  .progress
+                    .progress-bar.progress-bar-striped.progress-bar-animated.bg-secondary[role="progressbar" aria-valuenow="#{others_percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{others_percent}%"]
+                      | #{others_percent}%
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["その他"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.others.to_s(:delimited)}円
                 - else 
                   p.bottom
-                    <a class="style-none" data-bs-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      <span class="icon-color-gray"><i class="far fa-question-circle"></i></span > その他
-                    </a>
+                    a.style-none[data-bs-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample"]
+                      span.icon-color-gray
+                        i.far.fa-question-circle
+                      |  その他 
                   p.s_right.icon-red #{(others_current_month_total_spending * -1).to_s(:delimited)}円オーバー<i class="fas fa-skull-crossbones"></i>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-bad" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">予算オーバー</div>
-                  </div>  
-                  div <span class="s_left"><span class="gray">支出</span>　#{chart_date["その他"].to_i.to_s(:delimited)}円</span><span class="s_right"><span class="gray">予算費</span>　#{@current_budget.others.to_s(:delimited)}円</span>
-                <div class="collapse" id="collapseExample8">
-                  <div class="card card-body">
+                  .progress
+                    .progress-bar.progress-bar-striped.bg-bad[role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"]
+                      | 予算オーバー
+                  div
+                    span.s_left
+                      span.gray
+                        | 支出
+                      | 　#{chart_date["その他"].to_i.to_s(:delimited)}円
+                    span.s_right
+                      span.gray
+                        | 予算費
+                      | 　#{@current_budget.others.to_s(:delimited)}円
+                #collapseExample8.collapse
+                  .card.card-body
                     table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
                       tbody
                         tr
@@ -542,63 +726,166 @@
                             td width="10%"
                               = link_to edit_day_path(day)
                                 i.fas.fa-pencil-alt
-                  </div>
-                </div>
               - else 
-                p.bottom <span class="icon-color-red"><i class="fas fa-home"></i></span> 家賃
-                p.s_right <span class="gray">残り</span>　0円
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>  
-                div <span class="s_left"><span class="gray">支出</span>　0円</span><span class="s_right"><span class="gray">予算費</span>　0円</span>
+                p.bottom
+                  span.icon-color-red
+                    i.fas.fa-home
+                  | 家賃
+                p.s_right
+                  span.gray
+                    | 残り
+                  | 　0円
+                .progress
+                  .progress-bar[role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"]
+                div
+                  span.s_left
+                    span.gray
+                      | 支出
+                    | 　0円
+                  span.s_right
+                    span.gray
+                      | 予算費
+                    | 　0円
                 hr width="100%"
-                p.bottom <span class="icon-color-lightblue"><i class="fas fa-faucet"></i></span> 生活費
-                p.s_right <span class="gray">残り</span>　0円
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>  
-                div <span class="s_left"><span class="gray">支出</span>　0円</span><span class="s_right"><span class="gray">予算費</span>　0円</span>
-                hr width="100%"
-                p.bottom <span class="icon-color-green"><i class="fas fa-shopping-cart"></i></span> 娯楽費
-                p.s_right <span class="gray">残り</span>　0円
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>  
-                div <span class="s_left"><span class="gray">支出</span>　0円</span><span class="s_right"><span class="gray">予算費</span>　0円</span>
-                hr width="100%"
-                p.bottom <span class="icon-color-yellow"><i class="fas fa-utensils"></i></span> 食費
-                p.s_right <span class="gray">残り</span>　0円
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>  
-                div <span class="s_left"><span class="gray">支出</span>　0円</span><span class="s_right"><span class="gray">予算費</span>　0円</span>
-                hr width="100%"
-                p.bottom <span class="icon-color-violetgreen"><i class="fas fa-car-side"></i></span> 自動車費
-                p.s_right <span class="gray">残り</span>　0円
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>  
-                div <span class="s_left"><span class="gray">支出</span>　0円</span><span class="s_right"><span class="gray">予算費</span>　0円</span>
-                hr width="100%"
-                p.bottom <span class="icon-color-violet"><i class="fas fa-hospital-user"></i></span> 保険
-                p.s_right <span class="gray">残り</span>　0円
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>  
-                div <span class="s_left"><span class="gray">支出</span>　0円</span><span class="s_right"><span class="gray">予算費</span>　0円</span>
-                hr width="100%"
-                p.bottom <span class="icon-color-gray"><i class="far fa-question-circle"></i></span > その他
-                p.s_right <span class="gray">残り</span>　0円
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>  
-                div <span class="s_left"><span class="gray">支出</span>　0円</span><span class="s_right"><span class="gray">予算費</span>　0円</span>
 
+
+                p.bottom 
+                  span.icon-color-lightblue
+                    i.fas.fa-faucet
+                  |  生活費
+                p.s_right
+                  span.gray
+                    | 残り
+                  | 　0円 
+                .progress
+                  .progress-bar[role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"]
+                div 
+                  span.s_left
+                    span.gray
+                      | 支出
+                    | 　0円
+                  span.s_right
+                    span.gray
+                      | 予算費
+                    | 　0円
+                hr width="100%"
+
+
+                p.bottom 
+                  span.icon-color-green
+                    i.fas.fa-shopping-cart
+                  |  娯楽費
+                p.s_right
+                  span.gray
+                    | 残り
+                  | 　0円 
+                .progress
+                  .progress-bar[role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"]
+                div 
+                  span.s_left
+                    span.gray
+                      | 支出
+                    | 　0円
+                  span.s_right
+                    span.gray
+                      | 予算費
+                    | 　0円
+                hr width="100%"
+
+
+                p.bottom 
+                  span.icon-color-yellow
+                    i.fas.fa-utensils
+                  |  食費
+                p.s_right
+                  span.gray
+                    | 残り
+                  | 　0円 
+                .progress
+                  .progress-bar[role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"]
+                div 
+                  span.s_left
+                    span.gray
+                      | 支出
+                    | 　0円
+                  span.s_right
+                    span.gray
+                      | 予算費
+                    | 　0円
+                hr width="100%"
+                
+
+                p.bottom 
+                  span.icon-color-violetgreen
+                    i.fas.fa-car-side
+                  |  自動車費
+                p.s_right
+                  span.gray
+                    | 残り
+                  | 　0円 
+                .progress
+                  .progress-bar[role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"]
+                div 
+                  span.s_left
+                    span.gray
+                      | 支出
+                    | 　0円
+                  span.s_right
+                    span.gray
+                      | 予算費
+                    | 　0円
+                hr width="100%"
+
+
+                p.bottom 
+                  span.icon-color-violet
+                    i.fas.fa-hospital-user
+                  |  保険
+                p.s_right
+                  span.gray
+                    | 残り
+                  | 　0円 
+                .progress
+                  .progress-bar[role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"]
+                div 
+                  span.s_left
+                    span.gray
+                      | 支出
+                    | 　0円
+                  span.s_right
+                    span.gray
+                      | 予算費
+                    | 　0円
+                hr width="100%"
+
+
+                p.bottom 
+                  span.icon-color-gray
+                    i.fas.fa-question-circle
+                  |  その他
+                p.s_right
+                  span.gray
+                    | 残り
+                  | 　0円 
+                .progress
+                  .progress-bar[role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"]
+                div 
+                  span.s_left
+                    span.gray
+                      | 支出
+                    | 　0円
+                  span.s_right
+                    span.gray
+                      | 予算費
+                    | 　0円
   </div>
+
+
   - if nav == "テンプレートに追加しました"
-    <div class="tab-pane fade show active" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+    <div aria-labelledby="pills-contact-tab" class="tab-pane fade show active" id="pills-contact" role="tabpanel">
   - else 
-    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+    <div aria-labelledby="pills-contact-tab" class="tab-pane fade" id="pills-contact" role="tabpanel">
+
   .row
     .col-md-10.offset-md-1.col-lg-8.offset-lg-2
       table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
@@ -610,60 +897,49 @@
               = link_to '収入を再設定する',edit_month_path(current_month), class:"btn btn-outline-secondary btn-sm radius"
           tr
             td.gray.text-right width="50%"
-              <a class="style-none gray" data-bs-toggle="collapse" href="#collapseExample11" role="button" aria-expanded="false" aria-controls="collapseExample">
+              a.style-none[data-bs-toggle="collapse" href="#collapseExample11" role="button" aria-expanded="false" aria-controls="collapseExample"]
                 h4 <i class="fas fa-chevron-down gray"></i>　収入総額
-              </a>
             td width="50%"
-              <a class="style-none" data-bs-toggle="collapse" href="#collapseExample11" role="button" aria-expanded="false" aria-controls="collapseExample">
+              a.style-none[data-bs-toggle="collapse" href="#collapseExample11" role="button" aria-expanded="false" aria-controls="collapseExample"]
                 h4
                   = "#{(current_month.income.to_i + current_month.income2.to_i + current_month.income3.to_i + current_month.income4.to_i).to_s(:delimited)}円"
-              </a>
           tr
             td.pad-0-1 width="50%"
-              <div class="collapse" id="collapseExample11">
+              #collapseExample11.collapse
                 h6 収入詳細
-              </div>
             td.pad-0-1 width="50%"
           - if current_month.income.to_i > 0
               tr
                 td.pad-0-1.gray.text-right width="50%"
-                  <div class="collapse" id="collapseExample11">
+                  #collapseExample11.collapse
                     h5 収入１
-                  </div>
                 td.pad-0-1 width="50%"
-                  <div class="collapse" id="collapseExample11">
+                  #collapseExample11.collapse
                     h5 = "#{(current_month.income.to_i).to_s(:delimited)}円"
-                  </div>
           - if current_month.income2.to_i.to_i > 0
             tr
               td.pad-0-1.gray.text-right width="50%"
-                <div class="collapse" id="collapseExample11">
+                #collapseExample11.collapse
                   h5 収入２
-                </div>
               td.pad-0-1 width="50%"
-                <div class="collapse" id="collapseExample11">
+                #collapseExample11.collapse
                   h5 = "#{(current_month.income2.to_i).to_s(:delimited)}円"
-                </div>
           - if current_month.income3.to_i > 0
             tr
               td.pad-0-1.gray.text-right width="50%"
-                <div class="collapse" id="collapseExample11">
+                #collapseExample11.collapse
                   h5 収入３
-                </div>
               td.pad-0-1 width="50%"
-                <div class="collapse" id="collapseExample11">
+                #collapseExample11.collapse
                   h5 = "#{(current_month.income3.to_i).to_s(:delimited)}円"
-                </div>
           - if current_month.income4.to_i > 0
             tr
               td.pad-0-1.gray.text-right width="50%"
-                <div class="collapse" id="collapseExample11">
+                #collapseExample11.collapse
                   h5 収入４
-                </div>
               td.pad-0-1 width="50%"
-                <div class="collapse" id="collapseExample11">
+                #collapseExample11.collapse
                   h5 = "#{(current_month.income4.to_i).to_s(:delimited)}円"
-                </div>
 
     .col-md-10.offset-md-1.col-lg-8.offset-lg-2
       table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left.stay
@@ -708,7 +984,7 @@
               = link_to 'テンプレート作成',new_template_path, class:"btn btn-warning mb-10 w-100"
               
 </div>
-<div class="tab-pane fade" id="pills-template" role="tabpanel" aria-labelledby="pills-contact-tab">
+#pills-template.tab-pane.fade[role="tabpanel" aria-labelledby="pills-contact-tab"]
   .row
     .col-md-10.offset-md-1.col-lg-8.offset-lg-2
       = link_to 'ログアウト',current_user,method: :delete,data: { confirm: "ログアウトします。よろしいですか？" } ,class: 'btn btn-warning mb-10 w-100'
@@ -742,9 +1018,6 @@
               td.text-right
                 = link_to '家計簿を作る',new_month_path, class:"btn btn-outline-secondary btn-sm radius"
         #month_list= render 'form_month_list', current_user_month_list: @current_user_month_list
-  </div>
-
-</div>
 
 .fixed-bottom.icon
   i.bi.bi-alarm-fill
@@ -752,49 +1025,46 @@
       i.fas.fa-pencil-alt.fa-3x
 <!-- ピル部分 -->
 - if nav == "予算費を再設定しました"
-  <ul class="nav nav-pills fixed-bottom navbar-light justify-content-evenly header" id="pills-tab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false"><i class="fas fa-home fa-lg"></i></button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true"><i class="fas fa-chart-pie fa-lg"></i></button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="far fa-clipboard fa-lg"></i></button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-money-check-alt"></i></button>
-    </li>
-  </ul>
+  ul#pills-tab.nav.nav-pills.fixed-bottom.navbar-light.justify-content-evenly.header[role="tablist"]
+    li.nav-item[role="presentation"]
+      button#pills-home-tab.nav-link.link[type="button" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false"]
+        i.fas.fa-home.fa-lg
+    li.nav-item[role="presentation"]
+      button#pills-profile-tab.nav-link.link.active[type="button" data-bs-toggle="pill" data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true"]
+        i.fas.fa-chart-pie.fa-lg
+    li.nav-item[role="presentation"]
+      button#pills-contact-tab.nav-link.link[type="button" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"]
+        i.far.fa-clipboard.fa-lg
+    li.nav-item[role="presentation"]
+      button#pills-contact-tab.nav-link.link[type="button" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"]
+        i.fas.fa-money-check-alt
 - elsif nav == "テンプレートに追加しました"
-  <ul class="nav nav-pills fixed-bottom navbar-light justify-content-evenly header" id="pills-tab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false"><i class="fas fa-home fa-lg"></i></button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-chart-pie fa-lg"></i></button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link active" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="true"><i class="far fa-clipboard fa-lg"></i></button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-money-check-alt"></i></button>
-    </li>
-  </ul>
+  ul#pills-tab.nav.nav-pills.fixed-bottom.navbar-light.justify-content-evenly.header[role="tablist"]
+    li.nav-item[role="presentation"]
+      button#pills-home-tab.nav-link.link[type="button" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false"]
+        i.fas.fa-home.fa-lg
+    li.nav-item[role="presentation"]
+      button#pills-profile-tab.nav-link.link[type="button" data-bs-toggle="pill" data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"]
+        i.fas.fa-chart-pie.fa-lg
+    li.nav-item[role="presentation"]
+      button#pills-contact-tab.nav-link.link.active[type="button" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="true"]
+        i.far.fa-clipboard.fa-lg
+    li.nav-item[role="presentation"]
+      button#pills-contact-tab.nav-link.link[type="button" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"]
+        i.fas.fa-money-check-alt
 - else 
-  <ul class="nav nav-pills fixed-bottom navbar-light justify-content-evenly header" id="pills-tab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home fa-lg"></i></button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-chart-pie fa-lg"></i></button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="far fa-clipboard fa-lg"></i></button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button type="button" class="nav-link link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-money-check-alt"></i></button>
-    </li>
-  </ul>
+  ul#pills-tab.nav.nav-pills.fixed-bottom.navbar-light.justify-content-evenly.header[role="tablist"]
+    li.nav-item[role="presentation"]
+      button#pills-home-tab.nav-link.link.active[type="button" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"]
+        i.fas.fa-home.fa-lg
+    li.nav-item[role="presentation"]
+      button#pills-profile-tab.nav-link.link[type="button" data-bs-toggle="pill" data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"]
+        i.fas.fa-chart-pie.fa-lg
+    li.nav-item[role="presentation"]
+      button#pills-contact-tab.nav-link.link[type="button" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"]
+        i.far.fa-clipboard.fa-lg
+    li.nav-item[role="presentation"]
+      button#pills-contact-tab.nav-link.link[type="button" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"]
+        i.fas.fa-money-check-alt
 
 

@@ -11,9 +11,37 @@ div
     tbody
       tr
         - if current_subtraction.positive?
-          td.gray <strong>#{current_month.month_at.year}年#{current_month.month_at.month}月</strong><span class="gray">　ログイン中...</span><br><span class="s_right s_margin_right"><i class="fas fa-sign-in-alt fa-2x"></i></span><br><span class="gray">収支</span>　<span class="int-color-blue">+#{current_subtraction.to_s(:delimited)}　<i class="fas fa-angle-double-up icon-blue"></i></span>
+          td.gray
+            strong
+              | #{current_month.month_at.year}年#{current_month.month_at.month}月
+            span.gray
+              | 　ログイン中...
+            br
+            span.s_right.s_margin_right
+              i.fas.fa-sign-in-alt.fa-2x
+            br
+            span.gray
+              | 収支
+            | 　
+            span.int-color-blue
+              | +#{current_subtraction.to_s(:delimited)}　
+              i.fas.fa-angle-double-up.icon-blue
         - else 
-          td.gray <strong>#{current_month.month_at.year}年#{current_month.month_at.month}月</strong><span class="gray">　ログイン中...</span><br><span class="s_right s_margin_right"><i class="fas fa-sign-in-alt fa-2x"></i></span><br><span class="gray">収支</span>　<span class="int-color-red">#{current_subtraction.to_s(:delimited)}　<i class="fas fa-angle-double-down icon-red"></i></span>
+          td.gray
+            strong
+              | #{current_month.month_at.year}年#{current_month.month_at.month}月
+            span.gray
+              | 　ログイン中...
+            br
+            span.s_right.s_margin_right
+              i.fas.fa-sign-in-alt.fa-2x
+            br
+            span.gray
+              | 収支
+            | 　
+            span.int-color-red
+              | #{current_subtraction.to_s(:delimited)}　
+              i.fas.fa-angle-double-down.icon-red
       tr
         td.gray 
           = link_to 'ログイン中の家計簿を削除',current_month,method: :delete,data: { confirm: "#{current_month.month_at.year}年#{current_month.month_at.month}月の家計簿を削除します。よろしいですか？" } ,class: 'btn btn-warning mb-10 w-100'
@@ -30,6 +58,30 @@ div
           tbody
             tr
               -if subtraction.positive?
-                td <strong>#{month.month_at.year}年#{month.month_at.month}月</strong><br><span class="s_right s_margin_right"><i class="fas fa-sign-in-alt fa-2x"></i></span><br><span class="gray">収支</span>　<span class="int-color-blue">+#{subtraction.to_s(:delimited)}　<i class="fas fa-angle-double-up icon-blue"></i></span>
+                td
+                  strong
+                    | #{month.month_at.year}年#{month.month_at.month}月
+                  br
+                  span.s_right.s_margin_right
+                    i.fas.fa-sign-in-alt.fa-2x
+                  br
+                  span.gray
+                    | 収支
+                  | 　
+                  span.int-color-blue
+                    | +#{subtraction.to_s(:delimited)}　
+                    i.fas.fa-angle-double-up.icon-blue
               - else 
-                td <strong>#{month.month_at.year}年#{month.month_at.month}月</strong><br><span class="s_right s_margin_right"><i class="fas fa-sign-in-alt fa-2x"></i></span><br><span class="gray">収支</span>　<span class="int-color-red">#{subtraction.to_s(:delimited)}　<i class="fas fa-angle-double-down icon-red"></i></span>
+                td
+                  strong
+                    | #{month.month_at.year}年#{month.month_at.month}月
+                  br
+                  span.s_right.s_margin_right
+                    i.fas.fa-sign-in-alt.fa-2x
+                  br
+                  span.gray
+                    | 収支
+                  | 　
+                  span.int-color-red
+                    | #{subtraction.to_s(:delimited)}　
+                    i.fas.fa-angle-double-down.icon-red
