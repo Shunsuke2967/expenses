@@ -31,7 +31,7 @@ module UserHelper
     sum_month = 0
     month_hash["name"] = "口座残高"
     user.months.order(:month_at).each do |month|
-      int_sum = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income
+      int_sum = month.days.where(income_and_outgo: true).sum(:money).to_i + month.income + month.income2 + month.income3 + month.income4
       float_sum = month.days.where(income_and_outgo: false).sum(:money).to_i
       subtraction = int_sum - float_sum
       sum_month += subtraction
