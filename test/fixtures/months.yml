@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  month_at: 2022-01-12 20:49:38
+  income: 
+  user: one
+
+two:
+  month_at: 2022-01-12 20:49:38
+  income: 
+  user: two

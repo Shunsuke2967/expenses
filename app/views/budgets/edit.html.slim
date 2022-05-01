@@ -1,0 +1,44 @@
+- if @budget.errors.present?
+  - @budget.errors.full_messages.each do |message|
+    .alert.alert-danger
+      ul.mb-0
+        li= message 
+  
+.mb-5
+.row
+  .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+    = form_with model: @budget,local:true do |f|
+      p.gray ※予算を設定してください
+      .form-group
+        div.gray = f.label :rent,"家賃"
+        = f.number_field :rent,class: 'form-control form-control-lg lg text-right fs-20-imp', placeholder: "家賃：０円"
+      .mb-5
+      .form-group
+        div.gray= f.label :cost_of_living,"生活費"
+        = f.number_field :cost_of_living,class: 'form-control form-control-lg lg text-right fs-20-imp', placeholder: "生活費：０円"
+      .mb-5
+      .form-group
+        div.gray= f.label :entertainment,"娯楽費"
+        = f.number_field :entertainment,class: 'form-control form-control-lg lg text-right fs-20-imp', placeholder: "娯楽費：０円"
+      .mb-5
+      .form-group
+        div.gray= f.label :food_expenses,"食費"
+        = f.number_field :food_expenses,class: 'form-control form-control-lg lg text-right fs-20-imp', placeholder: "食費：０円"
+      .mb-5
+      .form-group
+        div.gray= f.label :car_cost,"自動車費"
+        = f.number_field :car_cost,class: 'form-control form-control-lg lg text-right fs-20-imp', placeholder: "自動車費：０円"
+      .mb-5
+      .form-group
+        div.gray= f.label :insurance,"保険"
+        = f.number_field :insurance,class: 'form-control form-control-lg lg text-right fs-20-imp', placeholder: "保険：０円"
+      .mb-5
+      .form-group
+        div.gray= f.label :others,"その他"
+        = f.number_field :others,class: 'form-control form-control-lg lg text-right fs-20-imp', placeholder: "その他：０円"
+      .mb-5
+
+      = f.submit '設定する',class: "btn btn-warning btn-lg form-control form-control-lg lg"
+      .mb-2
+      = link_to 'キャンセル', root_path, class: 'btn btn-outline-warning btn-lg form-control form-control-lg lg'
+      .mb-5

@@ -1,0 +1,52 @@
+table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left.stay
+  tbody
+    tr
+      td colspan="6"
+        h6 明細一覧
+        .mb-3
+
+    - current_days.order("day_at").each do |day|
+      tr.color-none
+        - if "#{day.day_at.day}".length == 1 
+          td.gray width="17%" = "0#{day.day_at.day}日"
+        - else
+          td.gray width="17%" = "#{day.day_at.day}日"
+        - case day.icon
+          - when "家賃"
+            td.icon-color-red width="12%" align="center"
+              i.fas.fa-home
+          - when "食費"
+            td.icon-color-yellow width="12%" align="center"
+              i.fas.fa-utensils
+          - when "生活費"
+            td.icon-color-lightblue width="12%" align="center"
+              i.fas.fa-faucet
+          - when "娯楽費"
+            td.icon-color-green width="12%" align="center"
+              i.fas.fa-shopping-cart
+          - when "自動車費"
+            td.icon-color-violetgreen width="12%" align="center"
+              i.fas.fa-car-side
+          - when "保険"
+            td.icon-color-violet width="12%" align="center"
+              i.fas.fa-hospital-user
+          - when "入金"
+            td.icon-color-gray width="12%" align="center"
+              i.fas.fa-yen-sign
+          - when "その他"
+            td.icon-color-gray width="12%" align="center"
+              i.far.fa-question-circle
+        td width="32%" = day.memo
+        - if day.income_and_outgo
+          td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
+        - else
+          td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
+        td width="2%"
+        td width="10%"
+          = link_to edit_day_path(day)
+            i.fas.fa-pencil-alt
+table
+  tbody
+    tr
+      td
+        .mb-5
