@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:9.6
+    ports:
+      - "5434:5432"
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql
+    environment:
+      - POSTGRES_PASSWORD=2967
+      - POSTGRES_USER=postgres
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+    volumes:
+      - .:/expenses
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  db-data:
