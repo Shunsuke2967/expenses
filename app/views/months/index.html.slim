@@ -127,7 +127,7 @@
               h6 支出内訳
           tr
             td.text-right
-              = pie_chart chart_date,donut_chart_options(chart_date_sum,donut_chart_color_set(chart_date))
+              = generate_chart chart_date, chart_date_sum,donut_chart_color_set(chart_date)
           tr
             td.font-size 
               - count = 1
