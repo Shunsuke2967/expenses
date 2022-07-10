@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user,:current_month,:current_month_set,:donut_chart_options,:donut_chart_color_set,:budget_set
+  helper_method :current_user,:current_month,:current_month_set,:donut_chart_color_set,:budget_set
   before_action :login_required
   # rescue_from Exception,                        with: :render_500
   # rescue_from ActiveRecord::RecordNotFound,     with: :render_404
@@ -63,48 +63,6 @@ class ApplicationController < ActionController::Base
 
   def login_required
     redirect_to users_path unless current_user
-  end
-
-  def donut_chart_options(chart_date_sum,color_options)
-    options = {
-      donut: true, # ドーナツグラフ
-      colors: color_options,
-      message: {empty: "データがありません"},
-      thousands: ",", 
-      suffix: "円",
-      legend: false, # 凡例非表示
-      library: { # ここからHighchartsのオプション
-        title: {
-          text: "支出<br> #{chart_date_sum.to_s(:delimited)}円",
-          align: 'center',
-          verticalAlign: 'middle',
-        },
-        chart: {
-          backgroundColor: 'none',
-          plotBorderWidth: 0, 
-          plotShadow: false
-        },
-        plotOptions: {
-          pie: {
-            dataLabels: {
-              enabled: true, 
-              distance: 5, # ラベルの位置調節
-              allowOverlap: false, # ラベルが重なったとき、非表示にする
-              style: { #ラベルフォントの設定
-                color: 'lightgray',
-                textAlign: 'center', 
-                textOutline: 0, #デフォルトではラベルが白枠で囲まれていてダサいので消す
-              }
-            },
-            innerSize: '57%', # ドーナツグラフの中の円の大きさ
-            size: '75%',
-            borderWidth: 0,
-          }
-        },
-      }
-    }
-
-    return options
   end
 
   def donut_chart_color_set(chart_date)
