@@ -1,11 +1,21 @@
 class MonthsController < ApplicationController
   def index
+    if session[:show_active_page].present?
+      @show_active_page = session[:show_active_page]
+      session[:show_active_page] = nil
+    end
     @page = params[:page]
     @months = current_user.months
     @q = current_month.days.ransack(params[:q])
     @current_days = @q.result
-    @current_budget = current_month.budgets.first
     @current_user_month_list = current_user.months.order(month_at: "DESC").page(params[:page])
+    @total_spending_list = current_month.days_total_spending
+    @current_sum = sums_hash(@current_days,current_month)
+
+    #ログイン中の年月分までの収支のトータル
+    @income_and_expenditure = income_expenditure(@current_user_month_list,current_month.month_at)
+    #ログイン中の年月の収支
+    @current_income_and_expenditure = current_month.total(salary: true,income: true,spending: true)
   end
 
 
@@ -37,6 +47,7 @@ class MonthsController < ApplicationController
     @month = current_month
 
     if @month.update(income_params)
+      session[:show_active_page] = :template
       redirect_to root_url,notice: '収入金額を再設定しました'
     end
   end
@@ -67,4 +78,33 @@ class MonthsController < ApplicationController
     params.require(:month).permit(:month_at,:income,:income2,:income3,:income4,:year_at)
   end
 
+  #渡した支出のデータから収入、支出、収支の合計のハッシュを返す
+  #月のインスタンスを渡した場合にはその月に設定した収入を入れて計算する
+  def sums_hash(days, month=nil)
+    sum = {}
+    if month.present?
+      sum[:incomes_sum] = days.where(income_and_outgo: true).sum(:money).to_i + month.income.to_i + month.income2.to_i + month.income3.to_i + month.income4.to_i
+    else
+      sum[:incomes_sum] = days.where(income_and_outgo: true).sum(:money).to_i
+    end
+    #月の支出合計
+    sum[:spending_sum] = days.where(income_and_outgo: false).sum(:money).to_i
+    #月の収支合計
+    sum[:computation] = sum[:incomes_sum] - sum[:spending_sum]
+
+    return sum
+  end
+
+  private
+
+  #渡した年月までの収支を計算してその値を返す
+  def income_expenditure(months, date)
+    return if months.blank?
+    income_expenditure = 0
+    months.where("month_at <= ?" , date).each do |month|
+      income_expenditure  += month.total(salary: true, income: true, spending: true)
+    end
+
+    return income_expenditure 
+  end
 end

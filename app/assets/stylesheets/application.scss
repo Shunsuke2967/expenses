@@ -443,6 +443,11 @@ table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay {
   text-align: center;
 }
 
+.bokashi {
+  filter: blur(2px);
+}
+
+//スマホ対応
 @media (max-width: 550px){
   .stay {
     font-size: 0.9rem;

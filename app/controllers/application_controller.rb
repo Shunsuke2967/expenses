@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user,:current_month,:current_month_set,:donut_chart_color_set,:budget_set
+  helper_method :current_user,:current_month,:current_month_set,:donut_chart_color_set,:budget_set,:current_budget
   before_action :login_required
   # rescue_from Exception,                        with: :render_500
   # rescue_from ActiveRecord::RecordNotFound,     with: :render_404
@@ -46,6 +46,10 @@ class ApplicationController < ActionController::Base
 
   def current_month
     @current_month ||= Month.find_by(id: session[:month_id]) if session[:month_id]
+  end
+
+  def current_budget
+    @current_budgets ||= current_month.budget
   end
 
   def current_month_set

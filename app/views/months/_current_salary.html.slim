@@ -1,0 +1,52 @@
+table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
+  tbody
+    tr
+      td
+        h6 今月の収入
+      td.text-right
+        = link_to '収入を再設定する',edit_month_path(current_month), class:"btn btn-outline-secondary btn-sm radius"
+    tr
+      td.gray.text-right width="50%"
+        a.style-none[data-bs-toggle="collapse" href="#collapseExample11" role="button" aria-expanded="false" aria-controls="collapseExample"]
+          h4 <i class="fas fa-chevron-down gray"></i>　収入総額
+      td width="50%"
+        a.style-none[data-bs-toggle="collapse" href="#collapseExample11" role="button" aria-expanded="false" aria-controls="collapseExample"]
+          h4
+            = "#{current_month.total(salary: true).to_s(:delimited)}円"
+    tr
+      td.pad-0-1 width="50%"
+        #collapseExample11.collapse
+          h6 収入詳細
+      td.pad-0-1 width="50%"
+    - if current_month.income.to_i > 0
+        tr
+          td.pad-0-1.gray.text-right width="50%"
+            #collapseExample11.collapse
+              h5 収入１
+          td.pad-0-1 width="50%"
+            #collapseExample11.collapse
+              h5 = "#{(current_month.income.to_i).to_s(:delimited)}円"
+    - if current_month.income2.to_i.to_i > 0
+      tr
+        td.pad-0-1.gray.text-right width="50%"
+          #collapseExample11.collapse
+            h5 収入２
+        td.pad-0-1 width="50%"
+          #collapseExample11.collapse
+            h5 = "#{(current_month.income2.to_i).to_s(:delimited)}円"
+    - if current_month.income3.to_i > 0
+      tr
+        td.pad-0-1.gray.text-right width="50%"
+          #collapseExample11.collapse
+            h5 収入３
+        td.pad-0-1 width="50%"
+          #collapseExample11.collapse
+            h5 = "#{(current_month.income3.to_i).to_s(:delimited)}円"
+    - if current_month.income4.to_i > 0
+      tr
+        td.pad-0-1.gray.text-right width="50%"
+          #collapseExample11.collapse
+            h5 収入４
+        td.pad-0-1 width="50%"
+          #collapseExample11.collapse
+            h5 = "#{(current_month.income4.to_i).to_s(:delimited)}円"
