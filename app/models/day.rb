@@ -3,7 +3,6 @@ class Day < ApplicationRecord
   validates :money, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validate :current_month_validate
 
-
   private
 
   def current_month_validate

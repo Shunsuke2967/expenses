@@ -7,6 +7,7 @@ class BudgetsController < ApplicationController
     @budget = current_month.budgets.find(params[:id])
 
     if @budget.update(budget_params)
+      session[:show_active_page] = :budget
       redirect_to root_url,notice: "予算費を再設定しました"
     else
       render :edit
@@ -25,6 +26,7 @@ class BudgetsController < ApplicationController
     @budget = current_month.budgets.new(budget_params)
 
     if @budget.save
+      session[:show_active_page] = :budget
       redirect_to root_url, notice: "予算費を設定しました"
     else
       render :new

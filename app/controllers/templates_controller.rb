@@ -6,6 +6,7 @@ class TemplatesController < ApplicationController
   def create
    @template = current_user.templates.new(template_params)
     if @template.save
+      session[:show_active_page] = :template
       redirect_to root_path, notice: 'テンプレートに追加しました'
     end
   end
@@ -18,6 +19,7 @@ class TemplatesController < ApplicationController
     @template = current_user.templates.find(params[:id])
 
     if @template.update(template_params)
+      session[:show_active_page] = :template
       redirect_to root_url, notice: 'テンプレートを変更しました'
     end
   end

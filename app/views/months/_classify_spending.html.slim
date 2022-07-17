@@ -1,0 +1,46 @@
+table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
+  tbody
+    tr 
+      td
+        h6 支出内訳
+    tr
+      td.text-right
+        = generate_chart @total_spending_list,donut_chart_color_set(@total_spending_list)
+    tr
+      td.font-size 
+        - count = 1
+        - @total_spending_list.each do |key, date|
+          - next if date == 0
+      
+          - case key 
+            - when "家賃"
+              span.icon-color-red ■ 
+              span= date.to_i.to_s(:delimited)
+              span 円　
+            - when "生活費"
+              span.icon-color-lightblue ■ 
+              span= date.to_i.to_s(:delimited)
+              span 円　
+            - when "娯楽費" 
+              span.icon-color-green ■ 
+              span= date.to_i.to_s(:delimited)
+              span 円　
+            - when "自動車費"
+              span.icon-color-violetgreen ■ 
+              span= date.to_i.to_s(:delimited)
+              span 円　
+            - when "保険"
+              span.icon-color-violet ■
+              span= date.to_i.to_s(:delimited)
+              span  円　
+            - when "食費"
+              span.icon-color-yellow ■ 
+              span= date.to_i.to_s(:delimited)
+              span 円　
+            - when "その他"
+              span.icon-color-gray ■
+              span= date.to_i.to_s(:delimited)
+              span  円　 
+            -if count == 3
+              <br>
+            - count += 1
