@@ -8,6 +8,8 @@ class TemplatesController < ApplicationController
     if @template.save
       session[:show_active_page] = :template
       redirect_to root_path, notice: 'テンプレートに追加しました'
+    else
+      render :new
     end
   end
 
@@ -21,6 +23,8 @@ class TemplatesController < ApplicationController
     if @template.update(template_params)
       session[:show_active_page] = :template
       redirect_to root_url, notice: 'テンプレートを変更しました'
+    else
+      render :edit
     end
   end
 
@@ -51,7 +55,7 @@ class TemplatesController < ApplicationController
   end
 
   def template_day_params
-    params.require(:template).permit(:day_at,:icon,:memo,:income_and_outgo,:money)
+    params.require(:template).permit(:day_at,:icon,:memo,:spending,:money)
   end
 
 end

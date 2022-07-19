@@ -144,27 +144,28 @@ body {
   display        : block;               /* ボックス要素に変更 */
   box-sizing     : border-box;          /* 枠線を含んだサイズ */
   height         : 72px;                /* ボタンの高さ       */
-  border         : 2px solid #DA5019;   /* 未選択タブのの枠線 */
+  border         : 2px solid #4094be;   /* 未選択タブのの枠線 */
   border-radius  : 36px;                /* 角丸               */
 }
 
  /* === チェックボックスのラベル（ONのとき） ================ */
 .switchArea input[type="checkbox"]:checked +label {
-  border-color   : #4094be;              /* 選択タブの枠線     */
+  color          : #DA5019;             /* 文字色             */
+  border         : 2px solid #DA5019;   /* 未選択タブのの枠線 */
 }
 
  /* === 表示する文字（標準） ================================ */
 .switchArea label span:after{
-  content        : "支出";               /* 表示する文字       */
+  content        : "収入";               /* 表示する文字       */
   padding        : 0 0 0 43px;          /* 表示する位置       */
-  color          : #DA5019;             /* 文字色             */
+  color          : #4094be;             /* 文字色             */
 }
 
  /* === 表示する文字（ONのとき） ============================ */
 .switchArea  input[type="checkbox"]:checked + label span:after{
-  content        : "収入";                /* 表示する文字       */
+  content        : "支出";                /* 表示する文字       */
   padding        : 0 43px 0 0;          /* 表示する位置       */
-  color          : #4094be;             /* 文字色             */
+  color          : #DA5019;             /* 文字色             */
 }
 
  /* === 丸部分のSTYLE（標準） =============================== */
@@ -172,7 +173,7 @@ body {
   position       : absolute;            /* 親要素からの相対位置*/
   width          : 64px;                /* 丸の横幅           */
   height         : 64px;                /* 丸の高さ           */
-  background     : #DA5019;             /* カーソルタブの背景 */
+  background     : #4094be;             /* カーソルタブの背景 */
   top            : 4px;                 /* 親要素からの位置   */
   left           : 4px;                 /* 親要素からの位置   */
   border-radius  : 32px;                /* 角丸               */
@@ -183,7 +184,7 @@ body {
 .switchArea input[type="checkbox"]:checked ~ #swImg {
   will-change: transform;
   transform      : translateX(133px);    /* 丸も右へ移動       */
-  background     : #4094be;              /* カーソルタブの背景 */
+  background     : #DA5019;              /* カーソルタブの背景 */
 }
 
 .switchArea {transform: translate3d(0,0,0);}

@@ -74,7 +74,9 @@
 
         .shadow.p-3.mb-5.bg-body.rounded
           = render partial: 'expenses_list'
-          #month_list= render 'form_month_list', current_user_month_list: @current_user_month_list
+          #month_list= render 'form_month_list',
+            current_user_month_list: @current_user_month_list,
+            current_income_and_expenditure: @current_income_and_expenditure
 / 右下にログイン中にに紐づく収入/支出の新規登録リンク(鉛筆マーク)
 .fixed-bottom.icon
   i.bi.bi-alarm-fill

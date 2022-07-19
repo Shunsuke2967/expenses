@@ -2,7 +2,7 @@
 document.addEventListener('turbolinks:load', () => {
 
   // flashメッセージ要素を取得
-  const flashMessage = document.querySelector('.alert');
+  const flashMessage = document.querySelector('#hidden');
 
   // フェードアウトさせる（徐々に透過し,非表示にする）関数を定義
   const fadeOutFlashMessage = () => {

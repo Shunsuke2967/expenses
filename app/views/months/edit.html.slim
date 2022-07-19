@@ -10,20 +10,20 @@
           td
             = form_with model: @month do |f|
               .form-group
-                = f.label :income, "収入１※入力必須"
-                = f.number_field :income,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
+                = f.label :salary, "収入１※入力必須"
+                = f.number_field :salary,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
               .mb-2
               .form-group
-                = f.label :income2, "収入２"
-                = f.number_field :income2,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
+                = f.label :salary_2, "収入２"
+                = f.number_field :salary_2,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
               .mb-2
               .form-group
-                = f.label :income3, "収入３"
-                = f.number_field :income3,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
+                = f.label :salary_3, "収入３"
+                = f.number_field :salary_3,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
               .mb-2
               .form-group
-                = f.label :income4, "収入４"
-                = f.number_field :income4,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
+                = f.label :salary_4, "収入４"
+                = f.number_field :salary_4,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
               .mb-5
               = f.submit '設定する',class: "btn btn-warning btn-lg form-control form-control-lg lg"
               .mb-2

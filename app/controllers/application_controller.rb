@@ -53,12 +53,12 @@ class ApplicationController < ActionController::Base
   end
 
   def current_month_set
-    month = current_user.months.order(month_at: "DESC").first
+    month = current_user.months.order(date_at: "DESC").first
 
     if month
       session[:month_id] = month.id
     else
-      month = current_user.months.new(month_at: Time.zone.now)
+      month = current_user.months.new(date_at: Time.zone.now)
       if month.save
         session[:month_id] = month.id
       end
@@ -92,6 +92,4 @@ class ApplicationController < ActionController::Base
 
     return color_options
   end
-
-
 end

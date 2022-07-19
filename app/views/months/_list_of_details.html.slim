@@ -37,7 +37,7 @@ table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-lef
             td.icon-color-gray width="12%" align="center"
               i.far.fa-question-circle
         td width="32%" = day.memo
-        - if day.income_and_outgo
+        - unless day.spending
           td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
         - else
           td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"

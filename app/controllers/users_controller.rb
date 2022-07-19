@@ -12,8 +12,8 @@ class UsersController < ApplicationController
    @user = User.new(user_params)
 
     if @user.save
-      @month = Month.new(month_at: Time.zone.now,user_id: @user.id)
-      @month.save
+      date = Time.zone.now
+      @month = @user.months.create(date_at: Time.parse("#{date.year}/#{date.month}"))
       session[:user_id] = @user.id
       session[:month_id] = @month.id
       redirect_to root_url, notice: '新規登録に成功しました'

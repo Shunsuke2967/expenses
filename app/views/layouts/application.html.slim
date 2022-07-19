@@ -18,11 +18,11 @@ html
         = link_to "家計簿",root_path, class: "navbar-brand"
         ul.navbar-nav
           - if current_user
-            li.nav-item.text-white #{current_month.month_at.year}年#{current_month.month_at.month}月
+            li.nav-item.text-white #{current_month.date_at.year}年#{current_month.date_at.month}月
     .container
       #errors
       - if flash.notice.present?
-        .alert.alert-success= flash.notice
+        #hidden.alert.alert-success= flash.notice
       = yield
 
 

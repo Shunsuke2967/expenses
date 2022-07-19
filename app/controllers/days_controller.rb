@@ -7,6 +7,8 @@ class DaysController < ApplicationController
    @day = current_user.months.find(current_month.id).days.new(day_params)
     if @day.save
       redirect_to root_path, notice: '追加しました'
+    else
+      render :new
     end
   end
   
@@ -19,6 +21,8 @@ class DaysController < ApplicationController
     
     if @day.update(day_params)
       redirect_to root_url, notice: '修正しました'
+    else
+      render :edit
     end
   end
 
@@ -32,6 +36,6 @@ class DaysController < ApplicationController
   private
 
   def day_params
-    params.require(:day).permit(:day_at,:icon,:memo,:income_and_outgo,:money)
+    params.require(:day).permit(:day_at,:icon,:memo,:spending,:money)
   end
 end

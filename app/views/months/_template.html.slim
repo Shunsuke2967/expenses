@@ -7,24 +7,24 @@ table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-lef
     - current_user.templates.each do |template|
       tr.color-none
         - case template.icon
-          - when "家賃"
+          - when "rent"
             td.icon-color-red width="12%" align="center" <i class="fas fa-home"></i>
-          - when "食費"
+          - when "food_expenses"
             td.icon-color-yellow width="12%" align="center" <i class="fas fa-utensils"></i>
-          - when "生活費"
+          - when "cost_of_living"
             td.icon-color-lightblue width="12%" align="center" <i class="fas fa-faucet"></i>
-          - when "娯楽費"
+          - when "entertainment"
             td.icon-color-green width="12%" align="center" <i class="fas fa-shopping-cart"></i>
-          - when "自動車費"
+          - when "car_cost"
             td.icon-color-violetgreen width="12%" align="center" <i class="fas fa-car-side"></i>
-          - when "保険"
+          - when "insurance"
             td.icon-color-violet width="12%" align="center" <i class="fas fa-hospital-user"></i>
-          - when "入金"
+          - when "payment"
             td.icon-color-gray width="12%" align="center" <i class="fas fa-yen-sign"></i>
-          - when "その他"
+          - when "others"
             td.icon-color-gray width="12%" align="center" <i class="far fa-question-circle"></i>
           td width="32%" = template.memo
-        - if template.income_and_outgo
+        - if template.spending
           td.int-color-blue.int-text-right width="27%" align="right" = "+#{template.money.to_s(:delimited)}"
         - else
           td.int-color-red.int-text-right width="27%" align="right"=  "-#{template.money.to_s(:delimited)}"
