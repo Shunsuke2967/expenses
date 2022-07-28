@@ -11,4 +11,27 @@ class Template < ApplicationRecord
     payment: 6,
     others: 100
   }
+
+  def set_class
+    case self.icon
+    when "rent"
+      return ["icon-color-red","fas fa-home"]
+    when "food_expenses"
+      return ["icon-color-yellow","fas fa-utensils"]
+    when "cost_of_living"
+      return ["icon-color-lightblue","fas fa-faucet"]
+    when "entertainment"
+      return ["icon-color-green","fas fa-shopping-cart"]
+    when "car_cost"
+      return ["icon-color-violetgreen","fas fa-car-side"]
+    when "insurance"
+      return ["icon-color-violet","fas fa-hospital-user"]
+    when "payment"
+      return ["icon-color-gray","fas fa-yen-sign"]
+    when "others"
+      return ["icon-color-gray","far fa-question-circle"]
+    else
+      return ""
+    end
+  end
 end

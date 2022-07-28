@@ -6,16 +6,25 @@ class MonthsController < ApplicationController
     end
     @page = params[:page]
     @months = current_user.months
-    @q = current_month.days.ransack(params[:q])
+    #search_form_forのため空のRansackオブジェクトを作成
+    #検索はajaxで行う
+    @q = current_month.days.ransack
     @current_days = @q.result
     @current_user_month_list = current_user.months.order(date_at: "DESC").page(params[:page])
     @total_spending_list = current_month.days_total_spending
     @current_sum = sums_hash(@current_days,current_month)
-
     #ログイン中の年月分までの収支のトータル
     @income_and_expenditure = income_expenditure(@current_user_month_list,current_month.date_at)
     #ログイン中の年月の収支
     @current_income_and_expenditure = current_month.total(salary: true,income: true,spending: true)
+  end
+
+  # ajax用
+  def search
+    if params[:q].present?
+      result = current_month.days.ransack(params[:q]).result
+      render json:  result.map { |day| day.id  }.to_json
+    end
   end
 
 

@@ -32,7 +32,6 @@ class DaysController < ApplicationController
     redirect_to root_url, notice: '削除しました'
   end
 
-
   private
 
   def day_params

@@ -23,6 +23,8 @@ html
       #errors
       - if flash.notice.present?
         #hidden.alert.alert-success= flash.notice
+      - if flash[:danger].present?
+        #hidden.alert.alert-danger= flash[:danger]
       = yield
 
 

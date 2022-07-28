@@ -223,6 +223,14 @@ button.nav-link{
 
 a.icon-nav{
   color: red;
+  transition:0.4s all;
+}
+
+a.icon-nav:hover{
+  color: red;
+  font-size: 18px;
+  transform:scale(1.2,1.2);
+  transition:0.4s all;
 }
 
 .nav-link.link:hover, .nav-link.link:focus {
@@ -278,6 +286,10 @@ span.s_right{
   float: right;
 }
 
+.f-right{
+  float: right;
+}
+
 p.s_right{
   margin-top: 0;
   margin-bottom: initial;
@@ -297,39 +309,39 @@ p .svg-inline--fa.fa-w-14 {
 }
 
 .int-color-blue{
-  color: #4094be;
+  color: #4094be !important;
 }
 
 .int-color-red{
-  color: #DA5019;
+  color: #DA5019 !important;
 }
 
 .icon-color-gray{
-  color: #8d8d8d;
+  color: #8d8d8d !important;
 }
 
 .icon-color-red{
-  color: #DA5019;
+  color: #DA5019 !important;
 }
 
 .icon-color-green{
-  color: #20990e;
+  color: #20990e !important;
 }
 
 .icon-color-lightblue{
-  color:#4094be;
+  color:#4094be !important;
 }
 
 .icon-color-yellow{
-  color: #ddb500;
+  color: #ddb500 !important;
 }
 
 .icon-color-violet {
-  color: blueviolet;
+  color: blueviolet !important;
 }
 
 .icon-color-violetgreen {
-  color: darkolivegreen;
+  color: darkolivegreen !important;
 }
 
 .gray{
@@ -382,13 +394,14 @@ input[type=text].costom {
 	// margin-right: 0;
 	margin-bottom: 20px;
 	padding: 10px;
-	width: 90%;
-	height: 40px;
+	width: 60%;
+	height: 30px;
 	font-size: 100%;
 	box-sizing: border-box;
 	border-radius: 5px 5px 5px 5px;
 	border: 1px solid #ccc;
 	// border-right: none;
+  padding-bottom: 13px;
 }
 input[type=submit].costom  {
 	-webkit-appearance: none;
@@ -444,8 +457,66 @@ table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay {
   text-align: center;
 }
 
+// ぼかすため
 .bokashi {
   filter: blur(2px);
+}
+
+// ホバー時に暗くするアニメーション無効
+.table-hover > tbody > tr:hover > .table-hover-none {
+  --bs-table-accent-bg: initial;
+  color: initial;
+}
+
+.margin-right-4{
+  margin-right: 4px;
+}
+
+.form-inline{
+  display: inline;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.dis-in{
+  display: inline;
+}
+
+.display-none{
+  display: none;
+}
+
+.w-100{
+  width: 100%;
+}
+
+.day_search{
+  display: inline;
+}
+
+// フォーカス中に影が出ないようにする
+button.btn.btn-outline-secondary.not-foucas-shadow:focus{
+  box-shadow: initial;
+}
+
+// テーブルホバー時アイコンが黒くなるのを防ぐ
+.table-hover > tbody > tr:hover > * {
+  color: initial;
+}
+
+.main-container{
+  text-align: center;
+}
+
+.image{
+  max-height: 400px;
+}
+
+td .size-sm.font-none{
+  height: 0;
+  font-size: initial;
+  padding: 0rem 2.25rem 0rem 0.75rem;
+  background-size: 10px 10px;
 }
 
 //スマホ対応
@@ -454,12 +525,10 @@ table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay {
     font-size: 0.9rem;
   }
 
-  .main-container{
-    background-image: url("6.png") ;
-    min-height: 40vh;
-    background-size: cover;
-    background-position: center top;
+  .image{
+    width: 100%;
   }
+
 }
 @media(min-width: 550px){
   .font-size {

@@ -67,9 +67,33 @@ class Month < ApplicationRecord
   # ログイン中の月のその日の日付を返す
   # その日が31日でログイン中の月にない場合はその月の月末日を設定して返す
   def date_to_s(day)
+    return unless day.respond_to?(:day_at)
     return day.day_at.strftime("%Y-%m-%d") if day.day_at.present?
     return Time.parse("#{self.date_at.year}-#{self.date_at.month}-#{Time.zone.now.day}").strftime("%Y-%m-%d") \
       rescue return Time.parse("#{self.date_at.year}-#{self.date_at.month}-1").end_of_month.strftime("%Y-%m-%d")
+  end
+
+  def days_create(templates)
+    return false unless templates.present?
+    error_blank = true
+    ActiveRecord::Base.transaction do
+      templates.each do |id, date_at|
+        template = self.user.templates.find(id)
+        unless self.days.build.transfer(template,date_at).save
+          error_blank = false
+          raise ActiveRecord::Rollback
+        end
+      end
+    end
+    return error_blank
+  end
+
+  def day_select_data
+    select_menu = []
+    (1..self.date_at.end_of_month.day).each do |day|
+      select_menu << ["#{day}日",day]
+    end
+    return select_menu
   end
 
   private

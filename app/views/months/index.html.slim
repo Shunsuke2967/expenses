@@ -8,23 +8,6 @@
         = render partial: "bank_balance",
           locals: { income_and_expenditure: @income_and_expenditure,
                     current_income_and_expenditure: @current_income_and_expenditure}
-
-      .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-        table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left.stay
-          tbody
-            tr
-              td
-                h6 メモ検索機能
-                p.gray.f-s ※検索結果は今月の収支・明細一覧に反映されます
-                .mb-3
-            tr 
-              td.s_center
-                = search_form_for @q, url: root_path do |f|
-                  = f.text_field :memo_cont, class: "search-form costom", placeholder: "キーワードを含むメモ検索"
-                  br
-                  = f.text_field :memo_not_cont, class: "search-form costom", placeholder: "キーワードを含まないメモ検索"
-                  = f.submit 'メモ検索',class: "btn btn-warning  form-control form-control-lg w-90"
-
   
         / ログイン中の収支
         = render partial: "current_income_and_expenditure",
@@ -32,6 +15,8 @@
                     current_month_incomes_sum: @current_sum[:incomes_sum],
                     current_month_spending_sum: @current_sum[:spending_sum],
                     current_month_computation: @current_sum[:computation] }
+
+        = render partial: "search", locals: { q: @q }
 
       / 収支の記録一覧
       .col-md-10.offset-md-1.col-lg-8.offset-lg-2
@@ -81,7 +66,7 @@
 .fixed-bottom.icon
   i.bi.bi-alarm-fill
     = link_to new_day_path, class:'icon-nav'
-      i.fas.fa-pencil-alt.fa-3x
+      i.fas.fa-edit.fa-3x
 
 / ナビバーの部分
 ul#pills-tab.nav.nav-pills.fixed-bottom.navbar-light.justify-content-evenly.header[role="tablist"]

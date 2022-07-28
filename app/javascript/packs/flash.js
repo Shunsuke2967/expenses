@@ -29,7 +29,7 @@ document.addEventListener('turbolinks:load', () => {
     flashMessage.style.opacity = 1;
     // 今回は表示から3秒後に上記で定義したフェードアウトさせる関数を実行
     setTimeout(fadeOutFlashMessage, 3000);
-  };
+  };  
 });
 
 

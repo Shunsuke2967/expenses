@@ -11,6 +11,7 @@ require("jquery")
 import "bootstrap"
 import "bootstrap/scss/bootstrap.scss"
 import "./flash.js"
+import "./search.js"
 require("@fortawesome/fontawesome-free/js/all")
 
 require("chartkick").use(require("highcharts"))

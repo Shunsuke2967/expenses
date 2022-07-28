@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user,:current_month,:current_month_set,:donut_chart_color_set,:budget_set,:current_budget
+  helper_method :current_user,:current_month,:current_month_set,:donut_chart_color_set,:budget_set,:current_budget,:template_html
   before_action :login_required
   # rescue_from Exception,                        with: :render_500
   # rescue_from ActiveRecord::RecordNotFound,     with: :render_404

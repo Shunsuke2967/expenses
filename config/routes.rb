@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # month
   resources :months do
     collection do
-     get 'search'
+     post 'search'
     end
   end
   post '/month_current/:id', to: 'months#month_current'
@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   post '/add', to: 'templates#createadd'
   get '/add/:id', to: 'templates#add'
   get '/templates', to: 'templates#new'
-  get '/templates/:id', to: 'templates#edit'
+  # post "/templates/day_select", to: "templates#day_select"
+  get "/templates/day_select", to: "templates#day_select"
+  post "/templates/days_create", to: "templates#days_create"
 
   # day
   get '/days/:id', to: 'days#edit'

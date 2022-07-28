@@ -30,10 +30,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_01_24_025000) do
 
   create_table "days", force: :cascade do |t|
     t.datetime "day_at", precision: nil
-    t.integer "icon"
+    t.integer "icon", null: false
     t.string "memo"
     t.boolean "spending"
-    t.bigint "money"
+    t.bigint "money", null: false
     t.bigint "month_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
