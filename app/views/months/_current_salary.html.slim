@@ -18,35 +18,13 @@ table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
         #collapseExample11.collapse
           h6 収入詳細
       td.pad-0-1 width="50%"
-    - if current_month.income.to_i > 0
-        tr
-          td.pad-0-1.gray.text-right width="50%"
-            #collapseExample11.collapse
-              h5 収入１
-          td.pad-0-1 width="50%"
-            #collapseExample11.collapse
-              h5 = "#{(current_month.income.to_i).to_s(:delimited)}円"
-    - if current_month.income2.to_i.to_i > 0
-      tr
-        td.pad-0-1.gray.text-right width="50%"
-          #collapseExample11.collapse
-            h5 収入２
-        td.pad-0-1 width="50%"
-          #collapseExample11.collapse
-            h5 = "#{(current_month.income2.to_i).to_s(:delimited)}円"
-    - if current_month.income3.to_i > 0
-      tr
-        td.pad-0-1.gray.text-right width="50%"
-          #collapseExample11.collapse
-            h5 収入３
-        td.pad-0-1 width="50%"
-          #collapseExample11.collapse
-            h5 = "#{(current_month.income3.to_i).to_s(:delimited)}円"
-    - if current_month.income4.to_i > 0
-      tr
-        td.pad-0-1.gray.text-right width="50%"
-          #collapseExample11.collapse
-            h5 収入４
-        td.pad-0-1 width="50%"
-          #collapseExample11.collapse
-            h5 = "#{(current_month.income4.to_i).to_s(:delimited)}円"
+
+    - current_month.salary_list.each do |key,value|
+      - if value > 0
+          tr
+            td.pad-0-1.gray.text-right width="50%"
+              #collapseExample11.collapse
+                h5= t("activerecord.attributes.month.#{key}")
+            td.pad-0-1 width="50%"
+              #collapseExample11.collapse
+                h5 = "#{(value).to_s(:delimited)}円"

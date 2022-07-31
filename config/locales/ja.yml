@@ -7,6 +7,10 @@ ja:
       previous: "&lsaquo;"
       next: "&rsaquo;"
       truncate: "..."
+    button:
+      template:
+        add: テンプレートに追加
+        edit: 編集する
   activerecord:
     errors:
       messages:
@@ -18,7 +22,7 @@ ja:
     models:
       user: ユーザー
       template: テンプレート
-      month_at: 家計簿
+      date_at: 家計簿
       day: 収支記録
       budget: 予算費
     attributes:
@@ -29,8 +33,11 @@ ja:
         password: パスワード
         password_confirmation: パスワード(確認)
       month:
-        month_at: 年月
-        income: 収入
+        date_at: 年月
+        salary: 収入１
+        salary_2: 収入２
+        salary_3: 収入３
+        salary_4: 収入４
       day:
         day_at: 日付
         icon: 費用項目

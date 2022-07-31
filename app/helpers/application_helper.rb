@@ -43,20 +43,22 @@ module ApplicationHelper
 
   def icon_selector(item_s)
     case item_s
-    when "家賃"
+    when "家賃","rent"
       return "fas fa-home"
-    when "生活費"
+    when "生活費","cost_of_living"
       return "fas fa-faucet"
-    when "娯楽費"
+    when "娯楽費","entertainment"
       return "fas fa-shopping-cart"
-    when "食費"
+    when "食費","food_expenses"
       return "fas fa-utensils"
-    when "自動車費"
+    when "自動車費","car_cost"
       return "fas fa-car-side"
-    when "保険"
+    when "保険","insurance"
       return "fas fa-hospital-user"
-    when "その他"
+    when "その他","others"
       return "fas fa-question-circle"
+    when "入金","payment"
+        return "fas fa-yen-sign"
     else
       return 0
     end
@@ -65,31 +67,41 @@ module ApplicationHelper
   def color_selector(item_s)
     set_color = {}
     case item_s
-    when "家賃"
+    when "家賃","rent"
       set_color[:icon] = "icon-color-red"
       set_color[:progress] = "bg-danger"
-    when "生活費"
+    when "生活費","cost_of_living"
       set_color[:icon] = "icon-color-lightblue"
       set_color[:progress] = "bg-primary"
-    when "娯楽費"
+    when "娯楽費","entertainment"
       set_color[:icon] = "icon-color-green"
       set_color[:progress] = "bg-success"
-    when "食費"
+    when "食費","food_expenses"
       set_color[:icon] = "icon-color-yellow"
       set_color[:progress] = "bg-warning"
-    when "自動車費"
+    when "自動車費","car_cost"
       set_color[:icon] = "icon-color-violetgreen"
       set_color[:progress] = "bg-violetgreen"
-    when "保険"
+    when "保険","insurance"
       set_color[:icon] = "icon-color-violet"
       set_color[:progress] = "bg-violet"
-    when "その他"
+    when "その他","others"
       set_color[:icon] = "icon-color-gray"
       set_color[:progress] = "bg-secondary"
+    when "入金","payment"
+      set_color[:icon] = "icon-color-gray"
     else
       return ""
     end
 
     return set_color
+  end
+
+  def day_adjust(day)
+    if day.to_s.length == 1
+      return "0#{day}"
+    else
+      return day.to_s
+    end
   end
 end

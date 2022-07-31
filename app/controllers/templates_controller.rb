@@ -8,6 +8,8 @@ class TemplatesController < ApplicationController
     if @template.save
       session[:show_active_page] = :template
       redirect_to root_path, notice: 'テンプレートに追加しました'
+    else
+      render :new
     end
   end
 
@@ -21,6 +23,8 @@ class TemplatesController < ApplicationController
     if @template.update(template_params)
       session[:show_active_page] = :template
       redirect_to root_url, notice: 'テンプレートを変更しました'
+    else
+      render :edit
     end
   end
 
@@ -29,7 +33,7 @@ class TemplatesController < ApplicationController
   end
 
   def createadd
-   @day = current_user.months.find(current_month.id).days.new(template_day_params)
+    @day = current_user.months.find(current_month.id).days.new(template_day_params)
     if @day.save
       redirect_to root_path, notice: '追加しました'
     end
@@ -40,18 +44,40 @@ class TemplatesController < ApplicationController
     @template.destroy
 
     redirect_to root_url, notice: "テンプレートを削除しました"
-
   end
 
+  def day_select
+    if params[:ids].present?
+      @templates = current_user.templates.where(id: params[:ids])
+    else
+      session[:show_active_page] = :template
+      flash[:danger] = '一つ以上選択してください'
+      redirect_to root_path
+    end
+  end
+
+  def days_create
+    if params[:date_at].present?
+      if current_month.days_create(params[:date_at])
+        redirect_to root_url, notice: "家計簿に追加しました"
+      else
+        flash[:danger] = "追加時にエラーが発生しました"
+        redirect_to root_url
+      end
+    else
+      flash[:danger] = "対象が見つかりません"
+      redirect_to root_url
+    end
+  end
 
   private
 
   def template_params
-    params.require(:template).permit(:icon,:memo,:income_and_outgo,:money)
+    params.require(:template).permit(:icon,:memo,:spending,:money)
   end
 
   def template_day_params
-    params.require(:template).permit(:day_at,:icon,:memo,:income_and_outgo,:money)
+    params.require(:template).permit(:day_at,:icon,:memo,:spending,:money)
   end
 
 end

@@ -1,40 +1,27 @@
-table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left.stay
-  tbody
-    tr
-      td colspan="7"
-        h6 テンプレート一覧
-        .mb-3
-    - current_user.templates.each do |template|
-      tr.color-none
-        - case template.icon
-          - when "家賃"
-            td.icon-color-red width="12%" align="center" <i class="fas fa-home"></i>
-          - when "食費"
-            td.icon-color-yellow width="12%" align="center" <i class="fas fa-utensils"></i>
-          - when "生活費"
-            td.icon-color-lightblue width="12%" align="center" <i class="fas fa-faucet"></i>
-          - when "娯楽費"
-            td.icon-color-green width="12%" align="center" <i class="fas fa-shopping-cart"></i>
-          - when "自動車費"
-            td.icon-color-violetgreen width="12%" align="center" <i class="fas fa-car-side"></i>
-          - when "保険"
-            td.icon-color-violet width="12%" align="center" <i class="fas fa-hospital-user"></i>
-          - when "入金"
-            td.icon-color-gray width="12%" align="center" <i class="fas fa-yen-sign"></i>
-          - when "その他"
-            td.icon-color-gray width="12%" align="center" <i class="far fa-question-circle"></i>
-          td width="32%" = template.memo
-        - if template.income_and_outgo
-          td.int-color-blue.int-text-right width="27%" align="right" = "+#{template.money.to_s(:delimited)}"
-        - else
-          td.int-color-red.int-text-right width="27%" align="right"=  "-#{template.money.to_s(:delimited)}"
-        td width="2%"
-        td width="10%"
-          = link_to edit_template_path(template)
-            i.fas.fa-pencil-alt
-        td.text-center width="17%"
-          = link_to "/add/#{template.id}"
-            <i class="fas fa-plus"></i>
-    tr
-      td.text-center colspan="6" width="100%"
-        = link_to 'テンプレート作成',new_template_path, class:"btn btn-warning mb-10 w-100"
+= form_with url: templates_day_select_path, method: :get,local: true do |f|
+  table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left.stay
+    tbody
+      tr
+        td.table-hover-none colspan="7"
+          h6.dis-in テンプレート一覧
+          span.s_right
+            = f.submit '家計簿に反映する', class:"btn btn-outline-secondary btn-sm radius"
+          .mb-3
+      - current_user.templates.each do |template|
+        - t_class_name = template.set_class
+        tr.color-none
+          = tag.send("td", class: t_class_name[0], width: "12%", align: "center")
+            = tag.send("i", class: t_class_name[1])
+          td width="41%" = template.memo
+          - if template.spending
+            td.int-color-red.int-text-right width="27%" align="right"=  "-#{template.money.to_s(:delimited)}"
+          - else
+            td.int-color-blue.int-text-right width="27%" align="right" = "+#{template.money.to_s(:delimited)}"
+          td width="10%"
+            = link_to edit_template_path(template)
+              i.fas.fa-pencil-alt
+          td.text-center width="10%"
+            = f.check_box :ids, { id: "ids[#{template.id}]", name: "ids[]", class: "margin-right-4 icon_search" }, template.id,nil 
+      tr
+        td.table-hover-none.text-center colspan="6" width="100%"
+          = link_to 'テンプレート作成',new_template_path, class:"btn btn-warning mb-10 w-100"

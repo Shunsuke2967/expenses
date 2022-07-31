@@ -1,0 +1,30 @@
+= render 'shared/errors', errors: day.errors
+.mb-5
+.row
+  .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+    = form_with model: day, local: true do |f|
+      .switchArea
+        = f.check_box :spending, {checked: true}, "true", "false"
+        = f.label :spending
+          span
+        div#swImg
+      .mb-5
+      .form-group
+        = f.number_field :money,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
+      .mb-5
+      .form-group
+        = f.date_field :day_at, value: current_month.date_to_s(day), class: 'form-control form-control-lg lg'
+      .mb-5
+      .form-group
+        = f.select :icon, [['家賃',:rent],['食費',:food_expenses],['生活費',:cost_of_living],['娯楽費',:entertainment],['自動車費',:car_cost],['保険',:insurance],['入金',:payment],['その他',:others]], { include_blank: '費用項目' },class: 'form-select form-control-lg lg select fs-11-imp',:required => true
+      .mb-5
+      .form-group
+        = f.text_field :memo,class: 'form-control form-control-lg lg bottom-only fs-20-imp', placeholder: "詳細"
+      .mb-5
+      = f.submit nil ,class: "btn btn-warning btn-lg form-control form-control-lg lg"
+      .mb-2
+      - unless day.new_record?
+        = link_to '削除する', day, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-lg form-control form-control-lg lg'
+        .mb-2
+      = link_to 'キャンセル', root_path, class: 'btn btn-outline-warning btn-lg form-control form-control-lg lg'
+      .mb-5

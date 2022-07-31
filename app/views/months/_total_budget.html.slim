@@ -2,11 +2,11 @@ table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
   tbody
     - if current_budget.present?
       tr 
-        td width="50%"
+        th width="50%"
           h6 今月の予算費
         td.text-right
           = link_to '予算の再設定',edit_budget_path(current_budget), class:"btn btn-outline-secondary btn-sm radius"
-      = render partial: "detail_budge",
+      = render partial: "detail_budget",
         locals: { current_progress_value: current_budget&.all_budget.to_i - current_sum[:spending_sum].to_i,
                   spending: current_sum[:spending_sum],
                   title: "全体",
