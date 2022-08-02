@@ -103,7 +103,19 @@ body {
 }
 
 .header{
-  background: #D6A802;
+  background-color: #D6A802;
+}
+
+.header .offcanvas-header {
+  background-color: #D6A802;
+}
+
+.header .offcanvas-body {
+  background-color: #D6A802;
+}
+
+#offcanvasRight.offcanvas.offcanvas-end.header.w-none{
+  width: initial;
 }
 
 .fixed-bottom {
@@ -114,6 +126,7 @@ body {
     margin-bottom: 60px;
     margin-right: 5px;
     text-align: right;
+    z-index: 1;
 }
 .nav-pills.fixed-bottom .nav-link.active, .nav-pills .show > .nav-link {
     color: initial;
@@ -519,6 +532,44 @@ td .size-sm.font-none{
   background-size: 10px 10px;
 }
 
+.kotei{
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.m-0{
+  margin: 0px;
+}
+
+.navbar-dark .navbar-toggler{
+  border: none;
+}
+
+.navbar-toggler:focus{
+  box-shadow: initial !important;
+}
+
+// .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
+//   color: #fff !important;
+// }
+
+.navbar-dark .navbar-nav .nav-link.fff {
+  color: #fff ;
+}
+
+
+
+@keyframes gnaviAnime{
+0% {
+opacity: 0;
+}
+100% {
+opacity: 1;
+}
+}
+
 //スマホ対応
 @media (max-width: 550px){
   .stay {
@@ -533,6 +584,12 @@ td .size-sm.font-none{
 @media(min-width: 550px){
   .font-size {
     font-size: 35px;
+  }
+}
+
+@media(min-width: 575px){
+  hr.m-0{
+    display: none;
   }
 }
 

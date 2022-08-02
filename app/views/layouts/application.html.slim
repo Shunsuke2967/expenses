@@ -13,12 +13,42 @@ html
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Kosugi+Maru&display=swap" rel="stylesheet">
   body style="padding-bottom: 5rem"
-    .header.navbar.navbar-expand-sm.header.navbar-dark
-      .container
-        = link_to "家計簿",root_path, class: "navbar-brand"
-        ul.navbar-nav
-          - if current_user
-            li.nav-item.text-white #{current_month.date_at.year}年#{current_month.date_at.month}月
+    .kotei
+      nav.header.navbar.navbar-expand-sm.header.navbar-dark
+        .container
+          = link_to "家計簿", root_path, class: "navbar-brand"
+          - if current_user.present?
+            button.navbar-toggler type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+              span.navbar-toggler-icon
+            #offcanvasRight.offcanvas.offcanvas-end.header.w-none tabindex="-0.1" aria-labelledby="offcanvasRightLabel"
+              .offcanvas-header
+                h5.navbar-brand 家計簿メニュー
+                button.btn-close.text-reset type="button" data-bs-dismiss="offcanvas" aria-label="Close"
+              .offcanvas-body
+                ul.navbar-nav
+                  li.nav-item
+                    = link_to "ホーム", root_path, class: "nav-link fff", "aria-current": "page"
+                    hr.m-0
+                  li.nav-item
+                    = link_to "家計簿一覧", "#", class: "nav-link fff"
+                    hr.m-0
+                  li.nav-item
+                    = link_to "機能拡張", "#", class: "nav-link fff"
+                    hr.m-0
+                  li.nav-item
+                    = link_to "アカウント設定", "#", class: "nav-link fff"
+                    hr.m-0
+                  li.nav-item
+                    = link_to "ログアウト", "#", class: "nav-link fff"
+                    hr.m-0
+                  li.nav-item
+                    = link_to "利用規約", "#", class: "nav-link fff"
+    / .header.navbar.navbar-expand-sm.header.navbar-dark
+    /   .container
+    /     = link_to "家計簿",root_path, class: "navbar-brand"
+    /     ul.navbar-nav
+    /       - if current_user
+    /         li.nav-item.text-white #{current_month.date_at.year}年#{current_month.date_at.month}月
     .container
       #errors
       - if flash.notice.present?
