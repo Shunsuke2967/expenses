@@ -12,6 +12,7 @@ import "bootstrap"
 import "bootstrap/scss/bootstrap.scss"
 import "./flash.js"
 import "./search.js"
+import "./template.js"
 require("@fortawesome/fontawesome-free/js/all")
 
 require("chartkick").use(require("highcharts"))

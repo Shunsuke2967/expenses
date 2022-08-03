@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on("ready turbolinks:load", () => {
   memo_search();
 
   $("#q_memo_cont").on('input', () => {

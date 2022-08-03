@@ -1,5 +1,5 @@
 // turbolinks:loadでページ読み込み時に実行
-document.addEventListener('turbolinks:load', () => {
+$(document).on("ready turbolinks:load", () => {
 
   // flashメッセージ要素を取得
   const flashMessage = document.querySelector('#hidden');
