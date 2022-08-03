@@ -48,9 +48,6 @@
   #pills-template.tab-pane.fade role="tabpanel" aria-labelledby="pills-contact-tab"
     .row
       .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-        = link_to 'ログアウト',current_user,method: :delete,data: { confirm: "ログアウトします。よろしいですか？" } ,class: 'btn btn-warning mb-10 w-100'
-        .mb-3
-
         .shadow.p-3.mb-5.bg-body.rounded
           = render partial: "transition_balance"
 
