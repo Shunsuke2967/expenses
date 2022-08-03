@@ -16,11 +16,14 @@ html
     .kotei
       nav.header.navbar.navbar-expand-sm.header.navbar-dark
         .container
-          = link_to root_path, class: "navbar-brand" do 
-            = "#{current_month.date_at.month}"
-            | 月
-            span.t-s の
-            | 家計簿
+          - if current_user.present?
+            = link_to root_path, class: "navbar-brand" do 
+              = "#{current_month.date_at.month}"
+              | 月
+              span.t-s の
+              | 家計簿
+          - else 
+            = link_to "家計簿", root_path, class: "navbar-brand"
           - if current_user.present?
             button.navbar-toggler type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
               span.navbar-toggler-icon
