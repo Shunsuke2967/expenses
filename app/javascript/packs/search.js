@@ -28,9 +28,11 @@ $(document).on("ready turbolinks:load", () => {
     if(data.length > 0){
       $('#detail-button').css('color', "#fff")
       $('#detail-button').css('background-color', "#6c757d")
+      $('#detail-button').text("検索中..")
     }else{
       $('#detail-button').css('color', "")
       $('#detail-button').css('background-color', "")
+      $('#detail-button').text("検索詳細")
     }
   })
 });
