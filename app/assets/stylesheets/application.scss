@@ -536,7 +536,7 @@ td .size-sm.font-none{
     position: sticky;
     position: -webkit-sticky;
     top: 0;
-    z-index: 2;
+    z-index: 3000;
 }
 
 .m-0{
@@ -580,6 +580,18 @@ opacity: 1;
 
   .image{
     width: 100%;
+  }
+
+  .wrapHINAGATA{
+    font-size: 0.8rem;
+  }
+
+  .wrapHINAGATA h1{
+    font-size: 1.5rem;
+  }
+
+  .wrapHINAGATA h2{
+    font-size: 1.2rem;
   }
 
 }

@@ -9,11 +9,11 @@ module UserHelper
     month_hash["name"] = "収支"
     month_hash_average = {}
     month_hash_average["name"] = "収支平均"
-    user.months.order(:date_at).each do |month|
+    user.months.order(:date_at).last(12).each do |month|
       subtraction = month.total(salary: true, income: true, spending: true)
       month_sum += subtraction
-      month_money << ["#{month.date_at.year}年#{month.date_at.month}月",subtraction]
-      month_money_average << ["#{month.date_at.year}年#{month.date_at.month}月",(month_sum.to_f / month_count).to_i]
+      month_money << ["#{month.date_at.year}/#{month.date_at.month}",subtraction]
+      month_money_average << ["#{month.date_at.year}/#{month.date_at.month}",(month_sum.to_f / month_count).to_i]
       month_count += 1
     end
 
@@ -30,7 +30,7 @@ module UserHelper
     month_hash["name"] = "口座残高"
     user.months.order(:date_at).each do |month|
       sum_month += month.total(salary: true, spending: true, income: true)
-      month_money << ["#{month.date_at.year}年#{month.date_at.month}月",sum_month]
+      month_money << ["#{month.date_at.year}/#{month.date_at.month}",sum_month]
     end
 
     month_hash["data"] = month_money

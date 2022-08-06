@@ -1,0 +1,15 @@
+  .row
+    .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+      .mb-5
+      .shadow.p-3.mb-5.bg-body.rounded
+        table.table.text-left
+          tbody
+            tr
+              td
+                h6 家計簿一覧
+              td.text-right
+                = link_to '家計簿を作る',new_month_path, class:"btn btn-outline-secondary btn-sm radius"
+
+        #month_list= render 'form_month_list',
+          current_user_month_list: @current_user_month_list,
+          current_income_and_expenditure: @current_income_and_expenditure

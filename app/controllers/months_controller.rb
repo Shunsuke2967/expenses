@@ -75,6 +75,13 @@ class MonthsController < ApplicationController
     redirect_to root_url, notice: "#{month.date_at.year}年#{month.date_at.month}月にログインしました"
   end
 
+  def expenses_list
+    @page = params[:page]
+    @current_user_month_list = current_user.months.order(date_at: "DESC").page(params[:page])
+    #ログイン中の年月分までの収支のトータル
+    @current_income_and_expenditure = current_month.total(salary: true,income: true,spending: true)
+  end
+
 
 
   private
