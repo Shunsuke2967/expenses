@@ -32,7 +32,7 @@ class TemplatesController < ApplicationController
     @template = current_user.templates.find(params[:id])
   end
 
-  def createadd
+  def create_add
     @day = current_user.months.find(current_month.id).days.new(template_day_params)
     if @day.save
       redirect_to root_path, notice: '追加しました'

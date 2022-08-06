@@ -1,7 +1,7 @@
 table.table.text-left
   tbody
     tr
-      td= paginate current_user_month_list,theme: 'bootstrap-5', remote: true 
+      td.f-right= paginate current_user_month_list,theme: 'bootstrap-5', remote: true , url: expenses_list_months_path
 div
   table.white-box.table.text-left.stay 
     tbody
@@ -46,7 +46,7 @@ div
   - next if current_month == month
   - current_income_and_expenditure = month.total(salary: true, income: true, spending: true)
 
-  = link_to "/month_current/#{month.id}",method: :post, class: "edit-link"
+  = link_to month_current_month_path(month.id),method: :post, class: "edit-link"
     div
       table.white-box.table.table-hover.text-left.stay 
         tbody

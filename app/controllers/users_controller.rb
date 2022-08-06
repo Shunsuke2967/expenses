@@ -26,6 +26,9 @@ class UsersController < ApplicationController
     redirect_to root_url, notice: "ログアウトしました"
   end
 
+  def terms
+  end
+
 
   private
 
