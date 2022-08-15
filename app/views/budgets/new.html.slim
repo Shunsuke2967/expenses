@@ -8,6 +8,7 @@
 .row
   .col-md-10.offset-md-1.col-lg-8.offset-lg-2
     = form_with model: @budget,local:true do |f|
+      = hidden_field_tag :setting_type, params[:setting_type]
       p.gray ※予算を設定してください
       .form-group
         div.gray = f.label :rent,"家賃"

@@ -8,15 +8,21 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require("jquery")
+import "jquery-ui/ui/widgets/sortable"
+import "jquery-ui/ui/core"
+import "jquery-ui/ui/widget"
+import "jquery-ui/ui/widgets/mouse"
+import "jquery-ui/ui/widgets/draggable"
+import "jquery-ui-touch-punch/jquery.ui.touch-punch"
 import "bootstrap"
 import "bootstrap/scss/bootstrap.scss"
 import "./flash.js"
 import "./search.js"
 import "./template.js"
+import "./sorttable.js"
 require("@fortawesome/fontawesome-free/js/all")
 
 require("chartkick").use(require("highcharts"))
-require('test.js')
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

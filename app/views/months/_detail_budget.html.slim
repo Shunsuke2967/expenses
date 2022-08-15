@@ -2,7 +2,7 @@ tr
   td colspan="2"
     - if service_active
       - if current_progress_value.positive? || current_progress_value == 0
-        p.bottom 
+        .bottom 
           a.style-none[data-bs-toggle="collapse" href="#collapseExample#{count}" role="button" aria-expanded="false" aria-controls="collapseExample"]
             = tag.send("span", class: icon_color)
               = tag.send(tag_name,class: class_name)
@@ -53,7 +53,7 @@ tr
                   td colspan="6"
                     h6 #{title}明細
                     .mb-3
-                - current_month.days.where(icon: title).order("day_at").each do |day|
+                - current_month.days.where(icon: Day::TO_S_TITLE[title]).order("day_at").each do |day|
                   tr.color-none
                     - if "#{day.day_at.day}".length == 1 
                       td.gray width="18%" = "0#{day.day_at.day}日"
@@ -62,13 +62,13 @@ tr
                     = tag.send('td', class: icon_color, width: "12%",align: "center")
                       = tag.send('i', class: class_name)
                     td width="32%" = day.memo
-                    - if day.income_and_outgo
+                    - if !day.spending
                       td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
                     - else
                       td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
                     td width="2%"
                     td width="10%"
-                      = link_to edit_day_path(day)
+                      = link_to edit_day_path(day,setting_type: setting_type)
                         i.fas.fa-pencil-alt
     - else 
       p.bottom

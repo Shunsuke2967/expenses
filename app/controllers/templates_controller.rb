@@ -6,7 +6,7 @@ class TemplatesController < ApplicationController
   def create
    @template = current_user.templates.new(template_params)
     if @template.save
-      session[:show_active_page] = :template
+      session[:show_active_page] = params[:setting_type]
       redirect_to root_path, notice: 'テンプレートに追加しました'
     else
       render :new
@@ -21,7 +21,7 @@ class TemplatesController < ApplicationController
     @template = current_user.templates.find(params[:id])
 
     if @template.update(template_params)
-      session[:show_active_page] = :template
+      session[:show_active_page] = params[:setting_type]
       redirect_to root_url, notice: 'テンプレートを変更しました'
     else
       render :edit
@@ -50,7 +50,8 @@ class TemplatesController < ApplicationController
     if params[:ids].present?
       @templates = current_user.templates.where(id: params[:ids])
     else
-      session[:show_active_page] = :template
+      logger.debug(params)
+      session[:show_active_page] = params[:setting_type]
       flash[:danger] = '一つ以上選択してください'
       redirect_to root_path
     end
@@ -59,7 +60,8 @@ class TemplatesController < ApplicationController
   def days_create
     if params[:date_at].present?
       if current_month.days_create(params[:date_at])
-        redirect_to root_url, notice: "家計簿に追加しました"
+        session[:show_active_page] = params[:setting_type]
+        redirect_to root_url, notice: "収支一覧表に追加しました"
       else
         flash[:danger] = "追加時にエラーが発生しました"
         redirect_to root_url
