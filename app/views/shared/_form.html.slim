@@ -4,6 +4,7 @@
 .row
   .col-md-10.offset-md-1.col-lg-8.offset-lg-2
     = form_with model: day, url: url, local: true do |f|
+      = hidden_field_tag :setting_type, params[:setting_type]
       .switchArea
         = f.check_box :spending, {checked: true}, "true", "false"
         = f.label :spending
@@ -27,7 +28,7 @@
       = f.submit nil ,class: "btn btn-warning btn-lg form-control form-control-lg lg"
       .mb-2
       - unless day.new_record?
-        = link_to '削除する', day, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-lg form-control form-control-lg lg'
+        = link_to '削除する', day_path(day,setting_type: params[:setting_type]), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-lg form-control form-control-lg lg'
         .mb-2
-      = link_to 'キャンセル', root_path, class: 'btn btn-outline-warning btn-lg form-control form-control-lg lg'
+      = link_to 'キャンセル', root_path(setting_type: params[:setting_type]), class: 'btn btn-outline-warning btn-lg form-control form-control-lg lg'
       .mb-5

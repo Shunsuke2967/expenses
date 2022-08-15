@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       get :terms
+      get :expansions
+      post :update_expansion
+      post :delete_expansion
     end
   end
 
@@ -12,7 +15,6 @@ Rails.application.routes.draw do
   resources :sessions, only: [:index,:create]
 
   # day
-  get '/days/:id', to: 'days#edit'
   get '/days', to: 'days#new'
   resources :days, only: [:new,:create,:destroy,:edit,:update] 
 
@@ -38,6 +40,7 @@ Rails.application.routes.draw do
     collection do
      post 'search'
      get 'expenses_list'
+     get "current_salary"
     end
 
     member do

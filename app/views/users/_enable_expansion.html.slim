@@ -1,0 +1,12 @@
+.jquery-ui-sortable
+  h5.size-18.title-sortable
+    | 設定中の機能
+    br
+    span.gray.f-s ※ 順番は長押し＆スライドで変更可能
+  = tag.send("ul", class: " question-none",id: "jquery-ui-sortable-#{setting.setting_type}","data-setting-id" => "#{setting.id}")
+    - setting.contents.each do |content|
+      = tag.send("li",class: "ui-state-default", "data-content-type" => "#{content.content_type}", "data-fix" => "#{content.fix}" )
+        = I18n.t("activerecord.attributes.content.#{content.content_type}") + (content.fix ? "" : "(削除不可)")
+        - if content.fix
+          = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete',"data-id" => content.id
+            i.far.fa-trash-alt.none

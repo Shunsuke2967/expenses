@@ -14,6 +14,18 @@ class Day < ApplicationRecord
                others: 100
              }
 
+  # 使いやすいようhashのタイトルなどを日本語にしているため、実際のdbから引き出すときなどに使用している
+  TO_S_TITLE = {
+    "家賃" => "rent",
+    "生活費" => "cost_of_living",
+    "食費" => "food_expenses",
+    "娯楽費" => "entertainment",
+    "自動車費" => "car_cost",
+    "保険" => "insurance",
+    "その他" => "others",
+    "入金" => "payment"
+  }
+
   def transfer(template,date_at)
     self.day_at = Time.parse("#{self.month.date_at.year}-#{self.month.date_at.month}-#{date_at}")
     self.icon = template.icon

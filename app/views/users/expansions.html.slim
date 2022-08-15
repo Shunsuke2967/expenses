@@ -1,0 +1,284 @@
+.mb-3
+nav
+  #nav-tab.nav.nav-tabs.color-orenge role="tablist"
+    button class="nav-link color-orenge active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"
+      i.fas.fa-home.fa-lg
+      br
+      .f-10 ホーム
+    button class="nav-link color-orenge" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"
+      i.fas.fa-chart-pie.fa-lg
+      br
+      .f-10 グラフ
+    button class="nav-link color-orenge" id="nav-template-tab" data-bs-toggle="tab" data-bs-target="#nav-template" type="button" role="tab" aria-controls="nav-template" aria-selected="false"
+      i.far.fa-clipboard.fa-lg
+      br
+      .f-10 口座
+    button class="nav-link color-orenge" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"
+      i.fas.fa-money-check-alt
+      br
+      .f-10 推移
+
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div id="jquery-ui-draggable-connectToSortable">
+      ul.kakoi
+        li.size-18.title
+          string 設定可能な機能一覧
+          br
+          span.gray.f-s ※ 使いたい機能は「設定中の機能」に長押し＆スライドする
+        .scroll
+          li.ui-state-highlight-home.ui-state-default data-content-type="budget" data-fix="true"
+            = I18n.t("activerecord.attributes.content.budget")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-home.ui-state-default data-content-type="spending_chart_date" data-fix="true"
+            = I18n.t("activerecord.attributes.content.spending_chart_date")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-home.ui-state-default data-content-type="template" data-fix="true"
+            = I18n.t("activerecord.attributes.content.template")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-home.ui-state-default data-content-type="bank_balance" data-fix="true"
+            = I18n.t("activerecord.attributes.content.bank_balance")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-home.ui-state-default data-content-type="bank_balance_transition" data-fix="true"
+            = I18n.t("activerecord.attributes.content.bank_balance_transition")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-home.ui-state-default data-content-type="income_and_expenditure_transition" data-fix="true"
+            = I18n.t("activerecord.attributes.content.income_and_expenditure_transition")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-home.ui-state-default data-content-type="current_income_and_expenditure" data-fix="true"
+            = I18n.t("activerecord.attributes.content.current_income_and_expenditure")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-home.ui-state-default data-content-type="list_of_details" data-fix="true"
+            = I18n.t("activerecord.attributes.content.list_of_details")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-home.ui-state-default data-content-type="current_salary" data-fix="true"
+            = I18n.t("activerecord.attributes.content.current_salary")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+
+      #enable-expansion-1= render partial: "enable_expansion", locals: { setting: @settings.home.first }
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <div id="jquery-ui-draggable-connectToSortable">
+      ul.kakoi
+        li.size-18.title
+          string 設定可能な機能一覧
+          br
+          span.gray.f-s ※ 使いたい機能は「設定中の機能」に長押し＆スライドする
+        .scroll
+          li.ui-state-highlight-date.ui-state-default data-content-type="budget" data-fix="true"
+            = I18n.t("activerecord.attributes.content.budget")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-date.ui-state-default data-content-type="spending_chart_date" data-fix="true"
+            = I18n.t("activerecord.attributes.content.spending_chart_date")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-date.ui-state-default data-content-type="template" data-fix="true"
+            = I18n.t("activerecord.attributes.content.template")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-date.ui-state-default data-content-type="bank_balance" data-fix="true"
+            = I18n.t("activerecord.attributes.content.bank_balance")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-date.ui-state-default data-content-type="bank_balance_transition" data-fix="true"
+            = I18n.t("activerecord.attributes.content.bank_balance_transition")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-date.ui-state-default data-content-type="income_and_expenditure_transition" data-fix="true"
+            = I18n.t("activerecord.attributes.content.income_and_expenditure_transition")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-date.ui-state-default data-content-type="current_income_and_expenditure" data-fix="true"
+            = I18n.t("activerecord.attributes.content.current_income_and_expenditure")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-date.ui-state-default data-content-type="list_of_details" data-fix="true"
+            = I18n.t("activerecord.attributes.content.list_of_details")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-date.ui-state-default data-content-type="current_salary" data-fix="true"
+            = I18n.t("activerecord.attributes.content.current_salary")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+
+      #enable-expansion-2= render partial: "enable_expansion", locals: { setting: @settings.date.first }
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-template" role="tabpanel" aria-labelledby="nav-template-tab">
+    <div id="jquery-ui-draggable-connectToSortable">
+      ul.kakoi
+        li.size-18.title
+          string 設定可能な機能一覧
+          br
+          span.gray.f-s ※ 使いたい機能は「設定中の機能」に長押し＆スライドする
+        .scroll
+          li.ui-state-highlight-bank.ui-state-default data-content-type="budget" data-fix="true"
+            = I18n.t("activerecord.attributes.content.budget")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-bank.ui-state-default data-content-type="spending_chart_date" data-fix="true"
+            = I18n.t("activerecord.attributes.content.spending_chart_date")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-bank.ui-state-default data-content-type="template" data-fix="true"
+            = I18n.t("activerecord.attributes.content.template")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-bank.ui-state-default data-content-type="bank_balance" data-fix="true"
+            = I18n.t("activerecord.attributes.content.bank_balance")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-bank.ui-state-default data-content-type="bank_balance_transition" data-fix="true"
+            = I18n.t("activerecord.attributes.content.bank_balance_transition")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-bank.ui-state-default data-content-type="income_and_expenditure_transition" data-fix="true"
+            = I18n.t("activerecord.attributes.content.income_and_expenditure_transition")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-bank.ui-state-default data-content-type="current_income_and_expenditure" data-fix="true"
+            = I18n.t("activerecord.attributes.content.current_income_and_expenditure")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-bank.ui-state-default data-content-type="list_of_details" data-fix="true"
+            = I18n.t("activerecord.attributes.content.list_of_details")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-bank.ui-state-default data-content-type="current_salary" data-fix="true"
+            = I18n.t("activerecord.attributes.content.current_salary")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+      #enable-expansion-3= render partial: "enable_expansion", locals: { setting: @settings.bank.first }
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div id="jquery-ui-draggable-connectToSortable">
+      ul.kakoi
+        li.size-18.title
+          string 設定可能な機能一覧
+          br
+          span.gray.f-s ※ 使いたい機能は「設定中の機能」に長押し＆スライドする
+        .scroll
+          li.ui-state-highlight-transition.ui-state-default data-content-type="budget" data-fix="true"
+            = I18n.t("activerecord.attributes.content.budget")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-transition.ui-state-default data-content-type="spending_chart_date" data-fix="true"
+            = I18n.t("activerecord.attributes.content.spending_chart_date")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-transition.ui-state-default data-content-type="template" data-fix="true"
+            = I18n.t("activerecord.attributes.content.template")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-transition.ui-state-default data-content-type="bank_balance" data-fix="true"
+            = I18n.t("activerecord.attributes.content.bank_balance")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-transition.ui-state-default data-content-type="bank_balance_transition" data-fix="true"
+            = I18n.t("activerecord.attributes.content.bank_balance_transition")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-transition.ui-state-default data-content-type="income_and_expenditure_transition" data-fix="true"
+            = I18n.t("activerecord.attributes.content.income_and_expenditure_transition")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-transition.ui-state-default data-content-type="current_income_and_expenditure" data-fix="true"
+            = I18n.t("activerecord.attributes.content.current_income_and_expenditure")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-transition.ui-state-default data-content-type="list_of_details" data-fix="true"
+            = I18n.t("activerecord.attributes.content.list_of_details")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+          li.ui-state-highlight-transition.ui-state-default data-content-type="current_salary" data-fix="true"
+            = I18n.t("activerecord.attributes.content.current_salary")
+            = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete'
+              i.far.fa-trash-alt.none
+            = link_to 'javascript:void(0);', class:'f-right gray click-explanation'
+              i.far.fa-question-circle
+      #enable-expansion-4= render partial: "enable_expansion", locals: { setting: @settings.transition.first }
+    </div>
+  </div>
+</div>

@@ -22,6 +22,9 @@ p.w-100.text-right.fs-07 {
   width: 100%;
 }
 
+.nav-link.p-0 {
+  padding: 0;
+}
 
 .btn-warning.c {
   background-color: #D6A802;
@@ -563,6 +566,97 @@ td .size-sm.font-none{
   font-size: 16px;
 }
 
+.table > :not(:first-child) {
+  border-top: none !important;
+}
+
+.ui-state-default{
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6 50% 50% repeat-x;
+  font-weight: normal;
+  color: #555555;
+}
+
+.draglist {
+  background-color: #f9f9f9;
+  border: dotted 2px #F15A24;
+  height: 34px;
+}
+
+#jquery-ui-draggable-connectToSortable ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 15px 5px;
+  margin-bottom: 10px;
+  width: 450px;
+  border-radius: 10px;
+}
+#jquery-ui-draggable-connectToSortable li {
+  margin: 5px;
+  padding: 5px;
+  width: 400px;
+  margin: auto;
+}
+
+.jquery-ui-sortable {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  list-style-type: none;
+  border-radius: 10px;
+  padding: 2px;
+  float: left;
+  min-height: 1.5em;
+  background-color: beige;
+  border: solid 1px #606060;
+}
+
+.kakoi{
+  width: 222px;
+  padding: 5px 0;
+  border: 1px dashed gray;
+  border-radius: 10px;
+  margin-top: 30px !important;
+  margin-bottom: 40px !important;
+  height: 100%;
+}
+
+.size-18{
+  font-size: 18px;
+}
+
+.title-sortable{
+  padding-top: 7px;
+  padding-left: 7px;
+}
+
+.kakoi .none{
+  display: none;
+}
+
+.question-none .click-explanation{
+  display: none;
+}
+
+.w-80{
+  width: 80%;
+  margin: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.nav-link.color-orenge.active{
+  background-color: aliceblue !important;
+  border-color: #dee2e6 #dee2e6 aliceblue !important;
+}
+
+.nav-tabs .nav-link.color-orenge {
+  color: darkgray;
+}
+
+.f-10{
+  font-size: 10px;
+}
+
 @keyframes gnaviAnime{
 0% {
 opacity: 0;
@@ -594,6 +688,11 @@ opacity: 1;
     font-size: 1.2rem;
   }
 
+  .scroll {
+    height: 180px;
+    overflow-y: scroll;
+  }
+
 }
 @media(min-width: 550px){
   .font-size {
@@ -604,6 +703,39 @@ opacity: 1;
 @media(min-width: 575px){
   hr.m-0{
     display: none;
+  }
+
+  #jquery-ui-draggable-connectToSortable{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+}
+
+@media(max-width: 575px){
+  #jquery-ui-draggable-connectToSortable ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 15px 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 350px;
+    margin: auto;
+  }
+  #jquery-ui-draggable-connectToSortable li {
+    margin: 5px;
+    padding: 5px;
+    width: 330px;
+    margin: auto;
+    font-size: 0.9rem;
+  }
+
+  .jquery-ui-sortable {
+    margin-top: 0;
+  }
+
+  .kakoi{
+    margin-bottom: 15px !important;
   }
 }
 

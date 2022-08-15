@@ -1,6 +1,6 @@
 class Setting < ApplicationRecord
   belongs_to :user
-  has_many :contents
+  has_many :contents, dependent: :destroy
 
   enum setting_type: {
     home: 1,

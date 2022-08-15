@@ -2,64 +2,38 @@
 .pb-5 style="padding-bottom: 5rem"
   <!-- パネル部分 -->
   #pills-tabContent.tab-content
-    div class="tab-pane fade #{ "show active" if @show_active_page.blank? }" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
-      .row
-        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-          / 口座残高画面
-          = render partial: "bank_balance",
-            locals: { income_and_expenditure: @income_and_expenditure,
-                      current_income_and_expenditure: @current_income_and_expenditure}
-    
-          / ログイン中の収支
-          = render partial: "current_income_and_expenditure",
-            locals: { current_days: @current_days,
-                      current_month_incomes_sum: @current_sum[:incomes_sum],
-                      current_month_spending_sum: @current_sum[:spending_sum],
-                      current_month_computation: @current_sum[:computation] }
+    - if @settings.home.first.contents.present?
+      div class="tab-pane fade #{ "show active" if @show_active_page.blank? ||  @show_active_page == "home" }" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+        .row
+          .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+            - @settings.home.first.contents.each do |content|
+              = render partial: content.content_type,
+                locals: locals_date(content, @locals_date,content.setting.setting_type)
 
-          = render partial: "search", locals: { q: @q }
+    - if @settings.date.first.contents.present?
+      div class="tab-pane fade #{ "show active" if @show_active_page == "date" }" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+        .row
+          .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+            - @settings.date.first.contents.each do |content|
+              = render partial: content.content_type,
+                locals: locals_date(content, @locals_date,content.setting.setting_type)
 
-        / 収支の記録一覧
-        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-          = render 'list_of_details', current_days: @current_days
+    - if @settings.bank.first.contents.present?
+      div class="tab-pane fade #{ "show active" if @show_active_page == "bank" }" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"
+        .row
+          .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+            - @settings.bank.first.contents.each do |content|
+              = render partial: content.content_type,
+                locals: locals_date(content, @locals_date,content.setting.setting_type)
 
-    div class="tab-pane fade #{ "show active" if @show_active_page == "budget" }" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-      .row
-        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-          / 支出円グラフ
-          = render partial: "classify_spending", locals: { total_spending_list: @total_spending_list }
+    - if @settings.transition.first.contents.present?
+      #pills-template class="tab-pane fade #{ "show active" if @show_active_page == "transition" }" role="tabpanel" aria-labelledby="pills-contact-tab"
+        .row
+          .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+            - @settings.transition.first.contents.each do |content|
+              = render partial: content.content_type,
+                locals: locals_date(content, @locals_date,content.setting.setting_type)
 
-          / 予算のトータル
-          = render partial: "total_budget", locals: { current_sum: @current_sum }
-
-          / 種類別の予算プログレス、予算未設定の場合は画面をぼかす
-          div class="#{ "bokashi" unless current_budget.present? }"
-            = render partial: 'kinds_budget', locals: { total_spending_list: @total_spending_list }
-
-    div class="tab-pane fade #{ "show active" if @show_active_page == "template" }" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"
-      .row
-        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-          / 月の収入管理画面
-          = render partial: "current_salary"
-
-        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-          / テンプレート設定画面
-          = render partial: "template"
-    
-    #pills-template.tab-pane.fade role="tabpanel" aria-labelledby="pills-contact-tab"
-      .row
-        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-          .shadow.p-3.mb-5.bg-body.rounded
-            = render partial: "transition_balance"
-
-          .shadow.p-3.mb-5.bg-body.rounded
-            = render partial: 'transition_income_and_expenditure'
-
-          / .shadow.p-3.mb-5.bg-body.rounded
-          /   = render partial: 'expenses_list'
-          /   #month_list= render 'form_month_list',
-          /     current_user_month_list: @current_user_month_list,
-          /     current_income_and_expenditure: @current_income_and_expenditure
   / 右下にログイン中にに紐づく収入/支出の新規登録リンク(鉛筆マーク)
   .fixed-bottom.icon
     i.bi.bi-alarm-fill
@@ -69,16 +43,29 @@
   / ナビバーの部分
   ul#pills-tab.nav.nav-pills.fixed-bottom.navbar-light.justify-content-evenly.header[role="tablist"]
     li.nav-item[role="presentation"]
-      button#pills-home-tab class="nav-link link #{ "active" if @show_active_page.blank? }" type="button" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="#{ @show_active_page.blank? }"
+      button#pills-home-tab class="nav-link p-0 link #{ "active" if @show_active_page.blank? || @show_active_page == "home" }" type="button" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="#{ @show_active_page.blank? }"
         i.fas.fa-home.fa-lg
+        br
+        .f-10 ホーム
+ 
+    - if @settings.date.first.contents.present?
+      li.nav-item[role="presentation"]
+        button#pills-profile-tab class="nav-link p-0 link #{ "active" if @show_active_page == "date"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="#{ @show_active_page == "budget" }"
+          i.fas.fa-chart-pie.fa-lg
+          br
+          .f-10 グラフ
+
     li.nav-item[role="presentation"]
-      button#pills-profile-tab class="nav-link link #{ "active" if @show_active_page == "budget" }" type="button" data-bs-toggle="pill" data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="#{ @show_active_page == "budget" }"
-        i.fas.fa-chart-pie.fa-lg
-    li.nav-item[role="presentation"]
-      button#pills-contact-tab class="nav-link link #{ "active" if @show_active_page == "template" }" type="button" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="#{ @show_active_page == "template" }"
+      button#pills-contact-tab class="nav-link p-0 link #{ "active" if @show_active_page == "bank"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="#{ @show_active_page == "template" }"
         i.far.fa-clipboard.fa-lg
-    li.nav-item[role="presentation"]
-      button#pills-contact-tab class="nav-link link" type="button" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"
-        i.fas.fa-money-check-alt
+        br
+        .f-10 口座
+
+    - if @settings.transition.first.contents.present?
+      li.nav-item[role="presentation"]
+        button#pills-contact-tab class="nav-link p-0 link #{ "active" if @show_active_page == "transition"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"
+          i.fas.fa-money-check-alt
+          br
+          .f-10 推移
 
 

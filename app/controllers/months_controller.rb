@@ -1,7 +1,7 @@
 class MonthsController < ApplicationController
   def index
-    if session[:show_active_page].present?
-      @show_active_page = session[:show_active_page]
+    if session[:show_active_page].present? || params[:setting_type]
+      @show_active_page = session[:show_active_page] ||= params[:setting_type]
       session[:show_active_page] = nil
     end
     @page = params[:page]
@@ -17,6 +17,17 @@ class MonthsController < ApplicationController
     @income_and_expenditure = income_expenditure(@current_user_month_list,current_month.date_at)
     #ログイン中の年月の収支
     @current_income_and_expenditure = current_month.total(salary: true,income: true,spending: true)
+    @settings = current_user.settings.order(sort_order: :asc)
+
+    # 部分テンプレート生成用のためインスタンス変数をhashにまとめる
+    @locals_date = { 
+      current_days: @current_days,
+      current_user_month_list: @current_user_month_list,
+      total_spending_list: @total_spending_list,
+      current_sum: @current_sum,
+      income_and_expenditure: @income_and_expenditure,
+      current_income_and_expenditure: @current_income_and_expenditure,
+    }
   end
 
   # ajax用
@@ -80,6 +91,9 @@ class MonthsController < ApplicationController
     @current_user_month_list = current_user.months.order(date_at: "DESC").page(params[:page])
     #ログイン中の年月分までの収支のトータル
     @current_income_and_expenditure = current_month.total(salary: true,income: true,spending: true)
+  end
+
+  def current_salary
   end
 
 
