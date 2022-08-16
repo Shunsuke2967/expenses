@@ -64,8 +64,8 @@ ja:
         spending_chart_date: 総合支出円グラフ機能
         income_and_expenditure_transition: 収支推移(直近12ヶ月)機能
         bank_balance_transition: 口座残高推移表示機能
-        list_of_details: 一ヶ月の収支の記録一覧表の表示機能
-        current_income_and_expenditure: 一ヶ月の収支表示機能
+        list_of_details: 家計簿記録機能
+        current_income_and_expenditure: 収支表示機能
         current_salary: 収入設定機能
 
 

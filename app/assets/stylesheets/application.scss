@@ -657,6 +657,10 @@ td .size-sm.font-none{
   font-size: 10px;
 }
 
+.focus-none:focus-visible{
+  outline: none;
+}
+
 @keyframes gnaviAnime{
 0% {
 opacity: 0;
