@@ -9,10 +9,25 @@ class SessionsController < ApplicationController
     if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
       current_month_set
+      user.setting_prepare
       redirect_to root_url, notice: 'ログインしました'
     else
-      redirect_to sessions_path, notice: 'ログインできませんでした'
+      flash[:danger] = 'ログインできませんでした'
+      redirect_to sessions_path
     end  
+  end
+
+  def demo
+    user = User.demo_data_create
+    if user.valid?
+      session[:user_id] = user.id
+      current_month_set
+      user.setting_prepare
+      redirect_to root_url, notice: 'デモ画面にログインしました'
+    else
+      flash[:danger] = 'エラーが発生しデモ画面に入れませんでした'
+      redirect_to sessions_path
+    end
   end
 
 
