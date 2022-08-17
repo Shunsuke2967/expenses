@@ -1,0 +1,17 @@
+.modal-dialog.modal-dialog-centered.m-50.modal-dialog-scrollable
+  .modal-content
+    .modal-header
+      h3= I18n.t("activerecord.attributes.content.template") + "の使い方"
+      button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
+    .modal-body
+      h4 1.テンプレート機能とは
+      p テンプレートに支出・入金を登録するといつでも簡単に家計簿に追加することができる
+      p 使用する場面としては、毎月の定額の出費や入金、頻繁に金額を記録するなど。
+      .mb-3
+      h4 2.テンプレートを作成する方法(動画)
+      = video_tag "/videos/template.mp4", controls: true, muted: true, width: "100%",class: "index-video"
+      .mb-3
+      h4 2.家計簿に追加する方法(動画)
+      = video_tag "/videos/template_2.mp4", controls: true, muted: true, width: "100%",class: "index-video"
+
+      .mb-3

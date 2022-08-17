@@ -43,14 +43,14 @@ html
                     = link_to "新規登録", new_user_path, class: "nav-link fff"
                     hr.m-0     
                   li.nav-item
-                    = link_to "デモを覗く", "#", class: "nav-link fff"
+                    = link_to "デモを覗く", demo_sessions_path, class: "nav-link fff"
                     hr.m-0      
                 - if current_user.present?
                   li.nav-item
                     = link_to "家計簿一覧", expenses_list_months_path, class: "nav-link fff"
                     hr.m-0
                   li.nav-item
-                    = link_to "機能拡張", expansions_users_path, class: "nav-link fff"
+                    = link_to "カスタマイズ", expansions_users_path, class: "nav-link fff"
                     hr.m-0
                   li.nav-item
                     = link_to "ログアウト", current_user, method: :delete,data: { confirm: "ログアウトします。よろしいですか？" } , class: "nav-link fff"

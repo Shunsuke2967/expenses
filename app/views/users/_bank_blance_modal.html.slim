@@ -1,0 +1,19 @@
+.modal-dialog.modal-dialog-centered.m-50.modal-dialog-scrollable
+  .modal-content
+    .modal-header
+      h3= I18n.t("activerecord.attributes.content.bank_balance") + "の使い方"
+      button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
+    .modal-body
+      h4 1.表示内容の説明
+      p 
+        | ログインしている月までの口座残高が表示されます
+        br
+        | ※過去の月にログインしている場合はその月より先の収支は計算に含めません。
+      p 口座残高が表示されている右上には前月に比べて、いくら増えたもしくは減っているかが表示されます。
+      = image_tag "bank_balance.png", class: "w-100"
+      .mb-3
+      h4 2.追加機能①(口座残高推移表示)
+      p= I18n.t("activerecord.attributes.content.bank_balance") + "を画面を押すと下に口座残高推移を表示できます。"
+      p この表示は「口座残高推移表示機能」と同じなので、詳しい説明は口座残高推移表示機能の使い方をお読み下さい。
+      = image_tag "bank_balance_2.png", class: "w-100"
+      .mb-3

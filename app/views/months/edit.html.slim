@@ -9,6 +9,7 @@
         tr
           td
             = form_with model: @month do |f|
+              = hidden_field_tag :setting_type, params[:setting_type]
               .form-group
                 = f.label :salary, "収入１※入力必須"
                 = f.number_field :salary,class: 'form-control form-control-lg lg bottom-only text-right fs-20-imp', placeholder: "０円"
@@ -27,7 +28,7 @@
               .mb-5
               = f.submit '設定する',class: "btn btn-warning btn-lg form-control form-control-lg lg"
               .mb-2
-              = link_to 'キャンセル', root_path, class: 'btn btn-outline-warning btn-lg form-control form-control-lg lg'
+              = link_to 'キャンセル', root_path(setting_type: params[:setting_type]), class: 'btn btn-outline-warning btn-lg form-control form-control-lg lg'
               .mb-3
 
 

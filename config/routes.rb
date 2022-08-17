@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   end
 
   #session
-  resources :sessions, only: [:index,:create]
+  resources :sessions, only: [:index,:create] do
+    collection do
+      get :demo
+    end
+  end
 
   # day
   get '/days', to: 'days#new'

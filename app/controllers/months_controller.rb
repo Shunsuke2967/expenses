@@ -67,7 +67,7 @@ class MonthsController < ApplicationController
     @month = current_month
 
     if @month.update(salary_params)
-      session[:show_active_page] = :template
+      session[:show_active_page] = params[:setting_type]
       redirect_to root_url,notice: '収入金額を再設定しました'
     end
   end
