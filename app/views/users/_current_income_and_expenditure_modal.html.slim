@@ -1,7 +1,11 @@
-.modal-dialog.modal-dialog-centered
+.modal-dialog.modal-dialog-centered.m-50.modal-dialog-scrollable
   .modal-content
     .modal-header
-      h5= I18n.t("activerecord.attributes.content.current_income_and_expenditure") + "の使い方"
+      h3= I18n.t("activerecord.attributes.content.current_income_and_expenditure") + "の使い方"
       button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
     .modal-body
-      h6 1.表示内容の説明
+      h4 1.表示内容の説明
+      p ログインしている月すべての収入,支出,収支が表示されます。
+      p データは自動で計算し反映されます。
+      p アプリを入れた初期から標準で入っており、もともと入っているこの機能は削除できません(あとから追加した場合の機能は削除可能)。
+      = image_tag "current_income_and_expenditure.png", class: "w-100"

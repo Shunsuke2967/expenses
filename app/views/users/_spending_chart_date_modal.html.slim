@@ -1,7 +1,12 @@
-.modal-dialog.modal-dialog-centered
+.modal-dialog.modal-dialog-centered.m-50.modal-dialog-scrollable
   .modal-content
     .modal-header
-      h5= I18n.t("activerecord.attributes.content.spending_chart_date") + "の使い方"
+      h3= I18n.t("activerecord.attributes.content.spending_chart_date") + "の使い方"
       button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
     .modal-body
-      h6 1.表示内容の説明
+      h4 1.表示内容の説明
+      p カテゴリー別の支出の内訳が円グラフとして表示され、カテゴリー別に色で分かれています。
+      p 円グラフの内訳別に線が引いてあり、その先にその色の範囲に対応しているカテゴリー名が表示されています。
+      p 支出額の大きい順に時計回りで表示されます。
+      p 表示対象は支出のみなので、入金カテゴリーと収入として登録したデータはここには含まれません。
+      = image_tag "spending_chart_date.png", class: "w-100"

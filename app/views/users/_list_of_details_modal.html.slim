@@ -1,12 +1,19 @@
-.modal-dialog.modal-dialog-centered
+.modal-dialog.modal-dialog-centered.m-50.modal-dialog-scrollable
   .modal-content
     .modal-header
-      h5= I18n.t("activerecord.attributes.content.list_of_details") + "の使い方"
+      h3= I18n.t("activerecord.attributes.content.list_of_details") + "の使い方"
       button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
     .modal-body
-      h6 1.#{I18n.t("activerecord.attributes.content.list_of_details")}とは？
+      h4 1.#{I18n.t("activerecord.attributes.content.list_of_details")}とは？
+      p 家計簿アプリのメインの機能で、日々の収支を記録できます。
+      p 記録していくと「明細一覧」に記録した収支が表示されます。
+      p アプリを入れた初期から標準で入っており、もともと入っているこの機能は削除できません(あとから追加した場合の機能は削除可能)。
       .mb-3
-      h6 2.一覧に追加する方法(動画)
+      h4 2.一覧に追加する方法(動画)
+      p ※ 支出か、収入かは一番上の切り替えボタンで変更できます。
+      = video_tag "/videos/list_of_details.mp4", controls: true, muted: true, width: "100%",class: "index-video"
+
       .mb-3
-      h6 2.追加した記録を変更・削除する方法(動画)
+      h4 2.追加した記録を変更・削除する方法(動画)
+      = video_tag "/videos/list_of_details_2.mp4", controls: true, muted: true, width: "100%",class: "index-video"
       .mb-3

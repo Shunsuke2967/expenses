@@ -1,7 +1,11 @@
-.modal-dialog.modal-dialog-centered
+.modal-dialog.modal-dialog-centered.m-50.modal-dialog-scrollable
   .modal-content
     .modal-header
-      h5= I18n.t("activerecord.attributes.content.bank_balance_transition") + "の使い方"
+      h3= I18n.t("activerecord.attributes.content.bank_balance_transition") + "の使い方"
       button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
     .modal-body
-      h6 1.表示内容の説明
+      h4 1.表示内容の説明
+      p 口座残高の推移を月ごとに自動で記録され表示されます。
+      p 口座残高の計算方法は(収入　- 支出)で割り出されます。
+      p 家計簿の記録した月が多くなってきた場合は間隔をとって表示されます。
+      = image_tag "bank_balance_transition.png", class: "w-100"

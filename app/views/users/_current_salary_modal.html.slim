@@ -1,12 +1,23 @@
-.modal-dialog.modal-dialog-centered
+.modal-dialog.modal-dialog-centered.m-50.modal-dialog-scrollable
   .modal-content
     .modal-header
-      h5= I18n.t("activerecord.attributes.content.current_salary") + "の使い方"
+      h3= I18n.t("activerecord.attributes.content.current_salary") + "の使い方"
       button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
     .modal-body
-      h6 1.#{I18n.t("activerecord.attributes.content.current_salary")}とは？
+      h4 1.#{I18n.t("activerecord.attributes.content.current_salary")}とは？
+      p 毎月の給与を設定できます。
+      p
+      | 入力した値は家計簿に反映されます。
+      br
+      | ※ 明細一覧にはここで入力した収入は表示されませんが、家計簿にはしっかり反映されています。
+      p アプリを入れた初期から標準で入っており、もともと入っているこの機能は削除できません(あとから追加した場合の機能は削除可能)。
+      p 収入は最大4つまで設定可能です。
+      p 新しい月の家計簿を作成時にも同じように設定できます。
       .mb-3
-      h6 2.収入の設定方法(動画)
+      h4 2.収入の設定方法(動画)
+      = video_tag "/videos/current_salary.mp4", controls: true, muted: true, width: "100%",class: "index-video"
+
       .mb-3
-      h6 2.収入の表示方法
+      h4 2.収入の表示方法
+      = video_tag "/videos/current_salary_2.mp4", controls: true, muted: true, width: "100%",class: "index-video"
       .mb-3

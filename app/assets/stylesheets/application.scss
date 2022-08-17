@@ -661,6 +661,10 @@ td .size-sm.font-none{
   outline: none;
 }
 
+.modal-dialog.modal-dialog-centered.m-50{
+  padding-top: 60px;
+}
+
 @keyframes gnaviAnime{
 0% {
 opacity: 0;
@@ -743,3 +747,9 @@ opacity: 1;
   }
 }
 
+@media (min-width: 576px){
+  .modal-dialog.m-50 {
+    max-width: 50%;
+    margin: 1.75rem auto;
+  }
+}
