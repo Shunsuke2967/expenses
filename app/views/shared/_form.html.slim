@@ -6,7 +6,7 @@
     = form_with model: day, url: url, local: true do |f|
       = hidden_field_tag :setting_type, params[:setting_type]
       .switchArea
-        = f.check_box :spending, {checked: true}, "true", "false"
+        = f.check_box :spending, { checked: (day.new_record? ? true : day.spending ) }, "true", "false"
         = f.label :spending
           span
         div#swImg

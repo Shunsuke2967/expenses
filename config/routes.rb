@@ -44,7 +44,6 @@ Rails.application.routes.draw do
     collection do
      post 'search'
      get 'expenses_list'
-     get "current_salary"
     end
 
     member do

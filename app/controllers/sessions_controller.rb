@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :login_required
+  before_action :logined_skip, only: [:create,:index]
   def index
   end
 
@@ -10,6 +11,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       current_month_set
       user.setting_prepare
+      session[:demo] = nil
       redirect_to root_url, notice: 'ログインしました'
     else
       flash[:danger] = 'ログインできませんでした'
@@ -23,6 +25,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       current_month_set
       user.setting_prepare
+      session[:demo] = true
       redirect_to root_url, notice: 'デモ画面にログインしました'
     else
       flash[:danger] = 'エラーが発生しデモ画面に入れませんでした'
@@ -35,5 +38,9 @@ class SessionsController < ApplicationController
 
   def session_params
     params.require(:session).permit(:email,:password)
+  end
+
+  def logined_skip
+    redirect_to root_path if current_user.present?
   end
 end

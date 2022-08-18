@@ -1,12 +1,73 @@
 .main-container
-  = image_tag "6.png", class: "image"
-.mb-5
+  .mb-5
+  / h1.bold.ore-c.shadow オリジナルの家計簿が作れる
+  h2.title-f-c
+    | 私のかけいぼ
+  = image_tag "logo.png", class: "image"
+  .mb-3
 
-p.text-center ※このアプリは家計簿をつけて<br>視覚可するためのものです。
-.mb-5
+.text-center= link_to '無料で登録',new_user_path ,class: 'size-width btn btn-warning mb-10 w-100 c'
+.mb-3
+.text-center= link_to 'デモを覗いてみる',demo_sessions_path ,class: 'size-width btn btn-success mb-10 w-100 c'
 
-
-
-div.text-center = link_to '新規登録',new_user_path ,class: 'size-width btn btn-warning mb-10 w-100 c'
 br
-div.text-center = link_to 'ログインはこちら',sessions_path, class: "nav-link c"
+/ div.text-center= link_to 'ログインはこちら',sessions_path, class: "nav-link c"
+.mb-3
+.main-container
+  div.ss
+    h2.sub-h2.blue こんな悩みありませんか？
+  .mb-4
+  p
+    span.p-b 私
+    | にあった家計簿が見つからない...
+    br
+    | 機能がありすぎて
+    span.p-b 私
+    | には難しい...
+    br
+    | 飽き性な
+    span.p-b 私
+    | には家計簿なんて続かない...
+  .mb-5
+  div.ss
+    h2.title-f-c.sub-h2.kiiro
+      span.title-bg
+        | 
+        span.bug 私
+        | のかけいぼ
+      span.t-sm で
+      span.bug.red 解決
+  .mb-5
+  .flex
+    .item
+      .p-3.mb-5.bg-white.rounded-50.Regular.shadow.table.table-hover.text-left.ss
+        h3.title-f-c.b-solid 自分好みにカスタマイズ
+        p このアプリは、機能を追加したり削除したり、順番を入れ替えたりと好きなようにカスタマイズすることができます。自分だけの家計簿にしてみよう！
+        = image_tag "22946064.png", class: "image"
+      .mb-3
+    .item
+      .p-3.mb-5.bg-white.rounded-50.Regular.shadow.table.table-hover.text-left.ss
+        h3.title-f-c.b-solid 収支を自動でグラフ化
+        p 収入・支出を自動計算してグラフ化してお金の流れを見ることができます。いろいろな視点から見える化することで気付けることがあるのかも！？
+        = image_tag "22986787.png", class: "image"
+      .mb-3
+    .item 
+      .p-3.mb-5.bg-white.rounded-50.Regular.shadow.table.table-hover.text-left.ss
+        h3.title-f-c.b-solid 家計簿の記入が簡単
+        p 機能の中には記入を簡単にしてくれるものがたくさんあります。三日坊主で続かない...そんな悩みもこのアプリが解決してくれます。
+        = image_tag "22550956.jpg", class: "image-bg"
+      .mb-3
+    .item 
+      .p-3.mb-5.bg-white.rounded-50.Regular.shadow.table.table-hover.text-left.ss
+        h3.title-f-c.b-solid どこでも入力可能
+        p まだ紙に書いているんですか？ためにためたレシートで財布をパンパンにすることをもうありません。いつでもどこでも携帯片手に家計簿管理！
+        = image_tag "22941385.png", class: "image-bg"
+      .mb-5
+
+  h3.title-f-c
+    | 今すぐ！あなただけの
+    br
+    | 家計簿を見つけよう!
+  .mb-5
+  div.text-center= link_to '今すぐ始める',new_user_path ,class: 'size-width btn btn-warning mb-10 w-100 c'
+  .mb-5

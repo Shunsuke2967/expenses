@@ -20,9 +20,9 @@
             = tag.send("i", class: icon_selector(day.icon))
           td width="34%" = day.memo
           - unless day.spending
-            td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
+            td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_fs(:delimited)}"
           - else
-            td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
+            td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_fs(:delimited)}"
           td width="10%"
             = link_to edit_day_path(day)
               i.fas.fa-pencil-alt
