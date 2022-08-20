@@ -2,7 +2,7 @@ doctype html
 html
   head
     title
-      | Expenses
+      | 私のかけいぼ
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -10,8 +10,34 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0"
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Kosugi+Maru&display=swap" rel="stylesheet">
+    link rel="manifest" href="/manifest.json" 
+
+    / ios設定　
+    / ホームアイコン
+    / link rel="apple-touch-icon" href="apple-touch-icon57.png" sizes="57x57"
+    / link rel="apple-touch-icon" href="apple-touch-icon60.png" sizes="60x60"
+    / link rel="apple-touch-icon" href="apple-touch-icon114.png" sizes="114x114"
+
+    = favicon_link_tag 'logo-72.png', rel: "apple-touch-icon", type: "image/png"
+    = favicon_link_tag 'logo-96.png', rel: "apple-touch-icon", type: "image/png"
+    = favicon_link_tag 'logo-128.png', rel: "apple-touch-icon", type: "image/png"
+    = favicon_link_tag 'logo-144.png', rel: "apple-touch-icon", type: "image/png"
+    = favicon_link_tag 'logo-152.png', rel: "apple-touch-icon", type: "image/png"
+    = favicon_link_tag 'logo-192.png', rel: "apple-touch-icon", type: "image/png"
+
+
+
+
+    / スプラッシュ　起動までに表示されるやつ
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"
   body
     .kotei
       nav.header.navbar.navbar-expand-sm.header.navbar-dark
@@ -65,12 +91,12 @@ html
                 li.nav-item
                   = link_to "利用規約", terms_users_path, class: "nav-link fff"
                   hr.m-0
-      .container
-        #errors
-        - if flash.notice.present?
-          #hidden.alert.alert-success= flash.notice
-        - if flash[:danger].present?
-          #hidden.alert.alert-danger= flash[:danger]
-        = yield
+    .container
+      #errors
+      - if flash.notice.present?
+        #hidden.alert.alert-success= flash.notice
+      - if flash[:danger].present?
+        #hidden.alert.alert-danger= flash[:danger]
+      = yield
 
 
