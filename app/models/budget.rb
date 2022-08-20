@@ -15,7 +15,7 @@ class Budget < ApplicationRecord
 
   def item_budget(item_s)
     case item_s
-    when "家庭"
+    when "家賃"
       self.rent
     when "生活費"
       self.cost_of_living

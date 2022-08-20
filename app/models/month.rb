@@ -10,7 +10,7 @@ class Month < ApplicationRecord
 
   #すべての支出を項目別に合計したハッシュとすべての項目の合計値を返す(入金は外す)
   def days_total_spending
-    spending = self.days.group(:icon).sum(:money).sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h
+    spending = self.days.where(spending: true).group(:icon).sum(:money).sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h
     spending.delete("payment")
 
     item_name = Day.icons.keys

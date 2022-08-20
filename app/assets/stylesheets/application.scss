@@ -7,6 +7,75 @@ html {
   max-width: 250px;
 }
 
+.title-f-c:first-letter {
+  font-size: 150%;
+  color: #eb6100;
+}
+
+.p-b{
+  color: #eb6100;
+  font-size: 130%;
+}
+
+.ore{
+  color: #eb6100;
+}
+
+h2.blue {
+  position: relative;
+  padding: 1rem 2rem calc(1rem + 10px);
+  background: cadetblue;
+  font-size: calc(1rem + 0.9vw);
+}
+
+h2.kiiro {
+  position: relative;
+  padding: 1rem 2rem calc(1rem + 10px);
+  background: #fff100;
+  font-size: calc(1rem + 0.9vw);
+}
+
+h2.sub-h2:before {
+  position: absolute;
+  top: -7px;
+  left: -7px;
+  width: 100%;
+  height: 100%;
+  content: '';
+  border: 4px solid #000;
+}
+
+.b-solid {
+  border-bottom: 3px solid #000;
+}
+
+.bug.red{
+  color: red;
+}
+
+.bug{
+  font-size: 150%;
+  color: #eb6100;
+}
+
+.ss{
+  width: 90%;
+  margin: auto;
+}
+
+.shadow.table.table-hover.text-left.ss{
+  width: 90%;
+  margin: auto;
+}
+
+.t-sm{
+  font-size: 80%;
+}
+
+.rounded-50{
+  border-radius: 40px !important;
+}
+
 .pt-10 {
   padding-top: 10px !important;
 }
@@ -24,6 +93,18 @@ p.w-100.text-right.fs-07 {
 
 .nav-link.p-0 {
   padding: 0;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.ore-c{
+  color: #D6A802;
+}
+
+.shadow{
+  box-shadow: #555555;
 }
 
 .btn-warning.c {
@@ -525,7 +606,11 @@ button.btn.btn-outline-secondary.not-foucas-shadow:focus{
 }
 
 .image{
-  max-height: 400px;
+  max-height: 500px;
+}
+
+.image-bg{
+  max-height: 500px;
 }
 
 td .size-sm.font-none{
@@ -681,7 +766,11 @@ opacity: 1;
   }
 
   .image{
-    width: 100%;
+    width: 60%;
+  }
+
+  .image-bg{
+    width: 80%;
   }
 
   .wrapHINAGATA{

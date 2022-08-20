@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :login_required
-
+  before_action :logined_skip, only: [:new,:create,:index]
   def index
   end
 
@@ -16,6 +16,7 @@ class UsersController < ApplicationController
       @month = @user.months.create(date_at: Time.parse("#{date.year}/#{date.month}"))
       session[:user_id] = @user.id
       session[:month_id] = @month.id
+      session[:demo] = nil
       @user.setting_prepare
       redirect_to root_url, notice: '新規登録に成功しました'
     end
@@ -27,6 +28,7 @@ class UsersController < ApplicationController
     redirect_to root_url, notice: "ログアウトしました"
   end
 
+  # 利用規約
   def terms
   end
 
@@ -58,10 +60,13 @@ class UsersController < ApplicationController
     render :update_expansion
   end
 
-
   private
 
   def user_params
     params.require(:user).permit(:name,:email,:password,:password_confirmation)
+  end
+
+  def logined_skip
+    redirect_to root_path if current_user.present?
   end
 end

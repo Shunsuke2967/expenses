@@ -93,11 +93,6 @@ class MonthsController < ApplicationController
     @current_income_and_expenditure = current_month.total(salary: true,income: true,spending: true)
   end
 
-  def current_salary
-  end
-
-
-
   private
 
   def salary_params
