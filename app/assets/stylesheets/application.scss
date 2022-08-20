@@ -202,8 +202,9 @@ body {
   width: initial;
 }
 
-.fixed-bottom {
+.header.fixed-bottom {
     padding: 10px;
+    z-index: 800;
 }
 
 .fixed-bottom.icon {
@@ -624,7 +625,7 @@ td .size-sm.font-none{
     position: sticky;
     position: -webkit-sticky;
     top: 0;
-    z-index: 3000;
+    z-index: 900;
 }
 
 .m-0{
