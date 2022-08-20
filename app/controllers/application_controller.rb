@@ -41,11 +41,11 @@ class ApplicationController < ActionController::Base
 
 
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+    @current_user ||= User.includes(months: :days).find_by(id: session[:user_id]) if session[:user_id]
   end
 
   def current_month
-    @current_month ||= Month.find_by(id: session[:month_id]) if session[:month_id]
+    @current_month ||= Month.includes(:days).find_by(id: session[:month_id]) if session[:month_id]
   end
 
   def current_budget
