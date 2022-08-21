@@ -2,27 +2,99 @@ doctype html
 html
   head
     title
-      | Expenses
+      | 私のかけいぼ
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0"
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Kosugi+Maru&display=swap" rel="stylesheet">
-  body style="padding-bottom: 5rem"
-    .header.navbar.navbar-expand-sm.header.navbar-dark
-      .container
-        = link_to "家計簿",root_path, class: "navbar-brand"
-        ul.navbar-nav
-          - if current_user
-            li.nav-item.text-white #{current_month.month_at.year}年#{current_month.month_at.month}月
+    link rel="preconnect" href="https://fonts.googleapis.com"
+    link rel="manifest" href="/manifest.json" 
+
+    / ios設定　
+    / ホームアイコン
+    / link rel="apple-touch-icon" href="apple-touch-icon57.png" sizes="57x57"
+    / link rel="apple-touch-icon" href="apple-touch-icon60.png" sizes="60x60"
+    / link rel="apple-touch-icon" href="apple-touch-icon114.png" sizes="114x114"
+
+    = favicon_link_tag 'logo-72.png', rel: "apple-touch-icon", type: "image/png"
+    = favicon_link_tag 'logo-96.png', rel: "apple-touch-icon", type: "image/png"
+    = favicon_link_tag 'logo-128.png', rel: "apple-touch-icon", type: "image/png"
+    = favicon_link_tag 'logo-144.png', rel: "apple-touch-icon", type: "image/png"
+    = favicon_link_tag 'logo-152.png', rel: "apple-touch-icon", type: "image/png"
+    = favicon_link_tag 'logo-192.png', rel: "apple-touch-icon", type: "image/png"
+
+
+
+
+    / スプラッシュ　起動までに表示されるやつ
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"
+    link rel="apple-touch-startup-image" href="logo-512.png" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"
+  body
+    .kotei
+      nav.header.navbar.navbar-expand-sm.header.navbar-dark
+        .container
+          - if current_user.present?
+            = link_to root_path, class: "navbar-brand" do 
+              = "#{current_month.date_at.month}"
+              | 月
+              span.t-s の
+              span.ore か
+              | けいぼ
+              -if current_demo.present?
+                | (デモ環境)
+          - else 
+            = link_to root_path, class: "navbar-brand"
+              span.ore 私
+              span.t-s の
+              | か
+              | けいぼ
+          button.navbar-toggler type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+            span.navbar-toggler-icon
+          #offcanvasRight.offcanvas.offcanvas-end.header.w-none tabindex="-0.1" aria-labelledby="offcanvasRightLabel"
+            .offcanvas-header
+              h5.navbar-brand メニュー
+              button.btn-close.text-reset type="button" data-bs-dismiss="offcanvas" aria-label="Close"
+            .offcanvas-body
+              ul.navbar-nav
+                li.nav-item
+                  = link_to "ホーム", root_path, class: "nav-link fff", "aria-current": "page"
+                  hr.m-0
+                - if current_user.blank?
+                  li.nav-item
+                    = link_to "ログイン", sessions_path, class: "nav-link fff"
+                    hr.m-0
+                  li.nav-item
+                    = link_to "新規登録", new_user_path, class: "nav-link fff"
+                    hr.m-0     
+                  li.nav-item
+                    = link_to "デモを覗く", demo_sessions_path, class: "nav-link fff"
+                    hr.m-0      
+                - if current_user.present?
+                  li.nav-item
+                    = link_to "家計簿一覧", expenses_list_months_path, class: "nav-link fff"
+                    hr.m-0
+                  li.nav-item
+                    = link_to "カスタマイズ", expansions_users_path, class: "nav-link fff"
+                    hr.m-0
+                  li.nav-item
+                    = link_to "ログアウト", current_user, method: :delete,data: { confirm: "ログアウトします。よろしいですか？" } , class: "nav-link fff"
+                    hr.m-0
+                li.nav-item
+                  = link_to "利用規約", terms_users_path, class: "nav-link fff"
+                  hr.m-0
     .container
       #errors
       - if flash.notice.present?
-        .alert.alert-success= flash.notice
+        #hidden.alert.alert-success= flash.notice
+      - if flash[:danger].present?
+        #hidden.alert.alert-danger= flash[:danger]
       = yield
 
 

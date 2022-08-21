@@ -2,6 +2,7 @@
 
 
 
-$(function(){
-  setTimeout("$('.flash').fadeOut('slow')", 2000);
-});
+// $(function(){
+//   setTimeout("$('#hidden.alert.alert-success').fadeOut('slow')", 2000);
+// });
+//= require serviceworker-companion

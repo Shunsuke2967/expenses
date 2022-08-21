@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user,:current_month,:current_month_set,:donut_chart_color_set,:budget_set
+  helper_method :current_user,:current_month,:current_month_set,:donut_chart_color_set,:budget_set,:current_budget,:template_html,:current_demo
   before_action :login_required
   # rescue_from Exception,                        with: :render_500
   # rescue_from ActiveRecord::RecordNotFound,     with: :render_404
@@ -41,20 +41,28 @@ class ApplicationController < ActionController::Base
 
 
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+    @current_user ||= User.includes(months: :days).find_by(id: session[:user_id]) if session[:user_id]
   end
 
   def current_month
-    @current_month ||= Month.find_by(id: session[:month_id]) if session[:month_id]
+    @current_month ||= Month.includes(:days).find_by(id: session[:month_id]) if session[:month_id]
+  end
+
+  def current_budget
+    @current_budgets ||= current_month.budget
+  end
+
+  def current_demo
+    @demo ||= session[:demo]
   end
 
   def current_month_set
-    month = current_user.months.order(month_at: "DESC").first
+    month = current_user.months.order(date_at: "DESC").first
 
     if month
       session[:month_id] = month.id
     else
-      month = current_user.months.new(month_at: Time.zone.now)
+      month = current_user.months.new(date_at: Time.zone.now)
       if month.save
         session[:month_id] = month.id
       end
@@ -88,6 +96,4 @@ class ApplicationController < ActionController::Base
 
     return color_options
   end
-
-
 end

@@ -1,0 +1,12 @@
+.modal-dialog.modal-dialog-centered.m-50.modal-dialog-scrollable
+  .modal-content
+    .modal-header
+      h3= I18n.t("activerecord.attributes.content.income_and_expenditure_transition") + "の使い方"
+      button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
+    .modal-body
+      h4 1.表示内容の説明
+      p 直近12ヶ月分の収支の推移が確認できます
+      p 12ヶ月分より以前の記録は表示されません
+      p 黒い線が収支の平均を表し、青い線が各月の収支を表します。
+      p 収支額を見たいときには線に表示されている丸を押すと金額が表示されます。
+      = image_tag "income_and_expenditure_transition.png", class: "w-100"

@@ -1,12 +1,13 @@
 class BudgetsController < ApplicationController
   def edit
-    @budget = current_month.budgets.find(params[:id])
+    @budget = current_month.budget
   end
 
   def update
-    @budget = current_month.budgets.find(params[:id])
+    @budget = current_month.budget
 
     if @budget.update(budget_params)
+      session[:show_active_page] = params[:setting_type]
       redirect_to root_url,notice: "予算費を再設定しました"
     else
       render :edit
@@ -18,13 +19,14 @@ class BudgetsController < ApplicationController
   end
 
   def new
-    @budget = current_month.budgets.new
+    @budget = current_month.build_budget
   end
 
   def create
-    @budget = current_month.budgets.new(budget_params)
+    @budget = current_month.build_budget(budget_params)
 
     if @budget.save
+      session[:show_active_page] = params[:setting_type]
       redirect_to root_url, notice: "予算費を設定しました"
     else
       render :new
