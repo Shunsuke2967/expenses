@@ -6,7 +6,10 @@ class TemplatesController < ApplicationController
   def create
    @template = current_user.templates.new(template_params)
     if @template.save
+      session[:show_active_page] = params[:setting_type]
       redirect_to root_path, notice: 'テンプレートに追加しました'
+    else
+      render :new
     end
   end
 
@@ -18,7 +21,10 @@ class TemplatesController < ApplicationController
     @template = current_user.templates.find(params[:id])
 
     if @template.update(template_params)
+      session[:show_active_page] = params[:setting_type]
       redirect_to root_url, notice: 'テンプレートを変更しました'
+    else
+      render :edit
     end
   end
 
@@ -26,8 +32,8 @@ class TemplatesController < ApplicationController
     @template = current_user.templates.find(params[:id])
   end
 
-  def createadd
-   @day = current_user.months.find(current_month.id).days.new(template_day_params)
+  def create_add
+    @day = current_user.months.find(current_month.id).days.new(template_day_params)
     if @day.save
       redirect_to root_path, notice: '追加しました'
     end
@@ -38,18 +44,42 @@ class TemplatesController < ApplicationController
     @template.destroy
 
     redirect_to root_url, notice: "テンプレートを削除しました"
-
   end
 
+  def day_select
+    if params[:ids].present?
+      @templates = current_user.templates.where(id: params[:ids])
+    else
+      logger.debug(params)
+      session[:show_active_page] = params[:setting_type]
+      flash[:danger] = '一つ以上選択してください'
+      redirect_to root_path
+    end
+  end
+
+  def days_create
+    if params[:date_at].present?
+      if current_month.days_create(params[:date_at])
+        session[:show_active_page] = params[:setting_type]
+        redirect_to root_url, notice: "収支一覧表に追加しました"
+      else
+        flash[:danger] = "追加時にエラーが発生しました"
+        redirect_to root_url
+      end
+    else
+      flash[:danger] = "対象が見つかりません"
+      redirect_to root_url
+    end
+  end
 
   private
 
   def template_params
-    params.require(:template).permit(:icon,:memo,:income_and_outgo,:money)
+    params.require(:template).permit(:icon,:memo,:spending,:money)
   end
 
   def template_day_params
-    params.require(:template).permit(:day_at,:icon,:memo,:income_and_outgo,:money)
+    params.require(:template).permit(:day_at,:icon,:memo,:spending,:money)
   end
 
 end

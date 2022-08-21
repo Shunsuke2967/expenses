@@ -7,6 +7,75 @@ html {
   max-width: 250px;
 }
 
+.title-f-c:first-letter {
+  font-size: 150%;
+  color: #eb6100;
+}
+
+.p-b{
+  color: #eb6100;
+  font-size: 130%;
+}
+
+.ore{
+  color: #eb6100;
+}
+
+h2.blue {
+  position: relative;
+  padding: 1rem 2rem calc(1rem + 10px);
+  background: cadetblue;
+  font-size: calc(1rem + 0.9vw);
+}
+
+h2.kiiro {
+  position: relative;
+  padding: 1rem 2rem calc(1rem + 10px);
+  background: #fff100;
+  font-size: calc(1rem + 0.9vw);
+}
+
+h2.sub-h2:before {
+  position: absolute;
+  top: -7px;
+  left: -7px;
+  width: 100%;
+  height: 100%;
+  content: '';
+  border: 4px solid #000;
+}
+
+.b-solid {
+  border-bottom: 3px solid #000;
+}
+
+.bug.red{
+  color: red;
+}
+
+.bug{
+  font-size: 150%;
+  color: #eb6100;
+}
+
+.ss{
+  width: 90%;
+  margin: auto;
+}
+
+.shadow.table.table-hover.text-left.ss{
+  width: 90%;
+  margin: auto;
+}
+
+.t-sm{
+  font-size: 80%;
+}
+
+.rounded-50{
+  border-radius: 40px !important;
+}
+
 .pt-10 {
   padding-top: 10px !important;
 }
@@ -22,6 +91,21 @@ p.w-100.text-right.fs-07 {
   width: 100%;
 }
 
+.nav-link.p-0 {
+  padding: 0;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.ore-c{
+  color: #D6A802;
+}
+
+.shadow{
+  box-shadow: #555555;
+}
 
 .btn-warning.c {
   background-color: #D6A802;
@@ -96,24 +180,38 @@ p.w-100.text-right.fs-07 {
 
 body {
   font-size: 1rem;
-  font-family: 'Hina Mincho', serif;
-  font-family: 'Kosugi Maru', sans-serif;
+  font-family: 'Kosugi Maru', sans-serif !important;
   line-height: 1.7;
   color: #432;
+  background-color: aliceblue !important;
 }
 
 .header{
-  background: #D6A802;
+  background-color: #D6A802;
 }
 
-.fixed-bottom {
+.header .offcanvas-header {
+  background-color: #D6A802;
+}
+
+.header .offcanvas-body {
+  background-color: #D6A802;
+}
+
+#offcanvasRight.offcanvas.offcanvas-end.header.w-none{
+  width: initial;
+}
+
+.header.fixed-bottom {
     padding: 10px;
+    z-index: 800;
 }
 
 .fixed-bottom.icon {
     margin-bottom: 60px;
     margin-right: 5px;
     text-align: right;
+    z-index: 1;
 }
 .nav-pills.fixed-bottom .nav-link.active, .nav-pills .show > .nav-link {
     color: initial;
@@ -144,27 +242,28 @@ body {
   display        : block;               /* ボックス要素に変更 */
   box-sizing     : border-box;          /* 枠線を含んだサイズ */
   height         : 72px;                /* ボタンの高さ       */
-  border         : 2px solid #DA5019;   /* 未選択タブのの枠線 */
+  border         : 2px solid #4094be;   /* 未選択タブのの枠線 */
   border-radius  : 36px;                /* 角丸               */
 }
 
  /* === チェックボックスのラベル（ONのとき） ================ */
 .switchArea input[type="checkbox"]:checked +label {
-  border-color   : #4094be;              /* 選択タブの枠線     */
+  color          : #DA5019;             /* 文字色             */
+  border         : 2px solid #DA5019;   /* 未選択タブのの枠線 */
 }
 
  /* === 表示する文字（標準） ================================ */
 .switchArea label span:after{
-  content        : "支出";               /* 表示する文字       */
+  content        : "収入";               /* 表示する文字       */
   padding        : 0 0 0 43px;          /* 表示する位置       */
-  color          : #DA5019;             /* 文字色             */
+  color          : #4094be;             /* 文字色             */
 }
 
  /* === 表示する文字（ONのとき） ============================ */
 .switchArea  input[type="checkbox"]:checked + label span:after{
-  content        : "収入";                /* 表示する文字       */
+  content        : "支出";                /* 表示する文字       */
   padding        : 0 43px 0 0;          /* 表示する位置       */
-  color          : #4094be;             /* 文字色             */
+  color          : #DA5019;             /* 文字色             */
 }
 
  /* === 丸部分のSTYLE（標準） =============================== */
@@ -172,7 +271,7 @@ body {
   position       : absolute;            /* 親要素からの相対位置*/
   width          : 64px;                /* 丸の横幅           */
   height         : 64px;                /* 丸の高さ           */
-  background     : #DA5019;             /* カーソルタブの背景 */
+  background     : #4094be;             /* カーソルタブの背景 */
   top            : 4px;                 /* 親要素からの位置   */
   left           : 4px;                 /* 親要素からの位置   */
   border-radius  : 32px;                /* 角丸               */
@@ -183,7 +282,7 @@ body {
 .switchArea input[type="checkbox"]:checked ~ #swImg {
   will-change: transform;
   transform      : translateX(133px);    /* 丸も右へ移動       */
-  background     : #4094be;              /* カーソルタブの背景 */
+  background     : #DA5019;              /* カーソルタブの背景 */
 }
 
 .switchArea {transform: translate3d(0,0,0);}
@@ -222,6 +321,14 @@ button.nav-link{
 
 a.icon-nav{
   color: red;
+  transition:0.4s all;
+}
+
+a.icon-nav:hover{
+  color: red;
+  font-size: 18px;
+  transform:scale(1.2,1.2);
+  transition:0.4s all;
 }
 
 .nav-link.link:hover, .nav-link.link:focus {
@@ -277,6 +384,10 @@ span.s_right{
   float: right;
 }
 
+.f-right{
+  float: right;
+}
+
 p.s_right{
   margin-top: 0;
   margin-bottom: initial;
@@ -296,39 +407,39 @@ p .svg-inline--fa.fa-w-14 {
 }
 
 .int-color-blue{
-  color: #4094be;
+  color: #4094be !important;
 }
 
 .int-color-red{
-  color: #DA5019;
+  color: #DA5019 !important;
 }
 
 .icon-color-gray{
-  color: #8d8d8d;
+  color: #8d8d8d !important;
 }
 
 .icon-color-red{
-  color: #DA5019;
+  color: #DA5019 !important;
 }
 
 .icon-color-green{
-  color: #20990e;
+  color: #20990e !important;
 }
 
 .icon-color-lightblue{
-  color:#4094be;
+  color:#4094be !important;
 }
 
 .icon-color-yellow{
-  color: #ddb500;
+  color: #ddb500 !important;
 }
 
 .icon-color-violet {
-  color: blueviolet;
+  color: blueviolet !important;
 }
 
 .icon-color-violetgreen {
-  color: darkolivegreen;
+  color: darkolivegreen !important;
 }
 
 .gray{
@@ -381,13 +492,14 @@ input[type=text].costom {
 	// margin-right: 0;
 	margin-bottom: 20px;
 	padding: 10px;
-	width: 90%;
-	height: 40px;
+	width: 60%;
+	height: 30px;
 	font-size: 100%;
 	box-sizing: border-box;
 	border-radius: 5px 5px 5px 5px;
 	border: 1px solid #ccc;
 	// border-right: none;
+  padding-bottom: 13px;
 }
 input[type=submit].costom  {
 	-webkit-appearance: none;
@@ -443,17 +555,242 @@ table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay {
   text-align: center;
 }
 
+// ぼかすため
+.bokashi {
+  filter: blur(2px);
+}
+
+// ホバー時に暗くするアニメーション無効
+.table-hover > tbody > tr:hover > .table-hover-none {
+  --bs-table-accent-bg: initial;
+  color: initial;
+}
+
+.margin-right-4{
+  margin-right: 4px;
+}
+
+.form-inline{
+  display: inline;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.dis-in{
+  display: inline;
+}
+
+.display-none{
+  display: none;
+}
+
+.w-100{
+  width: 100%;
+}
+
+.day_search{
+  display: inline;
+}
+
+// フォーカス中に影が出ないようにする
+button.btn.btn-outline-secondary.not-foucas-shadow:focus{
+  box-shadow: initial;
+}
+
+// テーブルホバー時アイコンが黒くなるのを防ぐ
+.table-hover > tbody > tr:hover > * {
+  color: initial;
+}
+
+.main-container{
+  text-align: center;
+}
+
+.image{
+  max-height: 500px;
+}
+
+.image-bg{
+  max-height: 500px;
+}
+
+td .size-sm.font-none{
+  height: 0;
+  font-size: initial;
+  padding: 0rem 2.25rem 0rem 0.75rem;
+  background-size: 10px 10px;
+}
+
+.kotei{
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 900;
+}
+
+.m-0{
+  margin: 0px;
+}
+
+.navbar-dark .navbar-toggler{
+  border: none;
+}
+
+.navbar-toggler:focus{
+  box-shadow: initial !important;
+}
+
+// .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
+//   color: #fff !important;
+// }
+
+.navbar-dark .navbar-nav .nav-link.fff {
+  color: #fff ;
+}
+
+.t-s{
+  font-size: 16px;
+}
+
+.table > :not(:first-child) {
+  border-top: none !important;
+}
+
+.ui-state-default{
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6 50% 50% repeat-x;
+  font-weight: normal;
+  color: #555555;
+}
+
+.draglist {
+  background-color: #f9f9f9;
+  border: dotted 2px #F15A24;
+  height: 34px;
+}
+
+#jquery-ui-draggable-connectToSortable ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 15px 5px;
+  margin-bottom: 10px;
+  width: 450px;
+  border-radius: 10px;
+}
+#jquery-ui-draggable-connectToSortable li {
+  margin: 5px;
+  padding: 5px;
+  width: 400px;
+  margin: auto;
+}
+
+.jquery-ui-sortable {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  list-style-type: none;
+  border-radius: 10px;
+  padding: 2px;
+  float: left;
+  min-height: 1.5em;
+  background-color: beige;
+  border: solid 1px #606060;
+}
+
+.kakoi{
+  width: 222px;
+  padding: 5px 0;
+  border: 1px dashed gray;
+  border-radius: 10px;
+  margin-top: 30px !important;
+  margin-bottom: 40px !important;
+  height: 100%;
+}
+
+.size-18{
+  font-size: 18px;
+}
+
+.title-sortable{
+  padding-top: 7px;
+  padding-left: 7px;
+}
+
+.kakoi .none{
+  display: none;
+}
+
+.question-none .click-explanation{
+  display: none;
+}
+
+.w-80{
+  width: 80%;
+  margin: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.nav-link.color-orenge.active{
+  background-color: aliceblue !important;
+  border-color: #dee2e6 #dee2e6 aliceblue !important;
+}
+
+.nav-tabs .nav-link.color-orenge {
+  color: darkgray;
+}
+
+.f-10{
+  font-size: 10px;
+}
+
+.focus-none:focus-visible{
+  outline: none;
+}
+
+.modal-dialog.modal-dialog-centered.m-50{
+  padding-top: 60px;
+}
+
+@keyframes gnaviAnime{
+0% {
+opacity: 0;
+}
+100% {
+opacity: 1;
+}
+}
+
+//スマホ対応
 @media (max-width: 550px){
   .stay {
     font-size: 0.9rem;
   }
 
-  .main-container{
-    background-image: url("6.png") ;
-    min-height: 40vh;
-    background-size: cover;
-    background-position: center top;
+  .image{
+    width: 60%;
   }
+
+  .image-bg{
+    width: 80%;
+  }
+
+  .wrapHINAGATA{
+    font-size: 0.8rem;
+  }
+
+  .wrapHINAGATA h1{
+    font-size: 1.5rem;
+  }
+
+  .wrapHINAGATA h2{
+    font-size: 1.2rem;
+  }
+
+  .scroll {
+    height: 180px;
+    overflow-y: scroll;
+  }
+
 }
 @media(min-width: 550px){
   .font-size {
@@ -461,3 +798,48 @@ table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay {
   }
 }
 
+@media(min-width: 575px){
+  hr.m-0{
+    display: none;
+  }
+
+  #jquery-ui-draggable-connectToSortable{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+}
+
+@media(max-width: 575px){
+  #jquery-ui-draggable-connectToSortable ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 15px 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 350px;
+    margin: auto;
+  }
+  #jquery-ui-draggable-connectToSortable li {
+    margin: 5px;
+    padding: 5px;
+    width: 330px;
+    margin: auto;
+    font-size: 0.9rem;
+  }
+
+  .jquery-ui-sortable {
+    margin-top: 0;
+  }
+
+  .kakoi{
+    margin-bottom: 15px !important;
+  }
+}
+
+@media (min-width: 576px){
+  .modal-dialog.m-50 {
+    max-width: 50%;
+    margin: 1.75rem auto;
+  }
+}

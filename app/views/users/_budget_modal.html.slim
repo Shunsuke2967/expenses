@@ -1,0 +1,16 @@
+.modal-dialog.modal-dialog-centered.m-50.modal-dialog-scrollable
+  .modal-content
+    .modal-header
+      h3= I18n.t("activerecord.attributes.content.budget") + "の使い方"
+      button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
+    .modal-body
+      h4 1.予算の設定をする方法(動画)
+      = video_tag "/videos/budget.mp4", controls: true, muted: true, width: "100%",class: "index-video"
+      
+      .mb-3
+      h4 2.予算を設定したあとの使い方
+      p 設定した予算額とログインしている月の支出額から残り金額と何％かを表示してくれます。
+      p 表示分類として各支出のカテゴリーとすべての支出額を合わせた合計があります。
+      p 予算金額を変えたい場合は左上の「予算の再設定」を押してください。
+      = image_tag "budget.png", class: "w-100"
+      .mb-3

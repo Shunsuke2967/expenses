@@ -1,0 +1,31 @@
+table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left
+  tbody
+    tr
+      td
+        h6 今月の収支
+        .mb-3
+        p
+          span.s_margin_left.gray
+            | 収入
+          span.s_right.s_margin_right.int-color-blue
+            | #{current_month_incomes_sum.to_s(:delimited)}円　
+        p
+          span.s_margin_left.gray
+            | 支出
+          span.s_right.s_margin_right.int-color-red
+            | #{current_month_spending_sum.to_s(:delimited)}円　
+        hr width="100%"
+        - if current_month_computation.positive? 
+          p
+            span.s_margin_left.gray
+              | 収支
+            span.s_right.s_margin_right.icon-blue
+              | +#{current_month_computation.to_s(:delimited)}円　
+              i.fas.fa-angle-double-up.icon-blue
+        - else
+          p
+            span.s_margin_left.gray
+              | 収支
+            span.s_right.s_margin_right.icon-red
+              | #{current_month_computation.to_s(:delimited)}円　
+              i.fas.fa-angle-double-down.icon-red

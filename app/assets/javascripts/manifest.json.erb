@@ -1,0 +1,52 @@
+<% icon_sizes = Rails.configuration.serviceworker.icon_sizes %>
+{
+  "name": "My Progressive Rails App",
+  "short_name": "Progressive",
+  "start_url": "/",
+  "icons": [
+      {
+        "src": "<%= image_path "logo-72.png" %>",
+        "sizes": "72x72",
+        "type": "image/png"
+      },
+      {
+        "src": "<%= image_path "logo-96.png" %>",
+        "sizes": "96x96",
+        "type": "image/png"
+      },
+      {
+        "src": "<%= image_path "logo-128.png" %>",
+        "sizes": "128x128",
+        "type": "image/png"
+      },
+      {
+        "src": "<%= image_path "logo-144.png" %>",
+        "sizes": "144x144",
+        "type": "image/png"
+      },
+      {
+        "src": "<%= image_path "logo-152.png" %>",
+        "sizes": "152x152",
+        "type": "image/png"
+      },
+      {
+        "src": "<%= image_path "logo-192.png" %>",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "<%= image_path "logo-384.png" %>",
+        "sizes": "384x384",
+        "type": "image/png"
+      },
+      {
+        "src": "<%= image_path "logo-512.png" %>",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#FFFFFF",
+  "display": "fullscreen",
+  "orientation": "portrait"
+}
