@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email,presence: true,uniqueness: true
   validates :password, confirmation: true
+  validates :demo, inclusion: {in: [true, false]}
 
 
   # settingがすべてない場合は作成する
@@ -57,7 +58,8 @@ class User < ApplicationRecord
       name: "demo",
       email: SecureRandom.hex(10) + "@" + Date.current.to_s + ".jp",
       password: "password",
-      password_confirmation: "password"
+      password_confirmation: "password",
+      demo: true
     )
 
 

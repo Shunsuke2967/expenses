@@ -9,9 +9,7 @@ html
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0"
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Kosugi+Maru&display=swap" rel="stylesheet">
+    link rel="preconnect" href="https://fonts.googleapis.com"
     link rel="manifest" href="/manifest.json" 
 
     / ios設定　
@@ -53,9 +51,9 @@ html
                 | (デモ環境)
           - else 
             = link_to root_path, class: "navbar-brand"
-              | 私
+              span.ore 私
               span.t-s の
-              span.ore か
+              | か
               | けいぼ
           button.navbar-toggler type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
             span.navbar-toggler-icon
