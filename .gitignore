@@ -55,10 +55,6 @@ node_modules/
 yarn-debug.log*
 .yarn-integrity
 
-<<<<<<< HEAD
 /public/assets
 
 /config/master.key
-=======
-/public/assets
->>>>>>> c24edbad4fe4cff2a3b861923b43206bbed4d9c5
