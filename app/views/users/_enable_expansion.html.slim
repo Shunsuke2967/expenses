@@ -8,5 +8,5 @@
       = tag.send("li",class: "ui-state-default", "data-content-type" => "#{content.content_type}", "data-fix" => "#{content.fix}" )
         = I18n.t("activerecord.attributes.content.#{content.content_type}") + (content.fix ? "" : "(削除不可)")
         - if content.fix
-          = link_to 'javascript:void(0);', class:'icon-nav f-right click-delete',"data-id" => content.id
+          = link_to 'javascript:void(0);', class:'icon-nav-gray f-right click-delete',"data-id" => content.id
             i.far.fa-trash-alt.none
