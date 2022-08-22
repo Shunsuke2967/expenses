@@ -20,7 +20,7 @@ import "./flash.js"
 import "./search.js"
 import "./template.js"
 import "./sorttable.js"
-require("@fortawesome/fontawesome-free/js/all")
+import '@fortawesome/fontawesome-free/js/all'
 
 require("chartkick").use(require("highcharts"))
 
