@@ -791,6 +791,12 @@ opacity: 1;
     overflow-y: scroll;
   }
 
+  .form-inline{
+    display: inline;
+    margin-right: 12px;
+    margin-left: 12px;
+  }
+
 }
 @media(min-width: 550px){
   .font-size {
