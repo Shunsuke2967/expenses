@@ -31,9 +31,7 @@ nav
             | ※ 
             i.far.fa-question-circle
             | を押すと機能の説明が見れます
-
-        .scroll
-          = render partial: "shared/expansions_list", locals: { content_type: "home" }
+        = render partial: "shared/expansions_list", locals: { content_type: "home" }
       #enable-expansion-1= render partial: "enable_expansion", locals: { setting: @settings.home.first }
     </div>
   </div>
@@ -49,8 +47,7 @@ nav
             | ※ 
             i.far.fa-question-circle
             | を押すと機能の説明が見れます
-        .scroll
-          = render partial: "shared/expansions_list", locals: { content_type: "date" }
+        = render partial: "shared/expansions_list", locals: { content_type: "date" }
       #enable-expansion-2= render partial: "enable_expansion", locals: { setting: @settings.date.first }
     </div>
   </div>
@@ -66,8 +63,7 @@ nav
             | ※ 
             i.far.fa-question-circle
             | を押すと機能の説明が見れます
-        .scroll
-         = render partial: "shared/expansions_list", locals: { content_type: "bank" }
+        = render partial: "shared/expansions_list", locals: { content_type: "bank" }
       #enable-expansion-3= render partial: "enable_expansion", locals: { setting: @settings.bank.first }
     </div>
   </div>
@@ -83,8 +79,7 @@ nav
             | ※ 
             i.far.fa-question-circle
             | を押すと機能の説明が見れます
-        .scroll
-         = render partial: "shared/expansions_list", locals: { content_type: "transition" }
+        = render partial: "shared/expansions_list", locals: { content_type: "transition" }
       #enable-expansion-4= render partial: "enable_expansion", locals: { setting: @settings.transition.first }
     </div>
   </div>
