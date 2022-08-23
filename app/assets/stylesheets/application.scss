@@ -1,4 +1,9 @@
-@import "@fortawesome/fontawesome-free/scss/fontawesome";
+$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/brands';
+@import '@fortawesome/fontawesome-free/scss/v4-shims';
 html {
 }
 
@@ -696,6 +701,11 @@ td .size-sm.font-none{
   border: solid 1px #606060;
 }
 
+a.icon-nav-gray {
+  color: gray;
+  transition: 0.4s all;
+}
+
 .kakoi{
   width: 222px;
   padding: 5px 0;
@@ -786,9 +796,16 @@ opacity: 1;
     font-size: 1.2rem;
   }
 
-  .scroll {
-    height: 180px;
-    overflow-y: scroll;
+  // 一旦廃止
+  // .scroll {
+  //   height: 180px;
+  //   overflow-y: scroll;
+  // }
+
+  .form-inline{
+    display: inline;
+    margin-right: 12px;
+    margin-left: 12px;
   }
 
 }
