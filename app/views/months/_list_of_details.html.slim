@@ -41,7 +41,7 @@
         .modal-body
           h6 収支カテゴリー
           .mb-3
-          #icon-search.main-container
+          #icon-search.main-container.wrapper
             .form-inline
               = f.check_box :icon_eq_any, { id: "q_rent_icon_eq_any", class: "margin-right-4 icon_search" }, "0",false 
               = f.label :rent_icon_eq_any
@@ -62,7 +62,6 @@
               = f.label :entertainment_icon_eq_any
                 span.icon-color-green
                   i.fas.fa-shopping-cart.fa-lg 
-            br
             .form-inline
               = f.check_box :icon_eq_any, { id: "q_car_cost_icon_eq_any", class: "margin-right-4 icon_search" }, "4",false 
               = f.label :car_cost_icon_eq_any

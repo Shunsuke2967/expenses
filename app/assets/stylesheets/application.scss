@@ -575,11 +575,12 @@ table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay {
   margin-right: 4px;
 }
 
-.form-inline{
-  display: inline;
-  margin-right: 20px;
-  margin-left: 20px;
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 }
+
 
 .dis-in{
   display: inline;
@@ -794,12 +795,6 @@ opacity: 1;
 
   .wrapHINAGATA h2{
     font-size: 1.2rem;
-  }
-
-  .form-inline{
-    display: inline;
-    margin-right: 10px;
-    margin-left: 10px;
   }
 
 }
