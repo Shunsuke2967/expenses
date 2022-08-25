@@ -4,9 +4,8 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/regular';
 @import '@fortawesome/fontawesome-free/scss/brands';
 @import '@fortawesome/fontawesome-free/scss/v4-shims';
-html {
-}
 
+@import 'bootstrap/scss/bootstrap';
 
 .size-width{
   max-width: 250px;
@@ -208,7 +207,7 @@ body {
 }
 
 .header.fixed-bottom {
-    padding: 10px;
+    padding: 5px;
     z-index: 800;
 }
 
@@ -234,7 +233,7 @@ body {
   position       : relative;            /* 親要素が基点       */
   margin         : auto;                /* 中央寄せ           */
   width          : 205px;               /* ボタンの横幅       */
-  background     : #fff;                /* デフォルト背景色   */
+  background     : aliceblue;                /* デフォルト背景色   */
 }
 
  /* === チェックボックス ==================================== */
