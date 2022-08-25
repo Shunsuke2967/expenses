@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :login_required
+  skip_before_action :login_required,only: [:new,:create,:index]
   before_action :logined_skip, only: [:new,:create,:index]
   def index
   end
