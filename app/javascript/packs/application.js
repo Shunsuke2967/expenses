@@ -15,7 +15,6 @@ import "jquery-ui/ui/widgets/mouse"
 import "jquery-ui/ui/widgets/draggable"
 import "jquery-ui-touch-punch/jquery.ui.touch-punch"
 import "bootstrap"
-import "bootstrap/scss/bootstrap.scss"
 import "./flash.js"
 import "./search.js"
 import "./template.js"
@@ -25,11 +24,3 @@ import '@fortawesome/fontawesome-free/js/all'
 require("chartkick").use(require("highcharts"))
 
 import "../../assets/javascripts/serviceworker-companion"
-
-
-// Uncomment to copy all static images under ../images to the output folder and reference
-// them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
-// or the `imagePath` JavaScript helper below.
-//
-// const images = require.context('../images', true)
-// const imagePath = (name) => images(name, true)

@@ -15,7 +15,6 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb -e production"
     volumes:
       - .:/expenses
-      - public:/expenses/public
       - tmp:/expenses/tmp
     ports:
       - "3000:3000"
@@ -25,7 +24,6 @@ services:
   nginx:
     build: nginx
     volumes:
-      - public:/expenses/public
       - tmp:/expenses/tmp
     ports:
       - 80:80
@@ -35,5 +33,4 @@ services:
 
 volumes:
   tmp:
-  public:
   db-data:
