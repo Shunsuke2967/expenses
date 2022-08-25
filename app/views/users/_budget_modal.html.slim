@@ -1,12 +1,12 @@
 .modal-dialog.modal-dialog-centered.m-50.modal-dialog-scrollable
   .modal-content
     .modal-header
-      h3= I18n.t("activerecord.attributes.content.budget") + "の使い方"
+      h3= I18n.t("activerecord.attributes.content.budget")
       button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
     .modal-body
       h4 1.予算の設定をする方法(動画)
       p 準備中です。しばらくお待ち下さい。
-      / = video_tag "/videos/budget.mp4", controls: true, muted: true, width: "100%",class: "index-video"
+      / = video_tag "/videos/budget.mp4",preload: "auto",poster:"home-icon.jpg", controls: true, muted: true, width: "100%",class: "index-video"
       
       .mb-3
       h4 2.予算を設定したあとの使い方

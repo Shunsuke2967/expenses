@@ -1,7 +1,7 @@
 .modal-dialog.modal-dialog-centered.m-50.modal-dialog-scrollable
   .modal-content
     .modal-header
-      h3= I18n.t("activerecord.attributes.content.current_salary") + "の使い方"
+      h3= I18n.t("activerecord.attributes.content.current_salary")
       button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
     .modal-body
       h4 1.#{I18n.t("activerecord.attributes.content.current_salary")}とは？
@@ -15,9 +15,9 @@
       p 新しい月の家計簿を作成時にも同じように設定できます。
       .mb-3
       h4 2.収入の設定方法(動画)
-      = video_tag "/videos/current_salary.mp4", controls: true, muted: true, width: "100%",class: "index-video"
+      = video_tag "/videos/current_salary.mp4", controls: true, muted: true,preload: "auto",poster:"home-icon.jpg", width: "100%",class: "index-video"
 
       .mb-3
       h4 2.収入の表示方法
-      = video_tag "/videos/current_salary_2.mp4", controls: true, muted: true, width: "100%",class: "index-video"
+      = video_tag "/videos/current_salary_2.mp4", controls: true,preload: "auto",poster:"home-icon.jpg", muted: true, width: "100%",class: "index-video"
       .mb-3
