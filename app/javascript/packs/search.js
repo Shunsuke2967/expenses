@@ -25,20 +25,22 @@ $(document).on("ready turbolinks:load", () => {
       }
     })
 
+    // cssでチェックが入っているときはデザインを変更している
     if(data.length > 0){
-      $('#detail-button').css('color', "#fff")
-      $('#detail-button').css('background-color', "#6c757d")
-      $('#detail-button').text("検索中..")
+      $('#detail-search').css('color', "#fff")
+      $('#detail-search').css('background-color', "#6c757d")
+      $('#detail-search').text("検索中..")
     }else{
-      $('#detail-button').css('color', "")
-      $('#detail-button').css('background-color', "")
-      $('#detail-button').text("検索詳細")
+      $('#detail-search').css('color', "")
+      $('#detail-search').css('background-color', "")
+      $('#detail-search').text("検索詳細")
     }
   })
 });
 
 // メモ欄の検索の反映
 memo_search = () => {
+  // チェックありのdaysのIDを取得して配列に格納
   data = []
   $check_boxs = $("#icon-search").find(".icon_search")
   $check_boxs.each((index, element) => {

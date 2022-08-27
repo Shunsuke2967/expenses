@@ -30,5 +30,5 @@
       - unless day.new_record?
         = link_to '削除する', day_path(day,setting_type: params[:setting_type]), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-lg form-control form-control-lg lg'
         .mb-2
-      = link_to 'キャンセル', root_path(setting_type: params[:setting_type]), class: 'btn btn-outline-warning btn-lg form-control form-control-lg lg'
+      = link_to 'キャンセル', root_path(setting_type: params[:setting_type]), class: 'btn btn-outline-warning focus-none btn-lg form-control form-control-lg lg'
       .mb-5
