@@ -1,6 +1,4 @@
 = search_form_for @q, url: root_path do |f|
-  / = f.hidden_field :memo_cont
-  / = f.hidden_field :icon_eq_any
   table#search-list-days.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left.stay.none-icon
     tbody
       tr
@@ -8,11 +6,9 @@
           h6.dis-in 
             | 明細一覧　
         th.table-hover-none colspan="4"
-          .dis-in.f-right
-            span
-              = f.text_field :memo_cont, class: "search-form costom", placeholder: "メモ検索"
-            span#detail-search
-              button#detail-button.btn.btn-outline-secondary.btn-sm.radius.not-foucas-shadow type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" 詳細検索
+          .f-right.input-group
+            = f.text_field :memo_cont, class: "form-control form-control-sm", placeholder: "メモ検索"
+            button#detail-search.btn.btn-none.btn-outline-secondary.btn-sm.radius.not-foucas-shadow type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" 詳細検索
       - current_days.order("day_at").each do |day|
         tr.days.color-none data-id="#{day.id}"
           td.gray width="17%" = "#{day_adjust(day.day_at.day)}日"
