@@ -31,18 +31,19 @@ class User < ApplicationRecord
   end
 
   def set_default_content
+    logger.debug("==================================")
     contens = self.contents
 
     if contens.current_income_and_expenditure.blank?
-      contents.create(setting_id: self.settings.home.first.id, content_type: "current_income_and_expenditure", sort_order: 0, fix: false)
+      contents.create(setting_id: self.settings.home.first.id, content_type: "current_income_and_expenditure", sort_order: 1, fix: false)
     end
 
     if contens.list_of_details.blank?
-      contents.create(setting_id: self.settings.home.first.id, content_type: "list_of_details", sort_order: 0, fix: false)
+      contents.create(setting_id: self.settings.home.first.id, content_type: "list_of_details", sort_order: 2, fix: false)
     end
 
     if contens.current_salary.blank?
-      contents.create(setting_id: self.settings.bank.first.id, content_type: "current_salary", sort_order: 0, fix: false)
+      contents.create(setting_id: self.settings.home.first.id, content_type: "current_salary", sort_order: 0, fix: false)
     end
   end
 
