@@ -438,6 +438,12 @@ p .svg-inline--fa.fa-w-14 {
   color: #ddb500 !important;
 }
 
+.btn.btn-none:focus{
+  background-color: initial;;
+  color: #6c757d;;
+  border-color: #6c757d;;
+}
+
 .icon-color-violet {
   color: blueviolet !important;
 }
@@ -568,6 +574,13 @@ table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay {
 .table-hover > tbody > tr:hover > .table-hover-none {
   --bs-table-accent-bg: initial;
   color: initial;
+}
+
+.btn-outline-warning.focus-none:active{
+  color: #fff;
+}
+.btn-outline-warning.focus-none:focus{
+  color: #ffca2c;
 }
 
 .margin-right-4{

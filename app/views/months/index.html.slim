@@ -6,7 +6,7 @@
       div class="tab-pane fade #{ "show active" if @show_active_page.blank? ||  @show_active_page == "home" }" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
         .row
           .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-            - @settings.home.first.contents.each do |content|
+            - @settings.home.first.contents.order(sort_order: :asc).each do |content|
               = render partial: content.content_type,
                 locals: locals_date(content, @locals_date,content.setting.setting_type)
 
@@ -14,7 +14,7 @@
       div class="tab-pane fade #{ "show active" if @show_active_page == "date" }" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
         .row
           .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-            - @settings.date.first.contents.each do |content|
+            - @settings.date.first.contents.order(sort_order: :asc).each do |content|
               = render partial: content.content_type,
                 locals: locals_date(content, @locals_date,content.setting.setting_type)
 
@@ -22,7 +22,7 @@
       div class="tab-pane fade #{ "show active" if @show_active_page == "bank" }" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"
         .row
           .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-            - @settings.bank.first.contents.each do |content|
+            - @settings.bank.first.contents.order(sort_order: :asc).each do |content|
               = render partial: content.content_type,
                 locals: locals_date(content, @locals_date,content.setting.setting_type)
 
@@ -30,7 +30,7 @@
       #pills-template class="tab-pane fade #{ "show active" if @show_active_page == "transition" }" role="tabpanel" aria-labelledby="pills-contact-tab"
         .row
           .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-            - @settings.transition.first.contents.each do |content|
+            - @settings.transition.first.contents.order(sort_order: :asc).each do |content|
               = render partial: content.content_type,
                 locals: locals_date(content, @locals_date,content.setting.setting_type)
 
@@ -55,17 +55,18 @@
           br
           .f-10 グラフ
 
-    li.nav-item[role="presentation"]
-      button#pills-contact-tab class="nav-link p-0 link #{ "active" if @show_active_page == "bank"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="#{ @show_active_page == "template" }"
-        i.far.fa-clipboard.fa-lg
-        br
-        .f-10 口座
+    - if @settings.bank.first.contents.present?
+      li.nav-item[role="presentation"]
+        button#pills-contact-tab class="nav-link p-0 link #{ "active" if @show_active_page == "bank"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="#{ @show_active_page == "template" }"
+          i.far.fa-clipboard.fa-lg
+          br
+          .f-10 管理
 
     - if @settings.transition.first.contents.present?
       li.nav-item[role="presentation"]
         button#pills-contact-tab class="nav-link p-0 link #{ "active" if @show_active_page == "transition"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"
           i.fas.fa-money-check-alt
           br
-          .f-10 推移
+          .f-10 設定
 
 
