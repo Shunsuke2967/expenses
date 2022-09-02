@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     collection do
       get :terms
       get :expansions
+      get :news
       post :update_expansion
       post :delete_expansion
     end

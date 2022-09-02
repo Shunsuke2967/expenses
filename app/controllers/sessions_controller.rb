@@ -26,6 +26,8 @@ class SessionsController < ApplicationController
       current_month_set
       user.setting_prepare
       session[:demo] = true
+      # 新規の最初のユーザーに見せるモーダルのための変数
+      session[:first_user] = true
       redirect_to root_url, notice: 'デモ画面にログインしました'
     else
       flash[:danger] = 'エラーが発生しデモ画面に入れませんでした'
