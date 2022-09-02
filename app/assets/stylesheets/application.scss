@@ -6,9 +6,170 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/v4-shims';
 
 @import 'bootstrap/scss/bootstrap';
+@import "izimodal/css/iziModal.css";
+
+
+.menu__box a:link, .menu__box a:visited, .menu__box a:hover, .menu__box a:active {
+  color: #fff;
+}
+
+@mixin burgerSpan {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #ffffff;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6em;
+  background: #D6A802;
+  border-bottom: 2px solid #D6A802;
+}
+
+.logotype {
+  font-family: sans-serif;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+a.logotype{
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 48em) {
+    nav {display: inline;}
+  }
+  
+}
+
+.menu__box {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  margin-bottom: 0;
+  
+  @media screen and (max-width: 48em) {
+    flex-direction: column;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: 100%;
+    margin: 0 50% 0 0;
+    padding: 0.6em 0;
+    background-color: #D6A802;
+    box-shadow: 1px 0 6px #D6A802;
+    z-index: 1;
+    transition-duration: 0.5s;
+  }
+
+}
+
+.red {color: #f06c64;}
+
+.menu__item {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1em 0 1.9em;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  text-decoration: none;
+  text-transform: uppercase;
+  
+  @media screen and (max-width: 48em) {
+    display: block;
+    padding: 12px 24px;
+    color: #ffffff;
+    font-size: 18px;
+    transition-duration: 0.5s;
+
+    &:hover {background-color: #4f5464;}
+    
+  }
+  
+}
+
+#menu__toggle {
+  opacity: 0;
+  
+  &:checked ~ .menu__btn > span {
+    transform: rotate(45deg);
+    }
+
+  &:checked ~ .menu__btn > span::before {
+    top: 0;
+    transform: rotate(0);
+  }
+
+    &:checked ~ .menu__btn > span::after {
+      top: 0;
+      transform: rotate(90deg);
+  }
+
+    &:checked ~ .menu__box {
+      visibility: visible;
+      left: 50%;
+      margin: 0;
+      bottom: 0;
+  }
+
+}
+
+.menu__btn {
+  transition-duration: 0.25s;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  z-index: 2;
+  
+  span {
+    @include burgerSpan;
+    
+    &::before {
+      @include burgerSpan;
+      content: '';
+      top: -8px;
+      transition-duration: 0.25s;
+    }
+
+    &::after {
+      @include burgerSpan;
+      content: '';
+      top: 8px;
+      transition-duration: 0.25s;
+    }
+  
+  }
+  
+  @media screen and (min-width: 48em) {display: none;}
+
+}
+
+
 
 .size-width{
   max-width: 250px;
+}
+
+.max-screen{
+  max-width: 100% !important;
+  margin: 0 !important;
+  height: 100% !important;
 }
 
 .title-f-c:first-letter {
@@ -97,6 +258,10 @@ p.w-100.text-right.fs-07 {
 
 .nav-link.p-0 {
   padding: 0;
+}
+
+.h-300{
+  height: 620px;
 }
 
 .bold {
@@ -207,7 +372,7 @@ body {
 }
 
 .header.fixed-bottom {
-    padding: 5px;
+    padding: 0.4em;
     z-index: 800;
 }
 
@@ -461,6 +626,11 @@ p .svg-inline--fa.fa-w-14 {
   text-align: right;
 }
 
+.carousel-control-prev.cos, .carousel-control-next.cos{
+  align-items: initial;
+  top: 110px;
+}
+
 .color-white {
     background: #fff;
 }
@@ -485,6 +655,20 @@ p .svg-inline--fa.fa-w-14 {
 
 a.edit-link{
   text-decoration: none;
+}
+
+h1.b-c {
+  border-bottom: solid 2px skyblue;
+  position: relative;
+}
+
+h1.b-c:after {
+  position: absolute;
+  content: " ";
+  display: block;
+  border-bottom: solid 2px #ffc778;
+  bottom: -2px;
+  width: 30%;
 }
 
 a.style-none {
@@ -621,6 +805,10 @@ button.btn.btn-outline-secondary.not-foucas-shadow:focus{
 }
 
 .main-container{
+  text-align: center;
+}
+
+.text-c {
   text-align: center;
 }
 
@@ -807,6 +995,10 @@ opacity: 1;
 
   .wrapHINAGATA h2{
     font-size: 1.2rem;
+  }
+
+  .h-300{
+    height: 520px;
   }
 
 }

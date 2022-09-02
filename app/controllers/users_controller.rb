@@ -18,6 +18,8 @@ class UsersController < ApplicationController
       session[:month_id] = @month.id
       session[:demo] = nil
       @user.setting_prepare
+      # 新規の最初のユーザーに見せるモーダルのための変数
+      session[:first_user] = true
       redirect_to root_url, notice: '新規登録に成功しました'
     end
   end
@@ -32,8 +34,11 @@ class UsersController < ApplicationController
   def terms
   end
 
+  def news
+  end
+
   def expansions
-    @settings = current_user.setting_prepare
+    @settings = current_user.settings
   end
 
   # ajaxで機能の拡張の状態を更新する

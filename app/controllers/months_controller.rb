@@ -4,6 +4,10 @@ class MonthsController < ApplicationController
       @show_active_page = session[:show_active_page] ||= params[:setting_type]
       session[:show_active_page] = nil
     end
+    if session[:first_user].present?
+      @first_user = true
+      session[:first_user] = nil
+    end
     @page = params[:page]
     @months = current_user.months
     #search_form_forのため空のRansackオブジェクトを作成

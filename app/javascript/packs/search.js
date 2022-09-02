@@ -26,7 +26,7 @@ $(document).on("ready turbolinks:load", () => {
     })
 
     // cssでチェックが入っているときはデザインを変更している
-    if(data.length > 0){
+    if(data.length > 0 || $.trim($("#q_memo_cont").val()).length > 0){
       $('#detail-search').css('color', "#fff")
       $('#detail-search').css('background-color', "#6c757d")
       $('#detail-search').text("検索中..")

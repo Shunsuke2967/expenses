@@ -1,7 +1,8 @@
-table.table.text-left
-  tbody
-    tr
-      td.f-right= paginate current_user_month_list,theme: 'bootstrap-5', remote: true , url: expenses_list_months_path
+- if current_user_month_list.count > 20
+  table.table.text-left
+    tbody
+      tr
+        td.f-right= paginate current_user_month_list,theme: 'bootstrap-5', remote: true , url: expenses_list_months_path
 div
   table.white-box.table.text-left.stay 
     tbody

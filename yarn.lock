@@ -4635,6 +4635,13 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
+izimodal@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/izimodal/-/izimodal-1.6.1.tgz#2f13688a6096a77ac743b82debe6b6e025b8c245"
+  integrity sha512-PwaeHMjSgP7hte0/Hx4zI1ew7zEIDuJSp28ZvRb23FbfJ9wLZX2Dy2dT+7w8mli4650WJaIuXZsMnHBLKwreMQ==
+  dependencies:
+    jquery "~3"
+
 jest-worker@^26.5.0:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-26.6.2.tgz#7f72cbc4d643c365e27b9fd775f9d0eaa9c7a8ed"
@@ -4676,6 +4683,11 @@ jquery-ui@^1.13.2:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
+
+jquery@~3:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.1.tgz#fab0408f8b45fc19f956205773b62b292c147a16"
+  integrity sha512-opJeO4nCucVnsjiXOE+/PcCgYw9Gwpvs/a6B1LL/lQhwWwpbVEVYDZ1FokFr8PRc7ghYlrFPuyHuiiDNTQxmcw==
 
 js-base64@^2.4.3:
   version "2.6.4"

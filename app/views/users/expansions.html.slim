@@ -23,14 +23,8 @@ nav
     <div id="jquery-ui-draggable-connectToSortable">
       ul.kakoi
         li.size-18.title
-          string 設定可能な機能一覧
-          br
-          span.gray.f-s ※ 使いたい機能は「設定中の機能」に長押し＆スライドする
-          br
-          span.gray.f-s
-            | ※ 
-            i.far.fa-question-circle
-            | を押すと機能の説明が見れます
+          h5 設定可能な機能一覧
+          span.gray.f-s ※ 使いたい機能は設定中の機能に長押し＆スライド
         = render partial: "shared/expansions_list", locals: { content_type: "home" }
       #enable-expansion-1= render partial: "enable_expansion", locals: { setting: @settings.home.first }
     </div>

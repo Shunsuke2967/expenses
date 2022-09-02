@@ -34,24 +34,21 @@ li class="ui-state-highlight-#{content_type} ui-state-default" data-content-type
     i.far.fa-trash-alt.none
   = link_to 'javascript:void(0);', class:'f-right focus-none gray click-explanation' ,"data-bs-toggle"=> "modal", "data-bs-target" => "#incomeAndExpenditureTransitionModal"
     i.far.fa-question-circle
-
-/ 収入設定機能・収支記録一覧機能・収支表示は家計簿には必須なのでデフォルトの削除できない機能としていれている
-/ なので追加機能としても同じ機能は誰も追加しないと思うので以下は必要な場合に備えてコメントアウトする
-/ li class="ui-state-highlight-#{content_type} ui-state-default" data-content-type="current_income_and_expenditure" data-fix="true"
-/   = I18n.t("activerecord.attributes.content.current_income_and_expenditure")
-/   = link_to 'javascript:void(0);', class:'icon-nav f-right focus-none click-delete'
-/     i.far.fa-trash-alt.none
-/   = link_to 'javascript:void(0);', class:'f-right focus-none gray click-explanation' ,"data-bs-toggle"=> "modal", "data-bs-target" => "#currentIncomeAndExpenditureModal"
-/     i.far.fa-question-circle
-/ li class="ui-state-highlight-#{content_type} ui-state-default" data-content-type="list_of_details" data-fix="true"
-/   = I18n.t("activerecord.attributes.content.list_of_details")
-/   = link_to 'javascript:void(0);', class:'icon-nav f-right focus-none click-delete'
-/     i.far.fa-trash-alt.none
-/   = link_to 'javascript:void(0);', class:'f-right focus-none gray click-explanation' ,"data-bs-toggle"=> "modal", "data-bs-target" => "#listOfDetailsModal"
-/     i.far.fa-question-circle
-/ li class="ui-state-highlight-#{content_type} ui-state-default" data-content-type="current_salary" data-fix="true"
-/   = I18n.t("activerecord.attributes.content.current_salary")
-/   = link_to 'javascript:void(0);', class:'icon-nav f-right focus-none click-delete'
-/     i.far.fa-trash-alt.none
-/   = link_to 'javascript:void(0);', class:'f-right focus-none gray click-explanation' ,"data-bs-toggle"=> "modal", "data-bs-target" => "#currentSalaryModal"
-/     i.far.fa-question-circle
+li class="ui-state-highlight-#{content_type} ui-state-default" data-content-type="current_income_and_expenditure" data-fix="true"
+  = I18n.t("activerecord.attributes.content.current_income_and_expenditure")
+  = link_to 'javascript:void(0);', class:'icon-nav f-right focus-none click-delete'
+    i.far.fa-trash-alt.none
+  = link_to 'javascript:void(0);', class:'f-right focus-none gray click-explanation' ,"data-bs-toggle"=> "modal", "data-bs-target" => "#currentIncomeAndExpenditureModal"
+    i.far.fa-question-circle
+li class="ui-state-highlight-#{content_type} ui-state-default" data-content-type="list_of_details" data-fix="true"
+  = I18n.t("activerecord.attributes.content.list_of_details")
+  = link_to 'javascript:void(0);', class:'icon-nav f-right focus-none click-delete'
+    i.far.fa-trash-alt.none
+  = link_to 'javascript:void(0);', class:'f-right focus-none gray click-explanation' ,"data-bs-toggle"=> "modal", "data-bs-target" => "#listOfDetailsModal"
+    i.far.fa-question-circle
+li class="ui-state-highlight-#{content_type} ui-state-default" data-content-type="current_salary" data-fix="true"
+  = I18n.t("activerecord.attributes.content.current_salary")
+  = link_to 'javascript:void(0);', class:'icon-nav f-right focus-none click-delete'
+    i.far.fa-trash-alt.none
+  = link_to 'javascript:void(0);', class:'f-right focus-none gray click-explanation' ,"data-bs-toggle"=> "modal", "data-bs-target" => "#currentSalaryModal"
+    i.far.fa-question-circle

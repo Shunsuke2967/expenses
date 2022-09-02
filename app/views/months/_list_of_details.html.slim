@@ -2,13 +2,11 @@
   table#search-list-days.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left.stay.none-icon
     tbody
       tr
-        th.table-hover-none colspan="2"
+        th.table-hover-none colspan="3"
           h6.dis-in 
             | 明細一覧　
-        th.table-hover-none colspan="4"
-          .f-right.input-group
-            = f.text_field :memo_cont, class: "form-control form-control-sm", placeholder: "メモ検索"
-            button#detail-search.btn.btn-none.btn-outline-secondary.btn-sm.radius.not-foucas-shadow type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" 詳細検索
+        th.table-hover-none.text-right colspan="3"
+          button#detail-search.btn.btn-none.btn-outline-secondary.btn-sm.radius.not-foucas-shadow type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" 詳細検索
       - current_days.order("day_at").each do |day|
         tr.days.color-none data-id="#{day.id}"
           td.gray width="17%" = "#{day_adjust(day.day_at.day)}日"
@@ -35,6 +33,10 @@
           h5 詳細検索
           button.btn-close type='button' data-bs-dismiss="modal" aria-label="Close"
         .modal-body
+          h6 メモ検索
+          .mb-3
+          = f.text_field :memo_cont, class: "form-control form-control-sm", placeholder: "メモ検索"
+          .mb-3
           h6 収支カテゴリー
           .mb-3
           #icon-search.main-container.wrapper
@@ -81,3 +83,5 @@
           .mb-3
 
           h6 支払方法
+          .mb-3 
+          p 製作中...

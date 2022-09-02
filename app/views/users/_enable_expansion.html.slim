@@ -4,7 +4,7 @@
     br
     span.gray.f-s ※ 順番は長押し＆スライドで変更可能
   = tag.send("ul", class: " question-none",id: "jquery-ui-sortable-#{setting.setting_type}","data-setting-id" => "#{setting.id}")
-    - setting.contents.each do |content|
+    - setting.contents.order(sort_order: :asc).each do |content|
       = tag.send("li",class: "ui-state-default", "data-content-type" => "#{content.content_type}", "data-fix" => "#{content.fix}" )
         = I18n.t("activerecord.attributes.content.#{content.content_type}") + (content.fix ? "" : "(削除不可)")
         - if content.fix

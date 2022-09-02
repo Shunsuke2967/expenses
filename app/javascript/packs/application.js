@@ -14,12 +14,14 @@ import "jquery-ui/ui/widget"
 import "jquery-ui/ui/widgets/mouse"
 import "jquery-ui/ui/widgets/draggable"
 import "jquery-ui-touch-punch/jquery.ui.touch-punch"
+import "./iziModal"
 import "bootstrap"
 import "./flash.js"
 import "./search.js"
 import "./template.js"
 import "./sorttable.js"
-import '@fortawesome/fontawesome-free/js/all'
+import "./modal.js"
+require("@fortawesome/fontawesome-free/js/all")
 
 require("chartkick").use(require("highcharts"))
 

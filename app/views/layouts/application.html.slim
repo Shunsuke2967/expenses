@@ -34,63 +34,72 @@ html
     link rel="apple-touch-startup-image" href="home-icon.jpg" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"
   body
     .kotei
-      nav.header.navbar.navbar-expand-sm.header.navbar-dark
-        .container
-          - if current_user.present?
-            = link_to root_path, class: "navbar-brand" do 
-              = "#{current_month.date_at.month}"
-              | 月
-              span.t-s の
-              span.ore か
-              | けいぼ
-              -if current_demo.present?
-                | (デモ環境)
-          - else 
-            = link_to root_path, class: "navbar-brand"
-              span.ore 私
-              span.t-s の
-              | か
-              | けいぼ
-          button.navbar-toggler type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
-            span.navbar-toggler-icon
-          #offcanvasRight.offcanvas.offcanvas-end.header.w-none tabindex="-0.1" aria-labelledby="offcanvasRightLabel"
-            .offcanvas-header
-              h5.navbar-brand メニュー
-              button.btn-close.text-reset type="button" data-bs-dismiss="offcanvas" aria-label="Close"
-            .offcanvas-body
-              ul.navbar-nav
-                li.nav-item
-                  = link_to "ホーム", root_path, class: "nav-link fff", "aria-current": "page"
-                  hr.m-0
-                - if current_user.blank?
-                  li.nav-item
-                    = link_to "ログイン", sessions_path, class: "nav-link fff"
-                    hr.m-0
-                  li.nav-item
-                    = link_to "新規登録", new_user_path, class: "nav-link fff"
-                    hr.m-0     
-                  li.nav-item
-                    = link_to "デモを覗く", demo_sessions_path, class: "nav-link fff"
-                    hr.m-0      
-                - if current_user.present?
-                  li.nav-item
-                    = link_to "家計簿一覧", expenses_list_months_path, class: "nav-link fff"
-                    hr.m-0
-                  li.nav-item
-                    = link_to "カスタマイズ", expansions_users_path, class: "nav-link fff"
-                    hr.m-0
-                  li.nav-item
-                    = link_to "ログアウト", current_user, method: :delete,data: { confirm: "ログアウトします。よろしいですか？" } , class: "nav-link fff"
-                    hr.m-0
-                li.nav-item
-                  = link_to "利用規約", terms_users_path, class: "nav-link fff"
-                  hr.m-0
+
+
+      <header>
+        - if current_user.present?
+          = link_to root_path, class: "logotype" do 
+            = "#{current_month.date_at.month}"
+            | 月
+            span.t-s の
+            span.ore か
+            | けいぼ
+            -if current_demo.present?
+              | (デモ環境)
+        - else 
+          = link_to root_path, class: "logotype"
+            span.ore 私
+            span.t-s の
+            | か
+            | けいぼ
+        <nav>
+          <input id="menu__toggle" type="checkbox" />
+          <label class="menu__btn" for="menu__toggle">
+            <span></span>
+          </label>
+          <ul class="menu__box">
+            li
+              = link_to "ホーム", root_path, class: "menu__item"
+              hr.m-0
+            - if current_user.blank?
+              li
+                = link_to "ログイン", sessions_path, class: "menu__item"
+                hr.m-0
+              li
+                = link_to "新規登録", new_user_path, class: "menu__item"
+                hr.m-0     
+              li
+                = link_to "デモを覗く", demo_sessions_path, class: "menu__item"
+                hr.m-0      
+            - if current_user.present?
+              li
+                = link_to "家計簿一覧", expenses_list_months_path, class: "menu__item"
+                hr.m-0
+              li
+                = link_to "カスタマイズ", expansions_users_path, class: "menu__item"
+                hr.m-0
+              li
+                = link_to "ログアウト", current_user, method: :delete,data: { confirm: "ログアウトします。よろしいですか？" } , class: "menu__item"
+                hr.m-0
+            li
+              #first-modal= link_to "アプリの使い方", 'javascript:void(0);', class: "menu__item"
+              hr.m-0
+            li
+              = link_to "お知らせ", news_users_path, class: "menu__item"
+              hr.m-0
+            li
+              = link_to "利用規約", terms_users_path, class: "menu__item"
+              hr.m-0
+          </ul>
+        </nav>
+      </header>
     .container
       #errors
       - if flash.notice.present?
         #hidden.alert.alert-success= flash.notice
       - if flash[:danger].present?
         #hidden.alert.alert-danger= flash[:danger]
+      #first-contact.display-none data-first-user="#{@first_user}" = render partial: "shared/first_modal"
       = yield
 
 
