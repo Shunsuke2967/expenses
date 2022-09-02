@@ -60,13 +60,13 @@
         button#pills-contact-tab class="nav-link p-0 link #{ "active" if @show_active_page == "bank"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="#{ @show_active_page == "template" }"
           i.far.fa-clipboard.fa-lg
           br
-          .f-10 管理
+          .f-10 固定収支
 
     - if @settings.transition.first.contents.present?
       li.nav-item[role="presentation"]
         button#pills-contact-tab class="nav-link p-0 link #{ "active" if @show_active_page == "transition"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"
-          i.fas.fa-money-check-alt
+          i.fas.fa-chart-line.fa-lg
           br
-          .f-10 設定
+          .f-10 年間
 
 

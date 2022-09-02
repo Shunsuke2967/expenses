@@ -59,13 +59,13 @@ ja:
         insurance: 保険
       content:
         budget: 予算設定機能
-        template: テンプレート管理機能
+        template: テンプレート機能
         bank_balance: 口座残高表示機能
         spending_chart_date: 総合支出円グラフ機能
         income_and_expenditure_transition: 収支推移機能
         bank_balance_transition: 口座残高推移表示機能
-        list_of_details: 家計簿記録機能
-        current_income_and_expenditure: 収支表示機能
+        list_of_details: 明細一覧機能
+        current_income_and_expenditure: 総合収支表示機能
         current_salary: 収入設定機能
 
 

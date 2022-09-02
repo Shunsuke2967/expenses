@@ -4,7 +4,7 @@ table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
       tr 
         th width="50%"
           h6
-            strong 今月の予算費
+            strong 予算費
         td.text-right
           = link_to '予算の再設定',edit_budget_path(current_budget,setting_type: setting_type), class:"btn btn-outline-secondary btn-sm radius"
       = render partial: "detail_budget",
