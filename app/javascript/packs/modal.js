@@ -5,6 +5,10 @@ $(document).on("ready turbolinks:load", () => {
       $('#modal-options').iziModal('open');
     }
   });
+
+  $('#first-modal').on('click', () => {
+    $('#modal-options').iziModal('open');
+  });
   
   $('#modal-options').iziModal({
     headerColor: '#26A69A', //ヘッダー部分の色
