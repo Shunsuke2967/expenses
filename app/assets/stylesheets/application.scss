@@ -6,7 +6,7 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/v4-shims';
 
 @import 'bootstrap/scss/bootstrap';
-@import "izimodal/css/iziModal.css";
+@import "./iziModal.scss";
 
 
 .menu__box a:link, .menu__box a:visited, .menu__box a:hover, .menu__box a:active {
