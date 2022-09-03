@@ -9,7 +9,8 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import "./iziModal.scss";
 
 
-.menu__box a:link, .menu__box a:visited, .menu__box a:hover, .menu__box a:active {
+.menu__box a:link, .menu__box a:visited, .menu__box a:hover, .menu__box a:active,
+.logotype:link, .logotype:visited, .logotype:hover, .logotype:active {
   color: #fff;
 }
 
@@ -94,7 +95,7 @@ nav {
     font-size: 18px;
     transition-duration: 0.5s;
 
-    &:hover {background-color: #4f5464;}
+    &:hover {background-color: #dbd66d;}
     
   }
   
