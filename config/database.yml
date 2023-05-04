@@ -86,6 +86,7 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  # database: expenses_production
-  # username: expenses
+  host: localhost
+  nameuser: postgres
+  database: expenses_production
   # password: <%= ENV['EXPENSES_DATABASE_PASSWORD'] %>
