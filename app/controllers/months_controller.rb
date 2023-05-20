@@ -1,9 +1,5 @@
 class MonthsController < ApplicationController
   def index
-    if session[:show_active_page].present? || params[:setting_type]
-      @show_active_page = session[:show_active_page] ||= params[:setting_type]
-      session[:show_active_page] = nil
-    end
     if session[:first_user].present?
       @first_user = true
       session[:first_user] = nil
@@ -70,7 +66,6 @@ class MonthsController < ApplicationController
     @month = current_month
 
     if @month.update(salary_params)
-      session[:show_active_page] = params[:setting_type]
       redirect_to root_url,notice: '収入金額を再設定しました'
     end
   end

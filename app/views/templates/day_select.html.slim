@@ -1,4 +1,4 @@
-= form_with url: days_create_templates_path(setting_type: params[:setting_type]), method: :post,local: true do |f|
+= form_with url: days_create_templates_path, method: :post,local: true do |f|
   .mb-3
   h3 日付選択
   .mb-3
@@ -25,4 +25,4 @@
       
       = f.submit '一括追加', class:"btn btn-warning mb-10 w-100"
       .mb-2
-      = link_to 'キャンセル', root_path(setting_type: params[:setting_type]), class: 'btn btn-warning mb-10 w-100'
+      = link_to 'キャンセル', root_path, class: 'btn btn-warning mb-10 w-100'
