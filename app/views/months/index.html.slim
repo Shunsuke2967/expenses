@@ -2,37 +2,41 @@
 .pb-5 style="padding-bottom: 5rem"
   <!-- パネル部分 -->
   #pills-tabContent.tab-content
-    - if @settings.home.first.contents.present?
-      div class="tab-pane fade #{ "show active" if @show_active_page.blank? ||  @show_active_page == "home" }" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
-        .row
-          .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-            - @settings.home.first.contents.order(sort_order: :asc).each do |content|
-              = render partial: content.content_type,
-                locals: locals_date(content, @locals_date,content.setting.setting_type)
+    div class="tab-pane fade #{ "show active" if @show_active_page.blank? ||  @show_active_page == "home" }" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+      .row
+        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+          = render partial: 'bank_balance',
+            locals: { income_and_expenditure: @locals_date[:income_and_expenditure],
+                      current_income_and_expenditure: @locals_date[:current_income_and_expenditure],
+                    }
+          = render partial: 'current_income_and_expenditure',
+            locals: { current_days: @locals_date[:current_days],
+                      current_month_incomes_sum: @locals_date[:current_sum][:incomes_sum],
+                      current_month_spending_sum: @locals_date[:current_sum][:spending_sum],
+                      current_month_computation: @locals_date[:current_sum][:computation] }
+          = render partial: 'list_of_details',
+            locals: { current_days: @locals_date[:current_days] }
 
-    - if @settings.date.first.contents.present?
-      div class="tab-pane fade #{ "show active" if @show_active_page == "date" }" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
-        .row
-          .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-            - @settings.date.first.contents.order(sort_order: :asc).each do |content|
-              = render partial: content.content_type,
-                locals: locals_date(content, @locals_date,content.setting.setting_type)
+    div class="tab-pane fade #{ "show active" if @show_active_page == "date" }" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+      .row
+        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+          = render partial: 'spending_chart_date',
+            locals: { total_spending_list: @locals_date[:total_spending_list] }
+          = render partial: 'budget',
+            locals: { total_spending_list: @locals_date[:total_spending_list],
+                      current_sum: @locals_date[:current_sum] }
 
-    - if @settings.bank.first.contents.present?
-      div class="tab-pane fade #{ "show active" if @show_active_page == "bank" }" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"
-        .row
-          .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-            - @settings.bank.first.contents.order(sort_order: :asc).each do |content|
-              = render partial: content.content_type,
-                locals: locals_date(content, @locals_date,content.setting.setting_type)
+    div class="tab-pane fade #{ "show active" if @show_active_page == "bank" }" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"
+      .row
+        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+          = render partial: 'template'
+          = render partial: 'current_salary'
 
-    - if @settings.transition.first.contents.present?
-      #pills-template class="tab-pane fade #{ "show active" if @show_active_page == "transition" }" role="tabpanel" aria-labelledby="pills-contact-tab"
-        .row
-          .col-md-10.offset-md-1.col-lg-8.offset-lg-2
-            - @settings.transition.first.contents.order(sort_order: :asc).each do |content|
-              = render partial: content.content_type,
-                locals: locals_date(content, @locals_date,content.setting.setting_type)
+    #pills-template class="tab-pane fade #{ "show active" if @show_active_page == "transition" }" role="tabpanel" aria-labelledby="pills-contact-tab"
+      .row
+        .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+          = render partial: 'bank_balance_transition'
+          = render partial: 'income_and_expenditure_transition'
 
   / 右下にログイン中にに紐づく収入/支出の新規登録リンク(鉛筆マーク)
   .fixed-bottom.icon
@@ -48,25 +52,22 @@
         br
         .f-10 ホーム
  
-    - if @settings.date.first.contents.present?
-      li.nav-item[role="presentation"]
-        button#pills-profile-tab class="nav-link p-0 link #{ "active" if @show_active_page == "date"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="#{ @show_active_page == "budget" }"
-          i.fas.fa-chart-pie.fa-lg
-          br
-          .f-10 グラフ
+    li.nav-item[role="presentation"]
+      button#pills-profile-tab class="nav-link p-0 link #{ "active" if @show_active_page == "date"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="#{ @show_active_page == "budget" }"
+        i.fas.fa-chart-pie.fa-lg
+        br
+        .f-10 グラフ
 
-    - if @settings.bank.first.contents.present?
-      li.nav-item[role="presentation"]
-        button#pills-contact-tab class="nav-link p-0 link #{ "active" if @show_active_page == "bank"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="#{ @show_active_page == "template" }"
-          i.far.fa-clipboard.fa-lg
-          br
-          .f-10 固定収支
+    li.nav-item[role="presentation"]
+      button#pills-contact-tab class="nav-link p-0 link #{ "active" if @show_active_page == "bank"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="#{ @show_active_page == "template" }"
+        i.far.fa-clipboard.fa-lg
+        br
+        .f-10 固定収支
 
-    - if @settings.transition.first.contents.present?
-      li.nav-item[role="presentation"]
-        button#pills-contact-tab class="nav-link p-0 link #{ "active" if @show_active_page == "transition"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"
-          i.fas.fa-chart-line.fa-lg
-          br
-          .f-10 年間
+    li.nav-item[role="presentation"]
+      button#pills-contact-tab class="nav-link p-0 link #{ "active" if @show_active_page == "transition"}" type="button" data-bs-toggle="pill" data-bs-target="#pills-template" role="tab" aria-controls="pills-contact" aria-selected="false"
+        i.fas.fa-chart-line.fa-lg
+        br
+        .f-10 年間
 
 

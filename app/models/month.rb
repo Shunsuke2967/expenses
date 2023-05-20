@@ -8,7 +8,7 @@ class Month < ApplicationRecord
   validates :salary_4, numericality: {only_integer: true, greater_than_or_equal_to: 0,allow_blank: true}
   validate :month_new_record,on: :create
 
-  #すべての支出を項目別に合計したハッシュとすべての項目の合計値を返す(入金は外す)
+  # すべての支出を項目別に合計したハッシュとすべての項目の合計値を返す(入金は外す)
   def days_total_spending
     spending = self.days.where(spending: true).group(:icon).sum(:money).sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h
     spending.delete("payment")

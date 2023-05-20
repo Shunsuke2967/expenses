@@ -21,7 +21,6 @@ class MonthsController < ApplicationController
     @income_and_expenditure = income_expenditure(@current_user_month_list,current_month.date_at)
     #ログイン中の年月の収支
     @current_income_and_expenditure = current_month.total(salary: true,income: true,spending: true)
-    @settings = current_user.settings.order(sort_order: :asc)
 
     # 部分テンプレート生成用のためインスタンス変数をhashにまとめる
     @locals_date = { 

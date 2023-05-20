@@ -11,12 +11,6 @@ html
     link rel="preconnect" href="https://fonts.googleapis.com"
     link rel="manifest" href="/manifest.json" 
 
-    / ios設定　
-    / ホームアイコン
-    / link rel="apple-touch-icon" href="apple-touch-icon57.png" sizes="57x57"
-    / link rel="apple-touch-icon" href="apple-touch-icon60.png" sizes="60x60"
-    / link rel="apple-touch-icon" href="apple-touch-icon114.png" sizes="114x114"
-
     = favicon_link_tag 'home-icon.jpg', rel: "apple-touch-icon", type: "image/jpg"
     = favicon_link_tag 'home-icon.jpg', rel: "apple-touch-icon", type: "image/jpg"
     = favicon_link_tag 'home-icon.jpg', rel: "apple-touch-icon", type: "image/jpg"
@@ -74,9 +68,6 @@ html
             - if current_user.present?
               li
                 = link_to "家計簿一覧", expenses_list_months_path, class: "menu__item"
-                hr.m-0
-              li
-                = link_to "カスタマイズ", expansions_users_path, class: "menu__item"
                 hr.m-0
               li
                 = link_to "ログアウト", current_user, method: :delete,data: { confirm: "ログアウトします。よろしいですか？" } , class: "menu__item"
