@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
     if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
       current_month_set
-      user.setting_prepare
       session[:demo] = nil
       redirect_to root_url, notice: 'ログインしました'
     else
@@ -24,7 +23,6 @@ class SessionsController < ApplicationController
     if user.valid?
       session[:user_id] = user.id
       current_month_set
-      user.setting_prepare
       session[:demo] = true
       # 新規の最初のユーザーに見せるモーダルのための変数
       session[:first_user] = true

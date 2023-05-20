@@ -28,18 +28,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
     t.index ["month_id"], name: "index_budgets_on_month_id"
   end
 
-  create_table "contents", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "setting_id"
-    t.integer "content_type"
-    t.integer "sort_order"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "fix", default: true, null: false
-    t.index ["setting_id"], name: "index_contents_on_setting_id"
-    t.index ["user_id"], name: "index_contents_on_user_id"
-  end
-
   create_table "days", force: :cascade do |t|
     t.datetime "day_at", precision: nil
     t.integer "icon", null: false
@@ -64,15 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
     t.index ["user_id"], name: "index_months_on_user_id"
   end
 
-  create_table "settings", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.integer "setting_type"
-    t.integer "sort_order"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_settings_on_user_id"
-  end
-
   create_table "templates", force: :cascade do |t|
     t.integer "icon", null: false
     t.string "memo"
@@ -95,10 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
   end
 
   add_foreign_key "budgets", "months"
-  add_foreign_key "contents", "settings"
-  add_foreign_key "contents", "users"
   add_foreign_key "days", "months"
   add_foreign_key "months", "users"
-  add_foreign_key "settings", "users"
   add_foreign_key "templates", "users"
 end
