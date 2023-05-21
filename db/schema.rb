@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
   enable_extension "plpgsql"
 
   create_table "budgets", force: :cascade do |t|
-    t.bigint "month_id", null: false
+    t.bigint "expense_id", null: false
     t.bigint "rent", null: false
     t.bigint "cost_of_living", null: false
     t.bigint "food_expenses", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
     t.bigint "insurance", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["month_id"], name: "index_budgets_on_month_id"
+    t.index ["expense_id"], name: "index_budgets_on_expense_id"
   end
 
   create_table "days", force: :cascade do |t|
@@ -34,13 +34,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
     t.string "memo"
     t.boolean "spending"
     t.bigint "money", null: false
-    t.bigint "month_id", null: false
+    t.bigint "expense_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["month_id"], name: "index_days_on_month_id"
+    t.index ["expense_id"], name: "index_days_on_expense_id"
   end
 
-  create_table "months", force: :cascade do |t|
+  create_table "expenses", force: :cascade do |t|
     t.datetime "date_at", precision: nil, null: false
     t.bigint "salary", default: 0, null: false
     t.bigint "user_id", null: false
@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
     t.bigint "salary_2"
     t.bigint "salary_3"
     t.bigint "salary_4"
-    t.index ["user_id"], name: "index_months_on_user_id"
+    t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
   create_table "templates", force: :cascade do |t|
@@ -73,8 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "budgets", "months"
-  add_foreign_key "days", "months"
-  add_foreign_key "months", "users"
+  add_foreign_key "budgets", "expenses"
+  add_foreign_key "days", "expenses"
+  add_foreign_key "expenses", "users"
   add_foreign_key "templates", "users"
 end

@@ -1,10 +1,10 @@
 class DaysController < ApplicationController
   def new
-    @day = current_user.months.find(current_month.id).days.new
+    @day = current_user.expenses.find(current_expense.id).days.new
   end
 
   def create
-   @day = current_user.months.find(current_month.id).days.new(day_params)
+   @day = current_user.expenses.find(current_expense.id).days.new(day_params)
     if @day.save
       redirect_to root_path, notice: '追加しました'
     else
@@ -13,11 +13,11 @@ class DaysController < ApplicationController
   end
   
   def edit
-    @day = current_user.months.find(current_month.id).days.find(params[:id])
+    @day = current_user.expenses.find(current_expense.id).days.find(params[:id])
   end
 
   def update
-    @day = current_user.months.find(current_month.id).days.find(params[:id])
+    @day = current_user.expenses.find(current_expense.id).days.find(params[:id])
     
     if @day.update(day_params)
       redirect_to root_url, notice: '修正しました'
@@ -27,7 +27,7 @@ class DaysController < ApplicationController
   end
 
   def destroy
-    day = current_user.months.find(current_month.id).days.find(params[:id])
+    day = current_user.expenses.find(current_expense.id).days.find(params[:id])
     day.destroy
     redirect_to root_url, notice: '削除しました'
   end

@@ -1,7 +1,7 @@
 class CreateBudgets < ActiveRecord::Migration[6.0]
   def change
     create_table :budgets do |t|
-      t.references :month, null: false, foreign_key: true
+      t.references :expense, null: false, foreign_key: true
       t.bigint :rent,null:false
       t.bigint :cost_of_living,null:false
       t.bigint :food_expenses,null:false

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :months,dependent: :destroy
+  has_many :expenses, dependent: :destroy
   has_many :templates, dependent: :destroy
   has_secure_password
 
@@ -44,7 +44,7 @@ class User < ApplicationRecord
       salary_1 = "".rjust(6,"1" + SecureRandom.random_number(1000).to_s).to_i
       salary_2 = "".rjust(6,"1" + SecureRandom.random_number(1000).to_s).to_i
       month_at = Time.parse("#{date.year}/#{date.month}").ago(n.month)
-      month = self.months.create(
+      expense = self.expenses.create(
         date_at: month_at,
         salary: salary_1,
         salary_2: salary_2
@@ -52,7 +52,7 @@ class User < ApplicationRecord
 
       # ＝＝＝＝ここからdaysの作成
       # 家賃と自動車費と保険と入金だけは1つだけ作成する
-      month.days.create(
+      expense.days.create(
         icon: Day.icons[:rent],
         day_at: month_at,
         memo: "毎月1日 家賃",
@@ -60,7 +60,7 @@ class User < ApplicationRecord
         spending: true
       )
 
-      month.days.create(
+      expense.days.create(
         icon: Day.icons[:car_cost],
         day_at: month_at.since(4.day),
         memo: "毎月5日 自動車ローン",
@@ -68,7 +68,7 @@ class User < ApplicationRecord
         spending: true
       )
 
-      month.days.create(
+      expense.days.create(
         icon: Day.icons[:insurance],
         day_at: month_at.since(14.day),
         memo: "毎月15日 自動車保険",
@@ -76,7 +76,7 @@ class User < ApplicationRecord
         spending: true
       )
 
-      month.days.create(
+      expense.days.create(
         icon: Day.icons[:insurance],
         day_at: month_at.since(24.day),
         memo: "毎月25日 生命保険",
@@ -84,7 +84,7 @@ class User < ApplicationRecord
         spending: true
       )
 
-      month.days.create(
+      expense.days.create(
         icon: Day.icons[:cost_of_living],
         day_at: month_at.since(24.day),
         memo: "水道代",
@@ -92,7 +92,7 @@ class User < ApplicationRecord
         spending: true
       )
 
-      month.days.create(
+      expense.days.create(
         icon: Day.icons[:cost_of_living],
         day_at: month_at.since(24.day),
         memo: "電気代",
@@ -100,7 +100,7 @@ class User < ApplicationRecord
         spending: true
       )
 
-      month.days.create(
+      expense.days.create(
         icon: Day.icons[:cost_of_living],
         day_at: month_at.since(24.day),
         memo: "ガス代",
@@ -110,7 +110,7 @@ class User < ApplicationRecord
 
       # 入金はランダムに作成したり、しなかったりする
       if SecureRandom.random_number(2) == 0
-        month.days.create(
+        expense.days.create(
           icon: Day.icons[:payment],
           day_at: month_at.since(12.day),
           memo: "株式の配当金",
@@ -121,7 +121,7 @@ class User < ApplicationRecord
 
       # 入金(ボーナス)に7月に設定
       if month_at.month == 7
-        month.days.create(
+        expense.days.create(
           icon: Day.icons[:payment],
           day_at: month_at.since(24.day),
           memo: "ボーナス",
@@ -154,7 +154,7 @@ class User < ApplicationRecord
             index = SecureRandom.random_number(memo[icon].length + 2)
             day = SecureRandom.random_number(month_at.end_of_month.day)
             next if money == 0
-            day =month.days.create(
+            day = expense.days.create(
               icon: Day.icons[:food_expenses],
               day_at: month_at.since(day.day),
               memo: memo[icon][index],
@@ -169,7 +169,7 @@ class User < ApplicationRecord
             index = SecureRandom.random_number(memo[icon].length + 2)
             day = SecureRandom.random_number(month_at.end_of_month.day)
             next if money == 0
-            day =month.days.create(
+            day = expense.days.create(
               icon: Day.icons[:entertainment],
               day_at: month_at.since(day.day),
               memo: memo[icon][index],
@@ -182,7 +182,7 @@ class User < ApplicationRecord
           money = [7000,3000,6000][SecureRandom.random_number(3)]
           index = SecureRandom.random_number(memo[icon].length + 1)
           day = SecureRandom.random_number(month_at.end_of_month.day)
-          day =month.days.create(
+          day = expense.days.create(
             icon: Day.icons[:others],
             day_at: month_at.since(day.day),
             memo: memo[icon][index],

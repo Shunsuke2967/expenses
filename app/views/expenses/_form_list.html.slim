@@ -1,8 +1,8 @@
-- if current_user_month_list.count > 20
+- if current_user_expense_list.count > 20
   table.table.text-left
     tbody
       tr
-        td.f-right= paginate current_user_month_list,theme: 'bootstrap-5', remote: true , url: expenses_list_months_path
+        td.f-right= paginate current_user_expense_list,theme: 'bootstrap-5', remote: true , url: expenses_list_expenses_path
 div
   table.white-box.table.text-left.stay 
     tbody
@@ -10,7 +10,7 @@ div
         - if current_income_and_expenditure.positive?
           td.gray
             strong
-              | #{current_month.date_at.year}年#{current_month.date_at.month}月
+              | #{current_expense.date_at.year}年#{current_expense.date_at.month}月
             span.gray
               | 　ログイン中...
             br
@@ -26,7 +26,7 @@ div
         - else 
           td.gray
             strong
-              | #{current_month.date_at.year}年#{current_month.date_at.month}月
+              | #{current_expense.date_at.year}年#{current_expense.date_at.month}月
             span.gray
               | 　ログイン中...
             br
@@ -41,20 +41,20 @@ div
               i.fas.fa-angle-double-down.icon-red
       tr
         td.gray 
-          = link_to 'ログイン中の家計簿を削除',current_month,method: :delete,data: { confirm: "#{current_month.date_at.year}年#{current_month.date_at.month}月の家計簿を削除します。よろしいですか？" } ,class: 'btn btn-warning mb-10 w-100'
+          = link_to 'ログイン中の家計簿を削除',current_expense,method: :delete,data: { confirm: "#{current_expense.date_at.year}年#{current_expense.date_at.month}月の家計簿を削除します。よろしいですか？" } ,class: 'btn btn-warning mb-10 w-100'
 
-- current_user_month_list.each do |month|
-  - next if current_month == month
-  - current_income_and_expenditure = month.total(salary: true, income: true, spending: true)
+- current_user_expense_list.each do |expense|
+  - next if current_expense == expense
+  - current_income_and_expenditure = expense.total(salary: true, income: true, spending: true)
 
-  = link_to month_current_month_path(month.id),method: :post, class: "edit-link"
+  = link_to change_expense_path(expense.id),method: :post, class: "edit-link"
     div
       table.white-box.table.table-hover.text-left.stay 
         tbody
           tr
             td
               strong
-                | #{month.date_at.year}年#{month.date_at.month}月
+                | #{expense.date_at.year}年#{expense.date_at.month}月
               br
               span.s_right.s_margin_right
                 i.fas.fa-sign-in-alt.fa-2x

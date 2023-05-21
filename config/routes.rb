@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'months#index'
+  root to: 'expenses#index'
 
   #user
   resources :users do
@@ -40,16 +40,15 @@ Rails.application.routes.draw do
   #budget
   resources :budgets, only: [:new,:edit,:create,:update,:show]
 
-  # month
-  resources :months do
+  # expense
+  resources :expenses do
     collection do
      post 'search'
-     get 'expenses_list'
+     get 'list'
     end
 
     member do
-      post :month_current
-    end
+      post :change    end
   end
 
   #get '*path', to: 'application#render_404'

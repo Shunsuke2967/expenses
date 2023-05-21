@@ -1,5 +1,5 @@
 class Budget < ApplicationRecord
-  belongs_to :month
+  belongs_to :expense
   validates :rent, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :cost_of_living, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :food_expenses, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}

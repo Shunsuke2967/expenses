@@ -31,7 +31,7 @@ class TemplatesController < ApplicationController
   end
 
   def create_add
-    @day = current_user.months.find(current_month.id).days.new(template_day_params)
+    @day = current_user.expenses.find(current_expense.id).days.new(template_day_params)
     if @day.save
       redirect_to root_path, notice: '追加しました'
     end
@@ -56,7 +56,7 @@ class TemplatesController < ApplicationController
 
   def days_create
     if params[:date_at].present?
-      if current_month.days_create(params[:date_at])
+      if current_expense.days_create(params[:date_at])
         redirect_to root_url, notice: "収支一覧表に追加しました"
       else
         flash[:danger] = "追加時にエラーが発生しました"

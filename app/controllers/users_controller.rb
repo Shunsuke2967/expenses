@@ -13,9 +13,9 @@ class UsersController < ApplicationController
 
     if @user.save
       date = Time.zone.now
-      @month = @user.months.create(date_at: Time.parse("#{date.year}/#{date.month}"))
+      @expense = @user.expenses.create(date_at: Time.parse("#{date.year}/#{date.month}"))
       session[:user_id] = @user.id
-      session[:month_id] = @month.id
+      session[:expense_id] = @expense.id
       session[:demo] = nil
       # 新規の最初のユーザーに見せるモーダルのための変数
       session[:first_user] = true
@@ -31,9 +31,6 @@ class UsersController < ApplicationController
 
   # 利用規約
   def terms
-  end
-
-  def news
   end
 
   private

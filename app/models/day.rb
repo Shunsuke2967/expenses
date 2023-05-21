@@ -1,7 +1,7 @@
 class Day < ApplicationRecord
-  belongs_to :month
+  belongs_to :expense
   validates :money, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
-  validate :current_month_validate
+  validate :current_expense_validate
   validates :day_at, presence: true
 
   enum icon: { rent: 0,
@@ -37,9 +37,9 @@ class Day < ApplicationRecord
 
   private
 
-  def current_month_validate
+  def current_expense_validate
     return unless self.day_at.present?
-    unless self.month.date_at.month == self.day_at.month && self.month.date_at.year == self.day_at.year
+    unless self.expense.date_at.month == self.day_at.month && self.expense.date_at.year == self.day_at.year
       errors.add(:day_at, "は現在の家計簿の月と違うので登録できません")
     end
   end

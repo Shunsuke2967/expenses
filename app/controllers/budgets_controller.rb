@@ -1,10 +1,10 @@
 class BudgetsController < ApplicationController
   def edit
-    @budget = current_month.budget
+    @budget = current_expense.budget
   end
 
   def update
-    @budget = current_month.budget
+    @budget = current_expense.budget
 
     if @budget.update(budget_params)
       redirect_to root_url,notice: "予算費を再設定しました"
@@ -18,11 +18,11 @@ class BudgetsController < ApplicationController
   end
 
   def new
-    @budget = current_month.build_budget
+    @budget = current_expense.build_budget
   end
 
   def create
-    @budget = current_month.build_budget(budget_params)
+    @budget = current_expense.build_budget(budget_params)
 
     if @budget.save
       redirect_to root_url, notice: "予算費を設定しました"

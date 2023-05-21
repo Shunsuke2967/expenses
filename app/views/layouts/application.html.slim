@@ -33,7 +33,7 @@ html
       <header>
         - if current_user.present?
           = link_to root_path, class: "logotype" do 
-            = "#{current_month.date_at.month}"
+            = "#{current_expense.date_at.month}"
             | 月
             span.t-s の
             span.ore か
@@ -52,9 +52,6 @@ html
             <span></span>
           </label>
           <ul class="menu__box">
-            li
-              = link_to "ホーム", root_path, class: "menu__item"
-              hr.m-0
             - if current_user.blank?
               li
                 = link_to "ログイン", sessions_path, class: "menu__item"
@@ -67,16 +64,13 @@ html
                 hr.m-0      
             - if current_user.present?
               li
-                = link_to "家計簿一覧", expenses_list_months_path, class: "menu__item"
+                = link_to "家計簿一覧", list_expenses_path, class: "menu__item"
                 hr.m-0
               li
                 = link_to "ログアウト", current_user, method: :delete,data: { confirm: "ログアウトします。よろしいですか？" } , class: "menu__item"
                 hr.m-0
             li
-              #first-modal= link_to "アプリの使い方", 'javascript:void(0);', class: "menu__item"
-              hr.m-0
-            li
-              = link_to "お知らせ", news_users_path, class: "menu__item"
+              #first-modal= link_to "ヘルプ", 'javascript:void(0);', class: "menu__item"
               hr.m-0
             li
               = link_to "利用規約", terms_users_path, class: "menu__item"

@@ -1,4 +1,4 @@
-class Month < ApplicationRecord
+class Expense < ApplicationRecord
   belongs_to :user
   has_many :days,dependent: :destroy
   has_one :budget,dependent: :destroy
@@ -6,7 +6,7 @@ class Month < ApplicationRecord
   validates :salary_2, numericality: {only_integer: true, greater_than_or_equal_to: 0,allow_blank: true}
   validates :salary_3, numericality: {only_integer: true, greater_than_or_equal_to: 0,allow_blank: true}
   validates :salary_4, numericality: {only_integer: true, greater_than_or_equal_to: 0,allow_blank: true}
-  validate :month_new_record,on: :create
+  validate :new_record,on: :create
 
   # すべての支出を項目別に合計したハッシュとすべての項目の合計値を返す(入金は外す)
   def days_total_spending
@@ -98,8 +98,8 @@ class Month < ApplicationRecord
 
   private
 
-  def month_new_record
-    User.find(self.user.id).months.each do |self_date|
+  def new_record
+    User.find(self.user.id).expenses.each do |self_date|
       if (self_date.date_at.year == self.date_at.year) && (self_date.date_at.month == self.date_at.month)
         errors.add(:date_at, "はすでに存在しています")
       end
