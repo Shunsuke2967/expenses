@@ -37,6 +37,15 @@ class User < ApplicationRecord
     return demo_user
   end
 
+  # 渡した年月までの収支を計算する
+  def expense_balance(to_date)
+    income_expenditure = 0
+    expenses.where("date_at <= ?" , to_date).each do |expense|
+      income_expenditure  += expense.total(salary: true, income: true, spending: true)
+    end
+    return income_expenditure 
+  end
+
   def demo_datas
     date = Time.now
     0.upto(11) do |n|
@@ -141,12 +150,12 @@ class User < ApplicationRecord
         amount = {
           "food_expenses" => 0,
           "entertainment" => 0,
-          "others" => 0
+          "other" => 0
         }
         memo = {}
         memo["food_expenses"] = ["外食","おやつ","会食","社食","ガスト","マック","バイキング"]
         memo["entertainment"] = ["クレーンゲーム","釣り具購入","筋トレ道具購入","飲み会","友達と焼き肉","遊園地","県外に遊び","本購入"]
-        memo["others"] = ["修理費","出張費","社内講習会"]
+        memo["other"] = ["修理費","出張費","社内講習会"]
         case icon
         when "food_expenses"
           while amount[icon] < 60000
@@ -178,12 +187,12 @@ class User < ApplicationRecord
             )
             amount[icon] = amount[icon] + day.money
           end
-        when "others"
+        when "other"
           money = [7000,3000,6000][SecureRandom.random_number(3)]
           index = SecureRandom.random_number(memo[icon].length + 1)
           day = SecureRandom.random_number(month_at.end_of_month.day)
           day = expense.days.create(
-            icon: Day.icons[:others],
+            icon: Day.icons[:other],
             day_at: month_at.since(day.day),
             memo: memo[icon][index],
             money: money,

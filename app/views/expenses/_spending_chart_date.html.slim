@@ -5,16 +5,16 @@ table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
         h6 支出内訳
     tr
       td.text-right
-        = generate_chart @total_spending_list,donut_chart_color_set(@total_spending_list)
+        = generate_chart current_expense.days_total_spending, donut_chart_color_set(current_expense.days_total_spending)
     tr
       td.font-size 
         - count = 1
-        - @total_spending_list.each do |key, date|
+        - current_expense.days_total_spending.each do |key, date|
           - next if date == 0
 
-          = tag.send('span', class: color_selector(key)[:icon])
+          span class="#{icon_color_attribute(key)}"
             | ■
-          span= date.to_i.to_s(:delimited)
+          span= date.to_s(:delimited)
           span 円　
           -if count == 3
             br

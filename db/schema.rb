@@ -16,13 +16,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
 
   create_table "budgets", force: :cascade do |t|
     t.bigint "expense_id", null: false
-    t.bigint "rent", null: false
-    t.bigint "cost_of_living", null: false
-    t.bigint "food_expenses", null: false
-    t.bigint "entertainment", null: false
-    t.bigint "others", null: false
-    t.bigint "car_cost", null: false
-    t.bigint "insurance", null: false
+    t.bigint "rent", default: 0, null: false
+    t.bigint "cost_of_living", default: 0, null: false
+    t.bigint "food_expenses", default: 0, null: false
+    t.bigint "entertainment", default: 0, null: false
+    t.bigint "other", default: 0, null: false
+    t.bigint "car_cost", default: 0, null: false
+    t.bigint "insurance", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["expense_id"], name: "index_budgets_on_expense_id"

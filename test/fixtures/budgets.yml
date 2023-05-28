@@ -6,7 +6,7 @@ one:
   cost_of_living: 
   food_expenses: 
   entertainment: 
-  others: 
+  other: 
   car_cost: 
   insurance: 
 
@@ -16,6 +16,6 @@ two:
   cost_of_living: 
   food_expenses: 
   entertainment: 
-  others: 
+  other: 
   car_cost: 
   insurance: 

@@ -1,32 +1,19 @@
 class Expense < ApplicationRecord
   belongs_to :user
-  has_many :days,dependent: :destroy
-  has_one :budget,dependent: :destroy
+  has_many :days, dependent: :destroy
+  has_one :budget, dependent: :destroy
   validates :salary, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :salary_2, numericality: {only_integer: true, greater_than_or_equal_to: 0,allow_blank: true}
   validates :salary_3, numericality: {only_integer: true, greater_than_or_equal_to: 0,allow_blank: true}
   validates :salary_4, numericality: {only_integer: true, greater_than_or_equal_to: 0,allow_blank: true}
-  validate :new_record,on: :create
+  validate :validate_exist, on: :create
 
   # すべての支出を項目別に合計したハッシュとすべての項目の合計値を返す(入金は外す)
   def days_total_spending
-    spending = self.days.where(spending: true).group(:icon).sum(:money).sort {|(k1, v1), (k2, v2)| v2 <=> v1 }.to_h
+    spending = self.days.where(spending: true).group(:icon).sum(:money).sort_by { |_, v| -v }.to_h
     spending.delete("payment")
-
-    item_name = Day.icons.keys
-    item_name.delete("payment")
-    item_name.map{ |name| spending[name] = 0 unless spending.include?(name)  }
-    # keyを日本語に変換
-    spending_i18n = {}
-    # 変換用ハッシュを用意
-    i18n_item = { "rent" => "家賃", "cost_of_living" => "生活費", "food_expenses" => "食費", "entertainment" => "娯楽費", "car_cost" => "自動車費", "insurance" => "保険", "others" => "その他" }
-    spending.each do |key,value|
-      spending_i18n[i18n_item[key]] = value
-    end
-
-    return spending_i18n
+    return spending
   end
-
 
   #引数によってどれを含めた総額にするかを分けている
   #処理自体は別のメソッドに任せている
@@ -98,7 +85,7 @@ class Expense < ApplicationRecord
 
   private
 
-  def new_record
+  def validate_exist
     User.find(self.user.id).expenses.each do |self_date|
       if (self_date.date_at.year == self.date_at.year) && (self_date.date_at.month == self.date_at.month)
         errors.add(:date_at, "はすでに存在しています")

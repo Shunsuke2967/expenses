@@ -44,6 +44,14 @@ ja:
         memo: メモ
         money: 金額
         icome_and_outgo: 収支
+        icons:
+          rent: 家賃
+          cost_of_living: 生活費
+          food_expenses: 食費
+          entertainment: 娯楽
+          other: その他
+          car_cost: 自動車費
+          insurance: 保険
       template:
         day_at: 日付
         icon: 費用項目
@@ -54,7 +62,7 @@ ja:
         cost_of_living: 生活費
         food_expenses: 食費
         entertainment: 娯楽
-        others: その他
+        other: その他
         car_cost: 自動車費
         insurance: 保険
       content:

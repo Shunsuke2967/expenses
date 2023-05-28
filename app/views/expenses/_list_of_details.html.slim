@@ -7,11 +7,11 @@
             | 明細一覧　
         th.table-hover-none.text-right colspan="3"
           button#detail-search.btn.btn-none.btn-outline-secondary.btn-sm.radius.not-foucas-shadow type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" 詳細検索
-      - current_days.order("day_at").each do |day|
+      - current_expense.days.order("day_at").each do |day|
         tr.days.color-none data-id="#{day.id}"
           td.gray width="17%" = "#{day_adjust(day.day_at.day)}日"
-          = tag.send("td",class: color_selector(day.icon)[:icon], width: "12%",align: "center")
-            = tag.send("i", class: icon_selector(day.icon))
+          = tag.send("td",class: icon_color_attribute(day.icon), width: "12%",align: "center")
+            = tag.send("i", class: icon_attribute(day.icon))
           td width="34%" = day.memo
           - unless day.spending
             td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_fs(:delimited)}"
@@ -76,8 +76,8 @@
                 span.icon-color-violet
                   i.fas.fa-hospital-user.fa-lg
             .form-inline
-              = f.check_box :icon_eq_any, { id: "q_others_icon_eq_any", class: "margin-right-4 icon_search" }, "100",false 
-              = f.label :others_icon_eq_any
+              = f.check_box :icon_eq_any, { id: "q_other_icon_eq_any", class: "margin-right-4 icon_search" }, "100",false 
+              = f.label :other_icon_eq_any
                 span.icon-color-gray
                   i.fas.fa-question-circle.fa-lg
           .mb-3

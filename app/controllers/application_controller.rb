@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_budget
-    @current_budgets ||= current_expense.budget
+    @current_budget ||= current_expense.budget
   end
 
   def current_demo
@@ -73,27 +73,27 @@ class ApplicationController < ActionController::Base
     redirect_to users_path unless current_user
   end
 
-  def donut_chart_color_set(chart_date)
+  # donutchartの色の決める
+  def donut_chart_color_set(total_spending)
     color_options = []
-    chart_date.each do |date|
+    total_spending.each do |date|
       case date[0]
-        when "家賃"
+        when "rent"
           color_options << "#DA5019"
-        when "生活費"
+        when "cost_of_living"
           color_options << "#4094be"
-        when "食費"
+        when "food_expenses"
           color_options << "#ddb500"
-        when "娯楽費"
+        when "entertainment"
           color_options << "#20990e"
-        when "自動車費"
+        when "car_cost"
           color_options << "darkolivegreen"
-        when "保険"
+        when "insurance"
           color_options << "violet"
-        when "その他"
+        when "other"
           color_options << "#8d8d8d"
       end
     end
-
     return color_options
   end
 end

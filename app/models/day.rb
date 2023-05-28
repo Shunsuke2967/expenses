@@ -4,27 +4,15 @@ class Day < ApplicationRecord
   validate :current_expense_validate
   validates :day_at, presence: true
 
-  enum icon: { rent: 0,
-               cost_of_living: 1,
-               food_expenses: 2,
-               entertainment: 3,
-               car_cost: 4,
-               insurance: 5,
-               payment: 6,
-               others: 100
+  enum icon: { rent: 1,
+               cost_of_living: 2,
+               food_expenses: 3,
+               entertainment: 4,
+               car_cost: 5,
+               insurance: 6,
+               payment: 7,
+               other: 100
              }
-
-  # 使いやすいようhashのタイトルなどを日本語にしているため、実際のdbから引き出すときなどに使用している
-  TO_S_TITLE = {
-    "家賃" => "rent",
-    "生活費" => "cost_of_living",
-    "食費" => "food_expenses",
-    "娯楽費" => "entertainment",
-    "自動車費" => "car_cost",
-    "保険" => "insurance",
-    "その他" => "others",
-    "入金" => "payment"
-  }
 
   def transfer(template,date_at)
     self.day_at = Time.parse("#{self.month.date_at.year}-#{self.month.date_at.month}-#{date_at}")
@@ -33,6 +21,12 @@ class Day < ApplicationRecord
     self.spending = template.spending
     self.money = template.money
     return self
+  end
+
+  # 渡された文字列からenumのi18n変換
+  # todo: リファクタ
+  def self.parse_icon_to_s(key)
+    I18n.t(key, scope: [:activerecord, :attributes, :day, :icons])
   end
 
   private

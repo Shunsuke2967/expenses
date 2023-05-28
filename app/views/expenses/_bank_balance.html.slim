@@ -4,26 +4,23 @@ table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-lef
       td
         a.style-none[data-bs-toggle="collapse" href="#collapseExample10" role="button" aria-expanded="false" aria-controls="collapseExample"]
           h6 口座残高<br>
-          - if current_income_and_expenditure.positive?
-            p.w-100.text-right.fs-07 colspan="2"
-              span.gray
-                | 前月比
+          p.w-100.text-right.fs-07 colspan="2"
+            span.gray
+              | 前月比
+            - if current_expense.total(salary: true,income: true,spending: true).positive?
               span.icon-color-lightblue
-                | +#{current_income_and_expenditure.to_s(:delimited)} 
+                | +#{current_expense.total(salary: true,income: true,spending: true).to_s(:delimited)} 
                 i.fas.fa-angle-double-up.icon-blue
-          - else 
-            p.w-100.text-right.fs-07 colspan="2"
-              span.gray
-                | 前月比
+            - else
               span.icon-color-red
-                | #{current_income_and_expenditure.to_s(:delimited)} 
+                | #{current_expense.total(salary: true,income: true,spending: true).to_s(:delimited)} 
                 i.fas.fa-angle-double-down.icon-red
           
           p
             span.gray.pt-10
               | 口座残高
             span.fs-20.s_right
-              | #{income_and_expenditure.to_s(:delimited)}円
+              | #{current_user.expense_balance(current_expense.date_at).to_s(:delimited)}円
     tr 
       td.pad-0
         #collapseExample10.collapse

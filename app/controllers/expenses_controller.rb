@@ -4,29 +4,10 @@ class ExpensesController < ApplicationController
       @first_user = true
       session[:first_user] = nil
     end
-    @page = params[:page]
-    @expenses = current_user.expenses
     #search_form_forのため空のRansackオブジェクトを作成
-    #検索はajaxで行う
+    #検索はajax(searchアクション)で行う
     @q = current_expense.days.ransack
-    @current_days = @q.result
-    @current_user_expense_list = current_user.expenses.order(date_at: "DESC").page(params[:page])
-    @total_spending_list = current_expense.days_total_spending
-    @current_sum = sums_hash(@current_days,current_expense)
-    #ログイン中の年月分までの収支のトータル
-    @income_and_expenditure = income_expenditure(@current_user_expense_list,current_expense.date_at)
-    #ログイン中の年月の収支
-    @current_income_and_expenditure = current_expense.total(salary: true,income: true,spending: true)
-
-    # 部分テンプレート生成用のためインスタンス変数をhashにまとめる
-    @locals_date = { 
-      current_days: @current_days,
-      current_user_expense_list: @current_user_expense_list,
-      total_spending_list: @total_spending_list,
-      current_sum: @current_sum,
-      income_and_expenditure: @income_and_expenditure,
-      current_income_and_expenditure: @current_income_and_expenditure,
-    }
+    @budget = current_expense.budget
   end
 
   # ajax用
@@ -51,7 +32,7 @@ class ExpensesController < ApplicationController
       session[:expense_id] = @expense.id
       budget = expense.budget
       if budget
-        @expense.budget.new(rent: budget.rent,cost_of_living: budget.cost_of_living,food_expenses: budget.food_expenses,entertainment: budget.entertainment,car_cost: budget.car_cost,insurance: budget.insurance,others: budget.others).save
+        @expense.budget.new(rent: budget.rent,cost_of_living: budget.cost_of_living,food_expenses: budget.food_expenses,entertainment: budget.entertainment,car_cost: budget.car_cost,insurance: budget.insurance,other: budget.other).save
       end
 
       redirect_to root_url, notice: "新しい家計簿を作成しました"

@@ -38,13 +38,13 @@ Rails.application.routes.draw do
   end
 
   #budget
-  resources :budgets, only: [:new,:edit,:create,:update,:show]
+  resources :budgets
 
   # expense
   resources :expenses do
     collection do
-     post 'search'
-     get 'list'
+      post 'search'
+      get 'list'
     end
 
     member do

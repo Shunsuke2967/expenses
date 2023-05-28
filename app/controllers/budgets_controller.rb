@@ -35,7 +35,7 @@ class BudgetsController < ApplicationController
   private
 
   def budget_params
-    params.require(:budget).permit(:rent,:cost_of_living,:food_expenses,:entertainment,:car_cost,:insurance,:others)
+    params.require(:budget).permit(:rent, :cost_of_living, :food_expenses, :entertainment, :car_cost, :insurance, :other)
   end
 
 

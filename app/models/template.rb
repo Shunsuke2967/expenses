@@ -9,7 +9,7 @@ class Template < ApplicationRecord
     car_cost: 4,
     insurance: 5,
     payment: 6,
-    others: 100
+    other: 100
   }
 
   def set_class
@@ -28,7 +28,7 @@ class Template < ApplicationRecord
       return ["icon-color-violet","fas fa-hospital-user"]
     when "payment"
       return ["icon-color-gray","fas fa-yen-sign"]
-    when "others"
+    when "other"
       return ["icon-color-gray","far fa-question-circle"]
     else
       return ""

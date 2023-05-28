@@ -67,6 +67,9 @@ html
                 = link_to "家計簿一覧", list_expenses_path, class: "menu__item"
                 hr.m-0
               li
+                = link_to "収入設定", "#", class: "menu__item"
+                hr.m-0
+              li
                 = link_to "ログアウト", current_user, method: :delete,data: { confirm: "ログアウトします。よろしいですか？" } , class: "menu__item"
                 hr.m-0
             li

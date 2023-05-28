@@ -3,7 +3,9 @@ module ApplicationHelper
   #オプション引数にハッシュ{}形式で渡せないため、メソッド内で円グラフを生成
   def generate_chart(chart_date,color_options)
     chart_date = chart_date.reject { |key,value| value == 0 }
-    return pie_chart chart_date, 
+    chart_date_to_s = chart_date.map{ |key,value| [Day.parse_icon_to_s(key), value] }.to_h
+
+    return pie_chart chart_date_to_s, 
       donut: true, # ドーナツグラフ
       colors: color_options,
       message: {empty: "データがありません"},
@@ -41,60 +43,72 @@ module ApplicationHelper
       }
   end
 
-  def icon_selector(item_s)
-    case item_s
-    when "家賃","rent"
+  def icon_attribute(type)
+    case type
+    when "rent"
       return "fas fa-home"
-    when "生活費","cost_of_living"
+    when "cost_of_living"
       return "fas fa-faucet"
-    when "娯楽費","entertainment"
+    when "entertainment"
       return "fas fa-shopping-cart"
-    when "食費","food_expenses"
+    when "food_expenses"
       return "fas fa-utensils"
-    when "自動車費","car_cost"
+    when "car_cost"
       return "fas fa-car-side"
-    when "保険","insurance"
+    when "insurance"
       return "fas fa-hospital-user"
-    when "その他","others"
+    when "other"
       return "fas fa-question-circle"
-    when "入金","payment"
+    when "payment"
         return "fas fa-yen-sign"
     else
-      return 0
+      return ''
     end
   end
 
-  def color_selector(item_s)
-    set_color = {}
-    case item_s
-    when "家賃","rent"
-      set_color[:icon] = "icon-color-red"
-      set_color[:progress] = "bg-danger"
-    when "生活費","cost_of_living"
-      set_color[:icon] = "icon-color-lightblue"
-      set_color[:progress] = "bg-primary"
-    when "娯楽費","entertainment"
-      set_color[:icon] = "icon-color-green"
-      set_color[:progress] = "bg-success"
-    when "食費","food_expenses"
-      set_color[:icon] = "icon-color-yellow"
-      set_color[:progress] = "bg-warning"
-    when "自動車費","car_cost"
-      set_color[:icon] = "icon-color-violetgreen"
-      set_color[:progress] = "bg-violetgreen"
-    when "保険","insurance"
-      set_color[:icon] = "icon-color-violet"
-      set_color[:progress] = "bg-violet"
-    when "その他","others"
-      set_color[:icon] = "icon-color-gray"
-      set_color[:progress] = "bg-secondary"
-    when "入金","payment"
-      set_color[:icon] = "icon-color-gray"
+  def icon_color_attribute(type)
+    case type
+    when "rent"
+      "icon-color-red"
+    when "cost_of_living"
+      "icon-color-lightblue"
+    when "entertainment"
+      "icon-color-green"
+    when "food_expenses"
+      "icon-color-yellow"
+    when "car_cost"
+      "icon-color-violetgreen"
+    when "insurance"
+      "icon-color-violet"
+    when "other"
+      "icon-color-gray"
+    when "payment"
+      "icon-color-gray"
     else
       return ""
     end
+  end
 
-    return set_color
+  def bar_color_attribute(type)
+    set_color = {}
+    case type
+    when "rent"
+      "bg-danger"
+    when "cost_of_living"
+      "bg-primary"
+    when "entertainment"
+      "bg-success"
+    when "food_expenses"
+      "bg-warning"
+    when "car_cost"
+      "bg-violetgreen"
+    when "insurance"
+      "bg-violet"
+    when "other"
+      "bg-secondary"
+    else
+      return ""
+    end
   end
 
   def day_adjust(day)
@@ -102,6 +116,14 @@ module ApplicationHelper
       return "0#{day}"
     else
       return day.to_s
+    end
+  end
+
+  def parse_percent(progress=0, spending=0)
+    if progress == 0
+      100
+    else
+      ((spending/progress.to_f)*100).ceil
     end
   end
 end
