@@ -1,0 +1,20 @@
+ul#pills-tab.nav.nav-pills.fixed-bottom.justify-content-evenly.header
+  li.nav-item.center
+    = link_to root_path, class: 'nav-link p-0 link active' do
+      i.fas.fa-wallet.fa-lg
+      .f-10 かけいぼ
+
+  li.nav-item.center
+    = link_to charts_path, class: 'nav-link p-0 link active' do
+      i.fas.fa-chart-pie.fa-lg
+      .f-10 分析
+
+  li.nav-item.center
+    = link_to imports_path, class: 'nav-link p-0 link active' do
+      i.far.fa-clipboard.fa-lg
+      .f-10 一括入力
+
+  li.nav-item.center
+    = link_to transitions_path, class: 'nav-link p-0 link active' do
+      i.fas.fa-chart-line.fa-lg
+      .f-10 推移

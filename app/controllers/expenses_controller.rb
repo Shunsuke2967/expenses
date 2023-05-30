@@ -39,15 +39,12 @@ class ExpensesController < ApplicationController
     end
   end
 
-  def edit
-    @expense = current_expense
+  def edit_salary
   end
 
-  def update
-    @expense = current_expense
-
-    if @expense.update(salary_params)
-      redirect_to root_url,notice: '収入金額を再設定しました'
+  def update_salary
+    if current_expense.update(salary_params)
+      redirect_to salary_list_expenses_path, notice: '収入金額を再設定しました'
     end
   end
 

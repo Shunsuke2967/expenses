@@ -15,7 +15,7 @@ class Day < ApplicationRecord
              }
 
   def transfer(template,date_at)
-    self.day_at = Time.parse("#{self.month.date_at.year}-#{self.month.date_at.month}-#{date_at}")
+    self.day_at = Time.parse("#{self.expense.date_at.year}-#{self.expense.date_at.month}-#{date_at}")
     self.icon = template.icon
     self.memo = template.memo
     self.spending = template.spending
