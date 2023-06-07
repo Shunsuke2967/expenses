@@ -253,8 +253,11 @@ p.w-100.text-right.fs-07 {
 .mar-0{
   margin-bottom: initial !important;
   text-align: center;
-  // float: center;
   width: 100%;
+}
+
+.center {
+  text-align: center;
 }
 
 .nav-link.p-0 {

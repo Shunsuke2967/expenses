@@ -1,0 +1,19 @@
+.mb-4
+.pb-5 style="padding-bottom: 5rem"
+  .row
+    .col-md-10.offset-md-1.col-lg-8.offset-lg-2
+      h1.b-c.title-f-c
+        | かけいぼ
+      .mb-5
+      = render partial: 'bank_balance'
+      = render partial: 'current_income_and_expenditure'
+      = render partial: 'list_of_details'
+
+  / 右下にログイン中にに紐づく収入/支出の新規登録リンク(鉛筆マーク)
+  .fixed-bottom.icon
+    i.bi.bi-alarm-fill
+      = link_to new_day_path, class:'icon-nav'
+        i.fas.fa-edit.fa-3x
+
+/ ナビバーの部分
+= render partial: 'shared/footer'

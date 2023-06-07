@@ -15,29 +15,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
   enable_extension "plpgsql"
 
   create_table "budgets", force: :cascade do |t|
-    t.bigint "month_id", null: false
-    t.bigint "rent", null: false
-    t.bigint "cost_of_living", null: false
-    t.bigint "food_expenses", null: false
-    t.bigint "entertainment", null: false
-    t.bigint "others", null: false
-    t.bigint "car_cost", null: false
-    t.bigint "insurance", null: false
+    t.bigint "expense_id", null: false
+    t.bigint "rent", default: 0, null: false
+    t.bigint "cost_of_living", default: 0, null: false
+    t.bigint "food_expenses", default: 0, null: false
+    t.bigint "entertainment", default: 0, null: false
+    t.bigint "other", default: 0, null: false
+    t.bigint "car_cost", default: 0, null: false
+    t.bigint "insurance", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["month_id"], name: "index_budgets_on_month_id"
-  end
-
-  create_table "contents", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "setting_id"
-    t.integer "content_type"
-    t.integer "sort_order"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "fix", default: true, null: false
-    t.index ["setting_id"], name: "index_contents_on_setting_id"
-    t.index ["user_id"], name: "index_contents_on_user_id"
+    t.index ["expense_id"], name: "index_budgets_on_expense_id"
   end
 
   create_table "days", force: :cascade do |t|
@@ -46,13 +34,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
     t.string "memo"
     t.boolean "spending"
     t.bigint "money", null: false
-    t.bigint "month_id", null: false
+    t.bigint "expense_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["month_id"], name: "index_days_on_month_id"
+    t.index ["expense_id"], name: "index_days_on_expense_id"
   end
 
-  create_table "months", force: :cascade do |t|
+  create_table "expenses", force: :cascade do |t|
     t.datetime "date_at", precision: nil, null: false
     t.bigint "salary", default: 0, null: false
     t.bigint "user_id", null: false
@@ -61,16 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
     t.bigint "salary_2"
     t.bigint "salary_3"
     t.bigint "salary_4"
-    t.index ["user_id"], name: "index_months_on_user_id"
-  end
-
-  create_table "settings", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.integer "setting_type"
-    t.integer "sort_order"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_settings_on_user_id"
+    t.index ["user_id"], name: "index_expenses_on_user_id"
   end
 
   create_table "templates", force: :cascade do |t|
@@ -94,11 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_20_231127) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "budgets", "months"
-  add_foreign_key "contents", "settings"
-  add_foreign_key "contents", "users"
-  add_foreign_key "days", "months"
-  add_foreign_key "months", "users"
-  add_foreign_key "settings", "users"
+  add_foreign_key "budgets", "expenses"
+  add_foreign_key "days", "expenses"
+  add_foreign_key "expenses", "users"
   add_foreign_key "templates", "users"
 end

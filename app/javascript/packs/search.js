@@ -50,7 +50,7 @@ memo_search = () => {
   })
 
   $.ajax({
-    url: '/months/search',  // リクエストを送信するURLを指定
+    url: '/expenses/search',  // リクエストを送信するURLを指定
     type: "POST",  // HTTPメソッドを指定（デフォルトはGET）
     data: {  // 送信するデータをハッシュ形式で指定
       q: {memo_cont: $("#q_memo_cont").val(),

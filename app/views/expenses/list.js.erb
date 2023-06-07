@@ -1,0 +1,3 @@
+var postsPaginate = document.querySelector('#month_list');
+postsPaginate.innerHTML = "<%= j render 'form_month_list', current_user_expense_list: @current_user_expense_list, current_income_and_expenditure: @current_income_and_expenditure %> "//innerHTMLで中身を置き換える。
+history.replaceState( "", "" ,"?page=<%= @page %>");//リロードできる様にURLを書き換えている
