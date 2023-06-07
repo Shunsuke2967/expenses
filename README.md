@@ -1,24 +1,12 @@
-# README
+# 環境構築手順
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Docker Compose
 
-Things you may want to cover:
+```
+docker-compose up -d
+docker-compose exec web rails db:create db:schema:load
+```
 
-* Ruby version
+## master.key
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+マスターキーを別途配布
