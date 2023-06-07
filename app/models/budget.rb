@@ -1,36 +1,35 @@
+# 予算
 class Budget < ApplicationRecord
-  belongs_to :month
+  belongs_to :expense
   validates :rent, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :cost_of_living, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :food_expenses, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :entertainment, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
-  validates :others, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
+  validates :other, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :car_cost, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :insurance, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
-
-  def all_budget
-    self.rent + self.cost_of_living + self.food_expenses + self.entertainment + self.others + self.car_cost + self.insurance
+  # 引数の種別の予算と支払いの差分を返す
+  def progress(type)
+    return self.send(type) - expense_spending(type)
   end
 
-  def item_budget(item_s)
-    case item_s
-    when "家賃"
-      self.rent
-    when "生活費"
-      self.cost_of_living
-    when "娯楽費"
-      self.entertainment
-    when "食費"
-      self.food_expenses
-    when "自動車費"
-      self.car_cost
-    when "保険"
-      self.insurance
-    when "その他"
-      self.others
-    else
-      return 0
-    end
+  def expense_spending(type)
+    expense.days.where(spending: true, icon: type).sum(:money)
+  end
+
+  # 予算の合計を返す
+  def total
+    rent + cost_of_living + food_expenses + entertainment + other + car_cost + insurance
+  end
+
+  # 日本語対応
+  def self.title(type)
+    I18n.t(type, scope: [:activerecord, :attributes, :budget])
+  end
+
+  # 種別のキーの配列を返す
+  def self.type_keys
+    [:rent, :cost_of_living, :food_expenses, :entertainment, :other, :car_cost, :insurance]
   end
 end

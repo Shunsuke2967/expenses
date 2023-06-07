@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user,:current_month,:current_month_set,:donut_chart_color_set,:budget_set,:current_budget,:template_html,:current_demo
+  helper_method :current_user,:current_expense,:current_expense_set,:donut_chart_color_set,:budget_set,:template_html,:current_demo
   before_action :login_required
   # rescue_from Exception,                        with: :render_500
   # rescue_from ActiveRecord::RecordNotFound,     with: :render_404
@@ -41,30 +41,26 @@ class ApplicationController < ActionController::Base
 
 
   def current_user
-    @current_user ||= User.includes(months: :days).find_by(id: session[:user_id]) if session[:user_id]
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 
-  def current_month
-    @current_month ||= Month.includes(:days).find_by(id: session[:month_id]) if session[:month_id]
-  end
-
-  def current_budget
-    @current_budgets ||= current_month.budget
+  def current_expense
+    @current_expense ||= Expense.find_by(id: session[:expense_id]) if session[:expense_id]
   end
 
   def current_demo
     @demo ||= session[:demo]
   end
 
-  def current_month_set
-    month = current_user.months.order(date_at: "DESC").first
+  def current_expense_set
+    expense = current_user.expenses.order(date_at: "DESC").first
 
-    if month
-      session[:month_id] = month.id
+    if expense
+      session[:expense_id] = expense.id
     else
-      month = current_user.months.new(date_at: Time.zone.now)
-      if month.save
-        session[:month_id] = month.id
+      expense = current_user.expenses.new(date_at: Time.zone.now)
+      if expense.save
+        session[:expense_id] = expense.id
       end
     end
   end
@@ -73,27 +69,27 @@ class ApplicationController < ActionController::Base
     redirect_to users_path unless current_user
   end
 
-  def donut_chart_color_set(chart_date)
+  # donutchartの色の決める
+  def donut_chart_color_set(total_spending)
     color_options = []
-    chart_date.each do |date|
+    total_spending.each do |date|
       case date[0]
-        when "家賃"
+        when :rent
           color_options << "#DA5019"
-        when "生活費"
+        when :cost_of_living
           color_options << "#4094be"
-        when "食費"
+        when :food_expenses
           color_options << "#ddb500"
-        when "娯楽費"
+        when :entertainment
           color_options << "#20990e"
-        when "自動車費"
+        when :car_cost
           color_options << "darkolivegreen"
-        when "保険"
+        when :insurance
           color_options << "violet"
-        when "その他"
+        when :other
           color_options << "#8d8d8d"
       end
     end
-
     return color_options
   end
 end

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root to: 'months#index'
+  root to: 'expenses#index'
 
-  #user
+  # ユーザー
   resources :users do
     collection do
       get :terms
@@ -12,18 +12,18 @@ Rails.application.routes.draw do
     end
   end
 
-  #session
+  # セッション
   resources :sessions, only: [:index,:create] do
     collection do
       get :demo
     end
   end
 
-  # day
+  # 収支
   get '/days', to: 'days#new'
   resources :days, only: [:new,:create,:destroy,:edit,:update] 
 
-  # template
+  # テンプレート
   get '/templates', to: 'templates#new'
   resources :templates do
     collection do
@@ -37,21 +37,30 @@ Rails.application.routes.draw do
     end
   end
 
-  #budget
-  resources :budgets, only: [:new,:edit,:create,:update,:show]
+  # 予算
+  resources :budgets
 
-  # month
-  resources :months do
+  # 家計簿
+  resources :expenses do
     collection do
-     post 'search'
-     get 'expenses_list'
+      post :search
+      get :list
+      get :edit_salary
+      patch :update_salary
+      get :salary_list
+      patch :update_salary
     end
-
     member do
-      post :month_current
+      post :change
     end
   end
 
-  #get '*path', to: 'application#render_404'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  # グラフ
+  resources :charts, only: [:index]
+
+  # 一括入力
+  resources :imports, only: [:index]
+
+  # 推移
+  resources :transitions, only: [:index]
 end

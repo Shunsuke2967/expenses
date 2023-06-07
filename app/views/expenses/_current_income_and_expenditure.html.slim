@@ -1,0 +1,28 @@
+table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.table-hover.text-left
+  tbody
+    tr
+      td
+        h6 総合収支
+        .mb-3
+        p
+          span.s_margin_left.gray
+            | 収入
+          span.s_right.s_margin_right.int-color-blue
+            | #{current_expense.total(salary: true, income: true).to_s(:delimited)}円　
+        p
+          span.s_margin_left.gray
+            | 支出
+          span.s_right.s_margin_right.int-color-red
+            | #{current_expense.total(spending: true).to_s(:delimited)}円　
+        hr width="100%"
+        p
+          span.s_margin_left.gray
+            | 収支
+          - if current_expense.total(salary: true, income: true, spending: true).positive?
+            span.s_right.s_margin_right.icon-blue
+              | +#{current_expense.total(salary: true, income: true, spending: true).to_s(:delimited)}円　
+              i.fas.fa-angle-double-up.icon-blue
+          - else
+            span.s_right.s_margin_right.icon-red
+              | #{current_expense.total(salary: true, income: true, spending: true).to_s(:delimited)}円　
+              i.fas.fa-angle-double-down.icon-red

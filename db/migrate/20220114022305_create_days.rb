@@ -6,7 +6,7 @@ class CreateDays < ActiveRecord::Migration[6.0]
       t.string :memo
       t.boolean :spending
       t.bigint :money, null: false
-      t.references :month, null: false, foreign_key: true
+      t.references :expense, null: false, foreign_key: true
 
       t.timestamps
     end

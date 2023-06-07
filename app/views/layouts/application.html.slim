@@ -11,12 +11,6 @@ html
     link rel="preconnect" href="https://fonts.googleapis.com"
     link rel="manifest" href="/manifest.json" 
 
-    / ios設定　
-    / ホームアイコン
-    / link rel="apple-touch-icon" href="apple-touch-icon57.png" sizes="57x57"
-    / link rel="apple-touch-icon" href="apple-touch-icon60.png" sizes="60x60"
-    / link rel="apple-touch-icon" href="apple-touch-icon114.png" sizes="114x114"
-
     = favicon_link_tag 'home-icon.jpg', rel: "apple-touch-icon", type: "image/jpg"
     = favicon_link_tag 'home-icon.jpg', rel: "apple-touch-icon", type: "image/jpg"
     = favicon_link_tag 'home-icon.jpg', rel: "apple-touch-icon", type: "image/jpg"
@@ -34,12 +28,10 @@ html
     link rel="apple-touch-startup-image" href="home-icon.jpg" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"
   body
     .kotei
-
-
-      <header>
+      header
         - if current_user.present?
           = link_to root_path, class: "logotype" do 
-            = "#{current_month.date_at.month}"
+            = "#{current_expense.date_at.month}"
             | 月
             span.t-s の
             span.ore か
@@ -52,15 +44,8 @@ html
             span.t-s の
             | か
             | けいぼ
-        <nav>
-          <input id="menu__toggle" type="checkbox" />
-          <label class="menu__btn" for="menu__toggle">
-            <span></span>
-          </label>
-          <ul class="menu__box">
-            li
-              = link_to "ホーム", root_path, class: "menu__item"
-              hr.m-0
+        nav
+          ul.menu__box
             - if current_user.blank?
               li
                 = link_to "ログイン", sessions_path, class: "menu__item"
@@ -73,26 +58,20 @@ html
                 hr.m-0      
             - if current_user.present?
               li
-                = link_to "家計簿一覧", expenses_list_months_path, class: "menu__item"
+                = link_to "家計簿一覧", list_expenses_path, class: "menu__item"
                 hr.m-0
               li
-                = link_to "カスタマイズ", expansions_users_path, class: "menu__item"
+                = link_to "収入設定", salary_list_expenses_path, class: "menu__item"
                 hr.m-0
               li
                 = link_to "ログアウト", current_user, method: :delete,data: { confirm: "ログアウトします。よろしいですか？" } , class: "menu__item"
                 hr.m-0
             li
-              #first-modal= link_to "アプリの使い方", 'javascript:void(0);', class: "menu__item"
-              hr.m-0
-            li
-              = link_to "お知らせ", news_users_path, class: "menu__item"
+              #first-modal= link_to "ヘルプ", 'javascript:void(0);', class: "menu__item"
               hr.m-0
             li
               = link_to "利用規約", terms_users_path, class: "menu__item"
               hr.m-0
-          </ul>
-        </nav>
-      </header>
     .container
       #errors
       - if flash.notice.present?

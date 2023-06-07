@@ -1,0 +1,21 @@
+table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
+  tbody
+    tr 
+      td
+        h6 支出内訳
+    tr
+      td.text-right
+        = generate_chart current_expense.days_total_spending, donut_chart_color_set(current_expense.days_total_spending)
+    tr
+      td.font-size 
+        - count = 1
+        - current_expense.days_total_spending.each do |key, date|
+          - next if date == 0
+
+          span class="#{icon_color_attribute(key)}"
+            | ■
+          span= date.to_s(:delimited)
+          span 円　
+          -if count == 3
+            br
+          - count += 1

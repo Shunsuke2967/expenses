@@ -1,0 +1,72 @@
+tr
+  td colspan="2"
+    - if @budget.progress(type).positive? || @budget.progress(type) == 0
+      .bottom 
+        a.style-none[data-bs-toggle="collapse" href="#collapseExample#{type}" role="button" aria-expanded="false" aria-controls="collapseExample"]
+          span class="#{icon_color_attribute(type)}"
+            i class="#{icon_attribute(type)}"
+          |  #{Budget.title(type)}
+      p.s_right
+        span.gray
+          | 残り
+        | 　#{@budget.progress(type).to_s(:delimited)}円
+      .progress
+        .progress-bar.progress-bar-striped.progress-bar-animated class="#{bar_color_attribute(type)}" role="progressbar" aria-valuenow="#{parse_percent(@budget.progress(type), @budget.expense_spending(type))}" aria-valuemin="0" aria-valuemax="100" style="width: #{parse_percent(@budget.progress(type), @budget.expense_spending(type))}%"
+          | #{parse_percent(@budget.progress(type), @budget.expense_spending(type))}%
+      div
+        span.s_left
+          span.gray
+            | 支出
+          | 　#{@budget.expense_spending(type).to_s(:delimited)}円
+        span.s_right
+          span.gray
+            | 予算費
+          | 　#{@budget.send(type).to_s(:delimited)}円
+    - else
+      a.style-none[data-bs-toggle="collapse" href="#collapseExample#{type}" role="button" aria-expanded="false" aria-controls="collapseExample"]
+        = tag.send("span", class: icon_color_attribute(type))
+          = tag.send('i', class: icon_attribute(type))
+        |  #{Budget.title(type)}
+      p.s_right.icon-red
+        | #{(@budget.progress(type) * -1).to_s(:delimited)}
+        | 円オーバー
+        i.fas.fa-skull-crossbones
+      .progress
+        .progress-bar.progress-bar-striped.bg-bad[role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"]
+          | 予算オーバー 
+      div
+        span.s_left
+          span.gray
+            | 支出
+          | 　#{@budget.expense_spending(type).to_s(:delimited)}円
+        span.s_right
+          span.gray
+            | 予算費
+          | 　#{@budget.send(type).to_s(:delimited)}円
+    - if @budget.expense_spending(type).present?
+      #collapseExample.collapse
+      = tag.send('div', class: "collapse", id: "collapseExample#{type}")
+        .card.card-body
+          table.p-3.bg-white.rounded.Regular.table.table-hover.text-left.stay
+            tbody
+              tr
+                td colspan="6"
+                  h6 #{Budget.title(type)}明細
+                  .mb-3
+              - current_expense.days.where(icon: type).order("day_at").each do |day|
+                tr.color-none
+                  - if "#{day.day_at.day}".length == 1 
+                    td.gray width="18%" = "0#{day.day_at.day}日"
+                  - else
+                    td.gray width="18%" = "#{day.day_at.day}日"
+                  = tag.send('td', class: icon_color_attribute(type), width: "12%",align: "center")
+                    = tag.send('i', class: icon_attribute(type))
+                  td width="32%" = day.memo
+                  - if !day.spending
+                    td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
+                  - else
+                    td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
+                  td width="2%"
+                  td width="10%"
+                    = link_to edit_day_path(day)
+                      i.fas.fa-pencil-alt
