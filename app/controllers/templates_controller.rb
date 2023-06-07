@@ -6,7 +6,7 @@ class TemplatesController < ApplicationController
   def create
    @template = current_user.templates.new(template_params)
     if @template.save
-      redirect_to root_path, notice: 'テンプレートに追加しました'
+      redirect_to imports_path, notice: 'テンプレートに追加しました'
     else
       render :new
     end
@@ -20,7 +20,7 @@ class TemplatesController < ApplicationController
     @template = current_user.templates.find(params[:id])
 
     if @template.update(template_params)
-      redirect_to root_url, notice: 'テンプレートを変更しました'
+      redirect_to imports_path, notice: 'テンプレートを変更しました'
     else
       render :edit
     end
@@ -33,7 +33,7 @@ class TemplatesController < ApplicationController
   def create_add
     @day = current_user.expenses.find(current_expense.id).days.new(template_day_params)
     if @day.save
-      redirect_to root_path, notice: '追加しました'
+      redirect_to imports_path, notice: '追加しました'
     end
   end
 

@@ -3,18 +3,11 @@ table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
     - if current_expense.budget.present?
       tr 
         th width="50%"
-          h6
-            strong 予算費
+          h6 予算費
+          .gray.f-s ※アイコンをタッチすると明細が見れます 
         td.text-right
           = link_to '予算の再設定', edit_budget_path(@budget), class:"btn btn-outline-secondary btn-sm radius"
     
-      tr
-        th
-          h6
-            strong 項目別
-            br
-            span.gray.f-s
-              | ※アイコンをタッチすると明細が見れます
       - Budget.type_keys.each do |type|
         = render partial: "detail_budget",
           locals: { type: type }

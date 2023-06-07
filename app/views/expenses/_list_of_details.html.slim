@@ -10,8 +10,8 @@
       - current_expense.days.order("day_at").each do |day|
         tr.days.color-none data-id="#{day.id}"
           td.gray width="17%" = "#{day_adjust(day.day_at.day)}日"
-          = tag.send("td",class: icon_color_attribute(day.icon), width: "12%",align: "center")
-            = tag.send("i", class: icon_attribute(day.icon))
+          = tag.send("td",class: icon_color_attribute(day.icon.to_sym), width: "12%",align: "center")
+            = tag.send("i", class: icon_attribute(day.icon.to_sym))
           td width="34%" = day.memo
           - unless day.spending
             td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_fs(:delimited)}"

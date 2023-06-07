@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user,:current_expense,:current_expense_set,:donut_chart_color_set,:budget_set,:current_budget,:template_html,:current_demo
+  helper_method :current_user,:current_expense,:current_expense_set,:donut_chart_color_set,:budget_set,:template_html,:current_demo
   before_action :login_required
   # rescue_from Exception,                        with: :render_500
   # rescue_from ActiveRecord::RecordNotFound,     with: :render_404
@@ -48,10 +48,6 @@ class ApplicationController < ActionController::Base
     @current_expense ||= Expense.find_by(id: session[:expense_id]) if session[:expense_id]
   end
 
-  def current_budget
-    @current_budget ||= current_expense.budget
-  end
-
   def current_demo
     @demo ||= session[:demo]
   end
@@ -78,19 +74,19 @@ class ApplicationController < ActionController::Base
     color_options = []
     total_spending.each do |date|
       case date[0]
-        when "rent"
+        when :rent
           color_options << "#DA5019"
-        when "cost_of_living"
+        when :cost_of_living
           color_options << "#4094be"
-        when "food_expenses"
+        when :food_expenses
           color_options << "#ddb500"
-        when "entertainment"
+        when :entertainment
           color_options << "#20990e"
-        when "car_cost"
+        when :car_cost
           color_options << "darkolivegreen"
-        when "insurance"
+        when :insurance
           color_options << "violet"
-        when "other"
+        when :other
           color_options << "#8d8d8d"
       end
     end

@@ -7,7 +7,7 @@ class BudgetsController < ApplicationController
     @budget = current_expense.budget
 
     if @budget.update(budget_params)
-      redirect_to root_url,notice: "予算費を再設定しました"
+      redirect_to charts_path, notice: "予算費を再設定しました"
     else
       render :edit
     end
@@ -25,12 +25,11 @@ class BudgetsController < ApplicationController
     @budget = current_expense.build_budget(budget_params)
 
     if @budget.save
-      redirect_to root_url, notice: "予算費を設定しました"
+      redirect_to charts_path, notice: "予算費を設定しました"
     else
       render :new
     end
   end
-
 
   private
 

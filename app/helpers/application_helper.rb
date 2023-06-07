@@ -46,21 +46,21 @@ module ApplicationHelper
 
   def icon_attribute(type)
     case type
-    when "rent"
+    when :rent
       return "fas fa-home"
-    when "cost_of_living"
+    when :cost_of_living
       return "fas fa-faucet"
-    when "entertainment"
+    when :entertainment
       return "fas fa-shopping-cart"
-    when "food_expenses"
+    when :food_expenses
       return "fas fa-utensils"
-    when "car_cost"
+    when :car_cost
       return "fas fa-car-side"
-    when "insurance"
+    when :insurance
       return "fas fa-hospital-user"
-    when "other"
+    when :other
       return "fas fa-question-circle"
-    when "payment"
+    when :payment
         return "fas fa-yen-sign"
     else
       return ''
@@ -69,21 +69,21 @@ module ApplicationHelper
 
   def icon_color_attribute(type)
     case type
-    when "rent"
+    when :rent
       "icon-color-red"
-    when "cost_of_living"
+    when :cost_of_living
       "icon-color-lightblue"
-    when "entertainment"
+    when :entertainment
       "icon-color-green"
-    when "food_expenses"
+    when :food_expenses
       "icon-color-yellow"
-    when "car_cost"
+    when :car_cost
       "icon-color-violetgreen"
-    when "insurance"
+    when :insurance
       "icon-color-violet"
-    when "other"
+    when :other
       "icon-color-gray"
-    when "payment"
+    when :payment
       "icon-color-gray"
     else
       return ""
@@ -93,19 +93,19 @@ module ApplicationHelper
   def bar_color_attribute(type)
     set_color = {}
     case type
-    when "rent"
+    when :rent
       "bg-danger"
-    when "cost_of_living"
+    when :cost_of_living
       "bg-primary"
-    when "entertainment"
+    when :entertainment
       "bg-success"
-    when "food_expenses"
+    when :food_expenses
       "bg-warning"
-    when "car_cost"
+    when :car_cost
       "bg-violetgreen"
-    when "insurance"
+    when :insurance
       "bg-violet"
-    when "other"
+    when :other
       "bg-secondary"
     else
       return ""

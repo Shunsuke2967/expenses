@@ -24,7 +24,6 @@ class Day < ApplicationRecord
   end
 
   # 渡された文字列からenumのi18n変換
-  # todo: リファクタ
   def self.parse_icon_to_s(key)
     I18n.t(key, scope: [:activerecord, :attributes, :day, :icons])
   end
