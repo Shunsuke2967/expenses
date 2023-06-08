@@ -43,6 +43,9 @@ class Expense < ApplicationRecord
   # 設定してある給与のハッシュを返す
   def salary_list
     salary_list = {}
+    # if文が多いので例えば、
+    # salary_list[:salary] = self.salary
+    # でnilでもsetしておいて、最後にsalary_list.compact!するとnilの要素は消えるかなと！
     salary_list[:salary] = self.salary if self.salary.present?
     salary_list[:salary_2] = self.salary_2 if self.salary_2.present?
     salary_list[:salary_3] = self.salary_3 if self.salary_3.present?

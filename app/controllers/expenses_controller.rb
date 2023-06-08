@@ -25,6 +25,12 @@ class ExpensesController < ApplicationController
 
   def create
     date_at = Time.parse("#{expense_params[:year]}/#{expense_params[:expense]}")
+    # 行が長いので下記の方が可読性が良さそうです！
+    # @expense = current_user.expenses.new(salary: expense_params[:salary],
+    #                                      salary_2: expense_params[:salary_2],
+    #                                      salary_3: expense_params[:salary_3],
+    #                                      salary_4: expense_params[:salary_4],
+    #                                      date_at: date_at)
     @expense = current_user.expenses.new(salary: expense_params[:salary],salary_2: expense_params[:salary_2],salary_3: expense_params[:salary_3],salary_4: expense_params[:salary_4],date_at: date_at)
     expense = current_user.expenses.order(date_at: "DESC").first
 
@@ -43,6 +49,8 @@ class ExpensesController < ApplicationController
   end
 
   def update_salary
+    # ここってupdateが失敗するパターンは存在しないですか？？
+    # もしなさそうでも値の改竄やその他通信環境で落ちる可能性はありそうなのでupdate!でとりあえずエラー出るようにはするか、elseで用意するかあれば良いかもです！
     if current_expense.update(salary_params)
       redirect_to salary_list_expenses_path, notice: '収入金額を再設定しました'
     end
@@ -81,6 +89,8 @@ class ExpensesController < ApplicationController
 
   #渡した支出のデータから収入、支出、収支の合計のハッシュを返す
   #月のインスタンスを渡した場合にはその月に設定した収入を入れて計算する
+  # これは処理内容的にモデルに持っていった方が良いかもです
+  # というか今はこれ呼び出されてるとこなさそうですね・・・
   def sums_hash(days, expense=nil)
     sum = {}
     if expense.present?

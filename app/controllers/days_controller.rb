@@ -1,5 +1,19 @@
 class DaysController < ApplicationController
   def new
+    # 同じ記述が多いのと冗長なコードになってるので、privateメソッドにしても良いかもですね！
+    # private
+    # def current_user_expense
+    #   current_user.expenses.find(current_expense.id)
+    # end
+    # もし他のファイルでも使用しそうならmodelに
+    # def self.current_user_expense(current_user_id:, current_expense:)
+    # .find(current_user_id).expenses.find(current_expense.id)
+    # end
+    # もあり？？
+
+    # そうすると下記コードが
+    # @day = current_user_expense.days.new
+    # とスッキリ書けます！
     @day = current_user.expenses.find(current_expense.id).days.new
   end
 
@@ -13,6 +27,7 @@ class DaysController < ApplicationController
   end
   
   def edit
+    # before_actionで下記の変数を定義しておくと、updateにもdestroyにも同じコード書かなくてすみそうです！
     @day = current_user.expenses.find(current_expense.id).days.find(params[:id])
   end
 

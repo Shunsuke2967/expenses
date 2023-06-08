@@ -41,6 +41,9 @@ class ApplicationController < ActionController::Base
 
 
   def current_user
+    # ここってsession[:user_id]がない場合はnilになると思うのですが、if文って必要ですか？？
+    # @current_user ||= User.find_by(id: session[:user_id])
+    # だけでいけそうな気がしていて(必要ならごめんなさい！！！)
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 

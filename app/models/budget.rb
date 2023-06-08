@@ -24,6 +24,8 @@ class Budget < ApplicationRecord
   end
 
   # 日本語対応
+  # 多分ですがja.yml使えば出来そうな気がします！
+  # https://qiita.com/shimadama/items/7e5c3d75c9a9f51abdd5
   def self.title(type)
     I18n.t(type, scope: [:activerecord, :attributes, :budget])
   end

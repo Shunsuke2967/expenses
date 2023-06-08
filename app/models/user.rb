@@ -16,6 +16,8 @@ class User < ApplicationRecord
   def self.demo_data_create
     demo_user = self.new(
       name: "demo",
+      # ダブルコーテーションで書いた方が可読性高そうです！
+      # email: "#{ SecureRandom.hex(10) }@#{ Date.current }.jp"
       email: SecureRandom.hex(10) + "@" + Date.current.to_s + ".jp",
       password: "password",
       password_confirmation: "password",
@@ -46,6 +48,7 @@ class User < ApplicationRecord
     return income_expenditure 
   end
 
+  # 一つのメソッドが冗長なので分けた方が良いかもです・・・
   def demo_datas
     date = Time.now
     0.upto(11) do |n|

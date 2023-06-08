@@ -12,6 +12,7 @@ class Template < ApplicationRecord
     other: 100
   }
 
+  # 値によってclassを返すだけであれば、Decoratorに書いた方が良さそうです！
   def set_class
     case self.icon
     when "rent"

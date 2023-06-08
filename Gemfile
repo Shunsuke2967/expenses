@@ -63,3 +63,12 @@ gem 'kaminari'
 gem 'bootstrap5-kaminari-views'
 gem 'ransack'
 gem 'serviceworker-rails'
+
+
+# RuboCopというコマンドを叩くと自動で変なインデントや軽微なコード修正をしてくれるGemがあるので入れるのお勧めです！
+# GitHub: https://github.com/rubocop/rubocop
+# 参考記事: https://nishinatoshiharu.com/insatall-rubocop/
+
+# annotateというmodelファイルにカラム等の情報を書き出してくれるGemがあるので入れるのお勧めです！
+# GitHub: https://github.com/ctran/annotate_models
+# 参考記事: https://qiita.com/koki_develop/items/ae6b5f41c18b2872d527
