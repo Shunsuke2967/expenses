@@ -1,10 +1,11 @@
 class DaysController < ApplicationController
+  before_action :set_days, only: [:edit, :update, :destroy]
   def new
-    @day = current_user.expenses.find(current_expense.id).days.new
+    @day = current_expense.days.new
   end
 
   def create
-   @day = current_user.expenses.find(current_expense.id).days.new(day_params)
+   @day = current_expense.days.new(day_params)
     if @day.save
       redirect_to root_path, notice: '追加しました'
     else
@@ -13,12 +14,9 @@ class DaysController < ApplicationController
   end
   
   def edit
-    @day = current_user.expenses.find(current_expense.id).days.find(params[:id])
   end
 
   def update
-    @day = current_user.expenses.find(current_expense.id).days.find(params[:id])
-    
     if @day.update(day_params)
       redirect_to root_url, notice: '修正しました'
     else
@@ -27,14 +25,17 @@ class DaysController < ApplicationController
   end
 
   def destroy
-    day = current_user.expenses.find(current_expense.id).days.find(params[:id])
-    day.destroy
+    @day.destroy
     redirect_to root_url, notice: '削除しました'
   end
 
   private
 
   def day_params
-    params.require(:day).permit(:day_at,:icon,:memo,:spending,:money)
+    params.require(:day).permit(:day_at, :icon, :memo, :spending, :money)
+  end
+
+  def set_days
+    @day = current_expense.days.find(params[:id])
   end
 end

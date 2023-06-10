@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 
   def demo
     user = User.demo_data_create
-    if user.valid?
+    if user.present?
       session[:user_id] = user.id
       current_expense_set
       session[:demo] = true

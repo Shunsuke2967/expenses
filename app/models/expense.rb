@@ -42,12 +42,12 @@ class Expense < ApplicationRecord
 
   # 設定してある給与のハッシュを返す
   def salary_list
-    salary_list = {}
-    salary_list[:salary] = self.salary if self.salary.present?
-    salary_list[:salary_2] = self.salary_2 if self.salary_2.present?
-    salary_list[:salary_3] = self.salary_3 if self.salary_3.present?
-    salary_list[:salary_4] = self.salary_4 if self.salary_4.present?
-    return salary_list
+    {
+      salary: salary,
+      salary_2: salary_2,
+      salary_3: salary_3,
+      salary_4: salary_4
+    }.compact
   end
 
   # dbに値があればそれを返す
@@ -81,6 +81,13 @@ class Expense < ApplicationRecord
       select_menu << ["#{day}日",day]
     end
     return select_menu
+  end
+
+  def set_budget(budget)
+    return if budget.blank?
+    new_budget = budget.dup
+    new_budget.expense = self
+    new_budget.save
   end
 
   private
