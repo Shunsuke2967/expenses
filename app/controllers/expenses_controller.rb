@@ -24,17 +24,18 @@ class ExpensesController < ApplicationController
   end
 
   def create
-    date_at = Time.parse("#{expense_params[:year]}/#{expense_params[:expense]}")
-    @expense = current_user.expenses.new(salary: expense_params[:salary],salary_2: expense_params[:salary_2],salary_3: expense_params[:salary_3],salary_4: expense_params[:salary_4],date_at: date_at)
-    expense = current_user.expenses.order(date_at: "DESC").first
-
+    date = Time.zone.parse("#{expense_params[:year]}/#{expense_params[:month]}")
+    @expense = current_user.expenses.new(
+      salary: expense_params[:salary],
+      salary_2: expense_params[:salary_2],
+      salary_3: expense_params[:salary_3],
+      salary_4: expense_params[:salary_4],
+      date_at: date
+    )
+    budget = current_user.related_expense.budget
     if @expense.save
       session[:expense_id] = @expense.id
-      budget = expense.budget
-      if budget
-        @expense.budget.new(rent: budget.rent,cost_of_living: budget.cost_of_living,food_expenses: budget.food_expenses,entertainment: budget.entertainment,car_cost: budget.car_cost,insurance: budget.insurance,other: budget.other).save
-      end
-
+      @expense.set_budget(budget)
       redirect_to root_url, notice: "新しい家計簿を作成しました"
     end
   end
@@ -72,40 +73,10 @@ class ExpensesController < ApplicationController
   private
 
   def salary_params
-    params.require(:expense).permit(:salary,:salary_2,:salary_3,:salary_4)
+    params.require(:expense).permit(:salary, :salary_2, :salary_3, :salary_4)
   end
 
   def expense_params
-    params.require(:expense).permit(:year,:expense,:salary,:salary_2,:salary_3,:salary_4)
-  end
-
-  #渡した支出のデータから収入、支出、収支の合計のハッシュを返す
-  #月のインスタンスを渡した場合にはその月に設定した収入を入れて計算する
-  def sums_hash(days, expense=nil)
-    sum = {}
-    if expense.present?
-      sum[:incomes_sum] = days.where(spending: false).sum(:money).to_i + expense.salary.to_i + expense.salary_2.to_i + expense.salary_3.to_i + expense.salary_4.to_i
-    else
-      sum[:incomes_sum] = days.where(spending: false).sum(:money).to_i
-    end
-    #月の支出合計
-    sum[:spending_sum] = days.where(spending: true).sum(:money).to_i
-    #月の収支合計
-    sum[:computation] = sum[:incomes_sum] - sum[:spending_sum]
-
-    return sum
-  end
-
-  private
-
-  #渡した年月までの収支を計算してその値を返す
-  def income_expenditure(expenses, date)
-    return if expenses.blank?
-    income_expenditure = 0
-    expenses.where("date_at <= ?" , date).each do |expense|
-      income_expenditure  += expense.total(salary: true, income: true, spending: true)
-    end
-
-    return income_expenditure 
+    params.require(:expense).permit(:year, :month, :salary, :salary_2, :salary_3, :salary_4)
   end
 end
