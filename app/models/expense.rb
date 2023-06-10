@@ -47,7 +47,7 @@ class Expense < ApplicationRecord
       salary_2: salary_2,
       salary_3: salary_3,
       salary_4: salary_4
-    }
+    }.compact
   end
 
   # dbに値があればそれを返す
