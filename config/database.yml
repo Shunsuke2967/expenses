@@ -84,3 +84,9 @@ test:
 production:
   <<: *default
   adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: localhost
+  nameuser: postgres
+  database: expenses_production
+  # password: <%= ENV['EXPENSES_DATABASE_PASSWORD'] %>

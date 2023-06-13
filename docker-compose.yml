@@ -12,13 +12,25 @@ services:
       - POSTGRES_USER=postgres
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb -e production"
     volumes:
       - .:/expenses
+      - tmp:/expenses/tmp
     ports:
       - "3000:3000"
     depends_on:
       - db
 
+  nginx:
+    build: nginx
+    volumes:
+      - tmp:/expenses/tmp
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - web
+
 volumes:
+  tmp:
   db-data:
