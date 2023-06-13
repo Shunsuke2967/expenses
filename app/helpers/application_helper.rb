@@ -11,7 +11,7 @@ module ApplicationHelper
       message: {empty: "データがありません"},
       thousands: ",", 
       suffix: "円",
-      prefix: '支出',
+      label: '支出',
       legend: false, # 凡例非表示
       library: { # ここからHighchartsのオプション
         title: {
