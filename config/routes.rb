@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   end
 
   # 予算
-  resources :budgets
+  resources :budgets, except: [:show, :destroy]
 
   # 家計簿
   resources :expenses do
