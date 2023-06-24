@@ -24,16 +24,10 @@ Rails.application.routes.draw do
   resources :days, only: [:new,:create,:destroy,:edit,:update] 
 
   # テンプレート
-  get '/templates', to: 'templates#new'
   resources :templates do
     collection do
-      post :add
       get :day_select
       post :days_create
-    end
-
-    member do
-      get :add
     end
   end
 
