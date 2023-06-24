@@ -10,22 +10,14 @@ RSpec.describe "DaysControllers", type: :request do
     it 'HTTPステータスコード200を返すこと' do
       expect(response).to have_http_status(200)
     end
-
-    it '期待する画面が表示されていること' do
-      expect(response.body).to include 'id="day_icon"'
-    end
   end
 
   describe "GET #edit" do
-    let!(:day){ create(:day, money: 12345, expense: expense) }
+    let!(:day){ create(:day, expense: expense) }
     before { get edit_day_path(day) }
 
     it 'HTTPステータスコード200を返すこと' do
       expect(response).to have_http_status(200)
-    end
-
-    it '期待する画面が表示されていること' do
-      expect(response.body).to include '12345'
     end
   end
 

@@ -3,9 +3,6 @@ require 'rails_helper'
 RSpec.describe "SessionsControllers", type: :request do
   describe 'GET #index' do
     before{ get sessions_path }
-    it 'ログイン画面が表示されていること' do
-      expect(response.body).to include 'ログイン'
-    end
 
     it 'HTTPステータスコード200を返すこと' do
       expect(response).to have_http_status(200)

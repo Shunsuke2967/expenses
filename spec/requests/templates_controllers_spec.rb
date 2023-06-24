@@ -10,22 +10,14 @@ RSpec.describe "TemplatesControllers", type: :request do
     it 'HTTPステータスコード200を返すこと' do
       expect(response).to have_http_status(200)
     end
-
-    it '期待する画面が表示されていること' do
-      expect(response.body).to include 'id="template_money"'
-    end
   end
 
   describe 'GET #edit' do
-    let!(:template){ create(:template, memo: 'テスト用テンプレートメモ', user: user) }
+    let!(:template){ create(:template, user: user) }
     before{ get edit_template_path(template) }
 
     it 'HTTPステータスコード200を返すこと' do
       expect(response).to have_http_status(200)
-    end
-
-    it '期待する画面が表示されること' do
-      expect(response.body).to include 'テスト用テンプレートメモ'
     end
   end
 

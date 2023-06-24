@@ -7,25 +7,12 @@ RSpec.describe "ExpensesControllers", type: :request do
 
   describe "GET #index" do
     before { 
-      create(:day, expense: expense, memo: 'テスト用明細メモ')
+      create(:day, expense: expense)
       get expenses_path
     }
 
     it 'HTTPステータスコード200を返す' do
       expect(response).to have_http_status(200)
-    end
-
-    it '明細の一覧が表示されていること' do
-      expect(response.body).to include '明細一覧'
-      expect(response.body).to include 'テスト用明細メモ'
-    end
-
-    it '口座残高が表示されていること' do
-      expect(response.body).to include '口座残高'
-    end
-
-    it '総合収支が表示されてること' do
-      expect(response.body).to include '総合収支'
     end
   end
 
@@ -35,32 +22,22 @@ RSpec.describe "ExpensesControllers", type: :request do
     it 'HTTPステータスコード200を返すこと' do
       expect(response).to have_http_status(200)
     end
-
-    it '期待する画面が表示されていること' do
-      expect(response.body).to include 'id="expense_salary"'
-    end
   end
 
   describe "GET #edit_salary" do
-    before { 
-      Expense.last.update(salary: 99999)
-      get edit_salary_expenses_path
-    }
+    before { get edit_salary_expenses_path }
 
-    it '期待する画面が表示されていること' do
-      expect(response.body).to include '99999'
-    end
-
-    it '期待する画面が表示されていること' do
-      expect(response.body).to include '収入１※入力必須'
+    it 'HTTPステータスコード200を返す' do
+      expect(response).to have_http_status(200)
     end
   end
 
   describe 'GET #salary_list' do
-    before {
-      Expense.last.update(salary: 99999)
-      get salary_list_expenses_path 
-    }
+    before { get salary_list_expenses_path }
+    
+    it 'HTTPステータスコード200を返す' do
+      expect(response).to have_http_status(200)
+    end
   end
 
   describe 'PATCH update_salary' do

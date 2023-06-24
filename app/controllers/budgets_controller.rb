@@ -9,12 +9,8 @@ class BudgetsController < ApplicationController
     if @budget.update(budget_params)
       redirect_to charts_path, notice: "予算費を再設定しました"
     else
-      render :edit
+      redirect_to edit_budget_path(budget_params), alert: @budget.errors.full_messages
     end
-  end
-
-  def show
-    redirect_to edit_budget_url(params[:id])
   end
 
   def new
@@ -27,7 +23,7 @@ class BudgetsController < ApplicationController
     if @budget.save
       redirect_to charts_path, notice: "予算費を設定しました"
     else
-      render :new
+      redirect_to new_budget_path(budget_params), alert: @budget.errors.full_messages
     end
   end
 

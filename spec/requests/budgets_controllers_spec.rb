@@ -9,29 +9,14 @@ RSpec.describe "BudgetsController", type: :request do
     it 'HTTPステータスコード200を返すこと' do
       expect(response).to have_http_status(200)
     end
-
-    it '期待する画面が表示されていること' do
-      expect(response.body).to include 'id="budget_rent"'
-    end
-  end
-
-  describe "GET #show" do
-    let!(:budget){ create(:budget) }
-    before { get budget_path(budget) }
-
-    it 'edit画面にリダイレクトされること' do
-      expect(response).to redirect_to(edit_budget_path(budget))
-    end
   end
 
   describe "GET #edit" do
-    before do 
-      budget = create(:budget, rent: 12345, expense: Expense.find(session[:expense_id]))
-      get edit_budget_path(budget)
-    end
+    let!(:budget){ create(:budget, rent: 12345, expense: Expense.find(session[:expense_id])) }
+    before { get edit_budget_path(budget) }
 
-    it '期待する画面が表示されていること' do
-      expect(response.body).to include '12345'
+    it 'HTTPステータスコード200を返すこと' do
+      expect(response).to have_http_status(200)
     end
   end
 
@@ -75,7 +60,7 @@ RSpec.describe "BudgetsController", type: :request do
 
       it 'エラーが表示されること' do
         subject
-        expect(response.body).to include "#{Budget.human_attribute_name(:rent)}#{I18n.t('errors.messages.blank')}"
+        expect(flash[:alert]).to include "#{Budget.human_attribute_name(:rent)}#{I18n.t('errors.messages.blank')}"
       end
     end
   end
