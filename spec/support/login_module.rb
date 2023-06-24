@@ -1,14 +1,5 @@
-module LoginModule
+module RequestSpecHelper
   def login(user)
-    session[:user_id] = user.id
-    expense = user.expenses.order(date_at: "DESC").first
-    if expense
-      session[:expense_id] = expense.id
-    else
-      expense = user.expenses.new(date_at: Time.zone.now)
-      if expense.save
-        session[:expense_id] = expense.id
-      end
-    end
+    post sessions_path, params: { session: { email: user.email, password: user.password } }
   end
 end
