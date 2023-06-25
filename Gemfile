@@ -53,15 +53,42 @@ group :test do
 end
 
 
+# デフォルト
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+#
+# 開発サポート
+#
+
 gem 'slim-rails'
 gem 'html2slim'
+
+#
+# フロント装飾
+#
+
 gem 'bootstrap'
 gem 'font-awesome-sass'
-gem 'jquery-rails'
 gem 'chartkick'
-gem 'kaminari'
 gem 'bootstrap5-kaminari-views'
-gem 'ransack'
 gem 'serviceworker-rails'
+
+#
+# 検索機能
+#
+
+gem 'ransack'
+
+#
+# JavaScriptフレームワーク
+#
+
+gem 'jquery-rails'
+
+#
+# ページネーション
+#
+
+gem 'kaminari'
