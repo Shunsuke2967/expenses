@@ -21,7 +21,7 @@ div
               | 収支
             | 　
             span.int-color-blue
-              | +#{current_income_and_expenditure.to_s(:delimited)}　
+              | +#{current_income_and_expenditure.to_fs(:delimited)}　
               i.fas.fa-angle-double-up.icon-blue
         - else 
           td.gray
@@ -37,7 +37,7 @@ div
               | 収支
             | 　
             span.int-color-red
-              | #{current_income_and_expenditure.to_s(:delimited)}　
+              | #{current_income_and_expenditure.to_fs(:delimited)}　
               i.fas.fa-angle-double-down.icon-red
       tr
         td.gray 
@@ -64,9 +64,9 @@ div
               | 　
               - if current_income_and_expenditure.positive?
                 span.int-color-blue
-                  | +#{current_income_and_expenditure.to_s(:delimited)}　
+                  | +#{current_income_and_expenditure.to_fs(:delimited)}　
                   i.fas.fa-angle-double-up.icon-blue
               - else 
                 span.int-color-red
-                  | #{current_income_and_expenditure.to_s(:delimited)}　
+                  | #{current_income_and_expenditure.to_fs(:delimited)}　
                   i.fas.fa-angle-double-down.icon-red

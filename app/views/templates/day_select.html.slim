@@ -16,9 +16,9 @@
                 = tag.send("i", class: t_class_name[1])
               td width="63%" = template.memo
               - if template.spending
-                td.int-color-red.int-text-right width="27%" align="right"=  "-#{template.money.to_s(:delimited)}"
+                td.int-color-red.int-text-right width="27%" align="right"=  "-#{template.money.to_fs(:delimited)}"
               - else
-                td.int-color-blue.int-text-right width="27%" align="right" = "+#{template.money.to_s(:delimited)}"
+                td.int-color-blue.int-text-right width="27%" align="right" = "+#{template.money.to_fs(:delimited)}"
               td.text-center width="10%"
                 / = f.date_field :day_at, value: nil, class: 'form-control form-control-sm sm',required: true,min: "#{current_expense.date_at.year}-#{current_expense.date_at.month}-1",max: "#{current_expense.date_at.year}-#{current_expense.date_at.month}-#{current_expense.date_at.end_of_month.day}"
                 = f.select :day_at, current_expense.day_select_data, { include_blank: '○日' }, name: "date_at[#{template.id}]",class: 'form-select white form-control-sm sm size-sm font-none' ,:required => true

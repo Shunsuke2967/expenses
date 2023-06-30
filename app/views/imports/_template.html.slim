@@ -14,9 +14,9 @@
             = tag.send("i", class: t_class_name[1])
           td width="41%" = template.memo
           - if template.spending
-            td.int-color-red.int-text-right width="27%" align="right"=  "-#{template.money.to_s(:delimited)}"
+            td.int-color-red.int-text-right width="27%" align="right"=  "-#{template.money.to_fs(:delimited)}"
           - else
-            td.int-color-blue.int-text-right width="27%" align="right" = "+#{template.money.to_s(:delimited)}"
+            td.int-color-blue.int-text-right width="27%" align="right" = "+#{template.money.to_fs(:delimited)}"
           td width="10%"
             = link_to edit_template_path(template)
               i.fas.fa-pencil-alt

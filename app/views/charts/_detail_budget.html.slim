@@ -5,11 +5,11 @@ tr
         a.style-none[data-bs-toggle="collapse" href="#collapseExample#{type}" role="button" aria-expanded="false" aria-controls="collapseExample"]
           span class="#{icon_color_attribute(type)}"
             i class="#{icon_attribute(type)}"
-          |  #{Budget.title(type)}
+          |  #{Budget.new.decorate.title(type)}
       p.s_right
         span.gray
           | 残り
-        | 　#{@budget.progress(type).to_s(:delimited)}円
+        | 　#{@budget.progress(type).to_fs(:delimited)}円
       .progress
         .progress-bar.progress-bar-striped.progress-bar-animated class="#{bar_color_attribute(type)}" role="progressbar" aria-valuenow="#{parse_percent(@budget.progress(type), @budget.expense_spending(type))}" aria-valuemin="0" aria-valuemax="100" style="width: #{parse_percent(@budget.progress(type), @budget.expense_spending(type))}%"
           | #{parse_percent(@budget.progress(type), @budget.expense_spending(type))}%
@@ -17,18 +17,18 @@ tr
         span.s_left
           span.gray
             | 支出
-          | 　#{@budget.expense_spending(type).to_s(:delimited)}円
+          | 　#{@budget.expense_spending(type).to_fs(:delimited)}円
         span.s_right
           span.gray
             | 予算費
-          | 　#{@budget.send(type).to_s(:delimited)}円
+          | 　#{@budget.send(type).to_fs(:delimited)}円
     - else
       a.style-none[data-bs-toggle="collapse" href="#collapseExample#{type}" role="button" aria-expanded="false" aria-controls="collapseExample"]
         = tag.send("span", class: icon_color_attribute(type))
           = tag.send('i', class: icon_attribute(type))
-        |  #{Budget.title(type)}
+        |  #{Budget.new.decorate.title(type)}
       p.s_right.icon-red
-        | #{(@budget.progress(type) * -1).to_s(:delimited)}
+        | #{(@budget.progress(type) * -1).to_fs(:delimited)}
         | 円オーバー
         i.fas.fa-skull-crossbones
       .progress
@@ -38,11 +38,11 @@ tr
         span.s_left
           span.gray
             | 支出
-          | 　#{@budget.expense_spending(type).to_s(:delimited)}円
+          | 　#{@budget.expense_spending(type).to_fs(:delimited)}円
         span.s_right
           span.gray
             | 予算費
-          | 　#{@budget.send(type).to_s(:delimited)}円
+          | 　#{@budget.send(type).to_fs(:delimited)}円
     - if @budget.expense_spending(type).present?
       #collapseExample.collapse
       = tag.send('div', class: "collapse", id: "collapseExample#{type}")
@@ -51,7 +51,7 @@ tr
             tbody
               tr
                 td colspan="6"
-                  h6 #{Budget.title(type)}明細
+                  h6 #{Budget.new.decorate.title(type)}明細
                   .mb-3
               - current_expense.days.where(icon: type).order("day_at").each do |day|
                 tr.color-none
@@ -63,9 +63,9 @@ tr
                     = tag.send('i', class: icon_attribute(type))
                   td width="32%" = day.memo
                   - if !day.spending
-                    td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_s(:delimited)}"
+                    td.int-color-blue.int-text-right width="27%" align="right" = "+#{day.money.to_fs(:delimited)}"
                   - else
-                    td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_s(:delimited)}"
+                    td.int-color-red.int-text-right width="27%" align="right"=  "-#{day.money.to_fs(:delimited)}"
                   td width="2%"
                   td width="10%"
                     = link_to edit_day_path(day)
