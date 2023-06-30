@@ -5,7 +5,7 @@ tr
         a.style-none[data-bs-toggle="collapse" href="#collapseExample#{type}" role="button" aria-expanded="false" aria-controls="collapseExample"]
           span class="#{icon_color_attribute(type)}"
             i class="#{icon_attribute(type)}"
-          |  #{Budget.title(type)}
+          |  #{Budget.new.decorate.title(type)}
       p.s_right
         span.gray
           | 残り
@@ -26,7 +26,7 @@ tr
       a.style-none[data-bs-toggle="collapse" href="#collapseExample#{type}" role="button" aria-expanded="false" aria-controls="collapseExample"]
         = tag.send("span", class: icon_color_attribute(type))
           = tag.send('i', class: icon_attribute(type))
-        |  #{Budget.title(type)}
+        |  #{Budget.new.decorate.title(type)}
       p.s_right.icon-red
         | #{(@budget.progress(type) * -1).to_s(:delimited)}
         | 円オーバー
@@ -51,7 +51,7 @@ tr
             tbody
               tr
                 td colspan="6"
-                  h6 #{Budget.title(type)}明細
+                  h6 #{Budget.new.decorate.title(type)}明細
                   .mb-3
               - current_expense.days.where(icon: type).order("day_at").each do |day|
                 tr.color-none
