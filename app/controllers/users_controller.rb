@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :login_required,only: [:new,:create,:index]
-  before_action :logined_skip, only: [:new,:create,:index]
-  def index
-  end
-
+  skip_before_action :login_required,only: [:new,:create,:index, :terms]
+  before_action :logined_skip, only: [:new,:create,:index, :terms]
   def new
     @user = User.new
   end

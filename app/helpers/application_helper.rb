@@ -15,7 +15,7 @@ module ApplicationHelper
       legend: false, # 凡例非表示
       library: { # ここからHighchartsのオプション
         title: {
-          text: "支出<br> #{chart_date&.values&.inject(:+)&.to_s(:delimited)}円",
+          text: "支出<br> #{chart_date&.values&.inject(:+)&.to_fs(:delimited)}円",
           align: 'center',
           verticalAlign: 'middle',
         },

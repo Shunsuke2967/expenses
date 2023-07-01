@@ -14,7 +14,7 @@ table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
       td width="50%"
         a.style-none[data-bs-toggle="collapse" href="#collapseExample11" role="button" aria-expanded="false" aria-controls="collapseExample"]
           h4
-            = "#{current_expense.total(salary: true).to_s(:delimited)}円"
+            = "#{current_expense.total(salary: true).to_fs(:delimited)}円"
     tr
       td.pad-0-1 width="50%"
         #collapseExample11.collapse
@@ -29,4 +29,4 @@ table.shadow.p-3.mb-5.bg-white.rounded.Regular.shadow.table.text-left
                 h5= t("activerecord.attributes.month.#{key}")
             td.pad-0-1 width="50%"
               #collapseExample11.collapse
-                h5 = "#{(value).to_s(:delimited)}円"
+                h5 = "#{(value).to_fs(:delimited)}円"

@@ -23,11 +23,6 @@ class Budget < ApplicationRecord
     rent + cost_of_living + food_expenses + entertainment + other + car_cost + insurance
   end
 
-  # 日本語対応
-  def self.title(type)
-    I18n.t(type, scope: [:activerecord, :attributes, :budget])
-  end
-
   # 種別のキーの配列を返す
   def self.type_keys
     [:rent, :cost_of_living, :food_expenses, :entertainment, :other, :car_cost, :insurance]

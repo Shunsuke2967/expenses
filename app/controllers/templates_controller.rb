@@ -26,10 +26,6 @@ class TemplatesController < ApplicationController
     end
   end
 
-  def add
-    @template = current_user.templates.find(params[:id])
-  end
-
   def create_add
     @day = current_user.expenses.find(current_expense.id).days.new(template_day_params)
     if @day.save
@@ -48,7 +44,6 @@ class TemplatesController < ApplicationController
     if params[:ids].present?
       @templates = current_user.templates.where(id: params[:ids])
     else
-      logger.debug(params)
       flash[:danger] = '一つ以上選択してください'
       redirect_to root_path
     end
