@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "DaysControllers", type: :request do
-  let!(:expense){ create(:expense, user: user) }
-  let(:user){ create(:user) }
+RSpec.describe 'DaysControllers', type: :request do
+  let!(:expense) { create(:expense, user:) }
+  let(:user) { create(:user) }
   before { login user }
-  describe "GET #new" do
+  describe 'GET #new' do
     before { get new_day_path }
 
     it 'HTTPステータスコード200を返すこと' do
@@ -12,8 +12,8 @@ RSpec.describe "DaysControllers", type: :request do
     end
   end
 
-  describe "GET #edit" do
-    let!(:day){ create(:day, expense: expense) }
+  describe 'GET #edit' do
+    let!(:day) { create(:day, expense:) }
     before { get edit_day_path(day) }
 
     it 'HTTPステータスコード200を返すこと' do
@@ -21,21 +21,21 @@ RSpec.describe "DaysControllers", type: :request do
     end
   end
 
-  describe "POST #create" do
-    subject { post days_path, params: params }
+  describe 'POST #create' do
+    subject { post days_path, params: }
     let(:params) do
       {
         day: {
           spending: true,
-          money: 12345,
+          money: 12_345,
           day_at: Time.current,
-          memo: "テスト用メモ",
+          memo: 'テスト用メモ',
           icon: 'rent'
         }
       }
     end
-    it "Dayが作成されること" do
-      expect{ subject }.to change(Day, :count).by(1)
+    it 'Dayが作成されること' do
+      expect { subject }.to change(Day, :count).by(1)
     end
 
     context 'パラメーターが不正の場合' do
@@ -44,15 +44,15 @@ RSpec.describe "DaysControllers", type: :request do
         {
           day: {
             spending: true,
-            money: nil ,
+            money: nil,
             day_at: Time.current,
-            memo: "テスト用メモ",
+            memo: 'テスト用メモ',
             icon: 'rent'
           }
         }
       end
       it 'Dayが作成されないこと' do
-        expect{ subject }.not_to change(Day, :count)
+        expect { subject }.not_to change(Day, :count)
       end
 
       it 'エラーが表示されること' do
@@ -62,19 +62,19 @@ RSpec.describe "DaysControllers", type: :request do
     end
   end
 
-  describe "PATCH #update" do
-    let!(:day){ create(:day, money: 12345, expense: expense) }
-    subject { patch day_path(day), params: params }
+  describe 'PATCH #update' do
+    let!(:day) { create(:day, money: 12_345, expense:) }
+    subject { patch day_path(day), params: }
     let(:params) do
       {
         day: {
-          money: 99999
+          money: 99_999
         }
       }
     end
 
     it '値が更新されていること' do
-      expect{ subject }.to change { day.reload.money }.to eq 99999
+      expect { subject }.to change { day.reload.money }.to eq 99_999
     end
 
     context '不正な値の場合' do
@@ -87,7 +87,7 @@ RSpec.describe "DaysControllers", type: :request do
       end
 
       it '値が変更されていないこと' do
-        expect{ subject }.not_to change{ day.reload.money }.from(12345)
+        expect { subject }.not_to change { day.reload.money }.from(12_345)
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "UsersControllers", type: :request do
+RSpec.describe 'UsersControllers', type: :request do
   describe 'GET #new' do
     before { get new_user_path }
 
@@ -10,7 +10,7 @@ RSpec.describe "UsersControllers", type: :request do
   end
 
   describe 'GET #terms' do
-    before{ get terms_users_path }
+    before { get terms_users_path }
 
     it 'HTTPステータスコード200を返すこと' do
       expect(response).to have_http_status(200)
@@ -18,7 +18,7 @@ RSpec.describe "UsersControllers", type: :request do
   end
 
   describe 'POST #create' do
-    subject{ post users_path, params: params }
+    subject { post users_path, params: }
     let(:params) do
       {
         user: {
@@ -31,7 +31,7 @@ RSpec.describe "UsersControllers", type: :request do
     end
 
     it 'ユーザーが作成されていること' do
-      expect{ subject }.to change(User, :count).by(1)
+      expect { subject }.to change(User, :count).by(1)
     end
 
     it 'ログインされていること' do
@@ -50,10 +50,10 @@ RSpec.describe "UsersControllers", type: :request do
           }
         }
       end
-      subject{ post users_path, params: params, headers: { 'Accept' => 'application/js' } }
+      subject { post users_path, params:, headers: { 'Accept' => 'application/js' } }
 
       it 'ユーザーが作成されていないこと' do
-        expect{ subject }.not_to change(User, :count)
+        expect { subject }.not_to change(User, :count)
       end
 
       it 'エラーメッセージが表示されること' do
@@ -64,12 +64,12 @@ RSpec.describe "UsersControllers", type: :request do
   end
 
   describe 'DELETE #destroy' do
-    let!(:user){ create(:user) }
-    before{ login user }
-    subject{ delete user_path(user) }
+    let!(:user) { create(:user) }
+    before { login user }
+    subject { delete user_path(user) }
 
     it 'ユーザーがログアウトされていること' do
-      expect{ subject }.to change{ session[:user_id] }.from(user.id).to(nil)
+      expect { subject }.to change { session[:user_id] }.from(user.id).to(nil)
     end
   end
 end

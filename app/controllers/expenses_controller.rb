@@ -4,20 +4,19 @@ class ExpensesController < ApplicationController
       @first_user = true
       session[:first_user] = nil
     end
-    #search_form_forのため空のRansackオブジェクトを作成
-    #検索はajax(searchアクション)で行う
+    # search_form_forのため空のRansackオブジェクトを作成
+    # 検索はajax(searchアクション)で行う
     @q = current_expense.days.ransack
     @budget = current_expense.budget
   end
 
   # ajax用
   def search
-    if params[:q].present?
-      result = current_expense.days.ransack(params[:q]).result
-      render json:  result.map { |day| day.id  }.to_json
-    end
-  end
+    return unless params[:q].present?
 
+    result = current_expense.days.ransack(params[:q]).result
+    render json: result.map { |day| day.id }.to_json
+  end
 
   def new
     @expense = current_user.expenses.new
@@ -33,20 +32,20 @@ class ExpensesController < ApplicationController
       date_at: date
     )
     budget = current_user.related_expense.budget
-    if @expense.save
-      session[:expense_id] = @expense.id
-      @expense.set_budget(budget)
-      redirect_to root_url, notice: "新しい家計簿を作成しました"
-    end
+    return unless @expense.save
+
+    session[:expense_id] = @expense.id
+    @expense.set_budget(budget)
+    redirect_to root_url, notice: '新しい家計簿を作成しました'
   end
 
   def edit_salary
   end
 
   def update_salary
-    if current_expense.update(salary_params)
-      redirect_to salary_list_expenses_path, notice: '収入金額を再設定しました'
-    end
+    return unless current_expense.update(salary_params)
+
+    redirect_to salary_list_expenses_path, notice: '収入金額を再設定しました'
   end
 
   def destroy
@@ -65,9 +64,9 @@ class ExpensesController < ApplicationController
 
   def list
     @page = params[:page]
-    @current_user_expense_list = current_user.expenses.order(date_at: "DESC").page(params[:page])
-    #ログイン中の年月分までの収支のトータル
-    @current_income_and_expenditure = current_expense.total(salary: true,income: true,spending: true)
+    @current_user_expense_list = current_user.expenses.order(date_at: 'DESC').page(params[:page])
+    # ログイン中の年月分までの収支のトータル
+    @current_income_and_expenditure = current_expense.total(salary: true, income: true, spending: true)
   end
 
   private

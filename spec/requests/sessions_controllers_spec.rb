@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "SessionsControllers", type: :request do
+RSpec.describe 'SessionsControllers', type: :request do
   describe 'GET #index' do
-    before{ get sessions_path }
+    before { get sessions_path }
 
     it 'HTTPステータスコード200を返すこと' do
       expect(response).to have_http_status(200)
     end
 
     context 'ログインしている場合' do
-      before{
+      before  do
         login create(:user)
         get sessions_path
-      }
+      end
 
       it 'root_pathにリダイレクトされること' do
         expect(response).to redirect_to root_path
@@ -21,8 +21,8 @@ RSpec.describe "SessionsControllers", type: :request do
   end
 
   describe 'POST #creaet' do
-    let(:user){ create(:user, password: 'password', password_confirmation: 'password') }
-    subject{ post sessions_path, params: params }
+    let(:user) { create(:user, password: 'password', password_confirmation: 'password') }
+    subject { post sessions_path, params: }
     let(:params) do
       {
         session: {
@@ -43,7 +43,6 @@ RSpec.describe "SessionsControllers", type: :request do
     end
 
     context '認証エラーになった場合' do
-
       let(:params) do
         {
           session: {
@@ -65,9 +64,8 @@ RSpec.describe "SessionsControllers", type: :request do
     end
   end
 
-
   describe 'GET #demo' do
-    subject{ get demo_sessions_path }
+    subject { get demo_sessions_path }
 
     it 'ログインできること' do
       subject
@@ -80,10 +78,10 @@ RSpec.describe "SessionsControllers", type: :request do
     end
 
     context 'デモデータの作成に失敗した場合' do
-      before{ allow(User).to receive(:demo_data_create).and_return(nil) }
+      before { allow(User).to receive(:demo_data_create).and_return(nil) }
 
       it 'ログインされないこと' do
-        subject 
+        subject
         expect(session[:user_id]).to eq nil
       end
 
