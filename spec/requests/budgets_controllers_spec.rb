@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "BudgetsController", type: :request do
-  let(:user){ create(:user) }
+RSpec.describe 'BudgetsController', type: :request do
+  let(:user) { create(:user) }
   before { login user }
-  describe "GET #new" do
+  describe 'GET #new' do
     before { get new_budget_path }
 
     it 'HTTPステータスコード200を返すこと' do
@@ -11,8 +11,8 @@ RSpec.describe "BudgetsController", type: :request do
     end
   end
 
-  describe "GET #edit" do
-    let!(:budget){ create(:budget, rent: 12345, expense: Expense.find(session[:expense_id])) }
+  describe 'GET #edit' do
+    let!(:budget) { create(:budget, rent: 12_345, expense: Expense.find(session[:expense_id])) }
     before { get edit_budget_path(budget) }
 
     it 'HTTPステータスコード200を返すこと' do
@@ -20,8 +20,8 @@ RSpec.describe "BudgetsController", type: :request do
     end
   end
 
-  describe "POST #create" do
-    subject { post budgets_path, params: params }
+  describe 'POST #create' do
+    subject { post budgets_path, params: }
     let(:params) do
       {
         budget: {
@@ -35,8 +35,8 @@ RSpec.describe "BudgetsController", type: :request do
         }
       }
     end
-    it "Budgetが作成されること" do
-      expect{ subject }.to change(Budget, :count).by(1)
+    it 'Budgetが作成されること' do
+      expect { subject }.to change(Budget, :count).by(1)
     end
 
     context 'パラメーターが不正の場合' do
@@ -55,7 +55,7 @@ RSpec.describe "BudgetsController", type: :request do
         }
       end
       it 'Budgetが作成されないこと' do
-        expect{ subject }.not_to change(Budget, :count)
+        expect { subject }.not_to change(Budget, :count)
       end
 
       it 'エラーが表示されること' do
@@ -65,32 +65,32 @@ RSpec.describe "BudgetsController", type: :request do
     end
   end
 
-  describe "PATCH #update" do
-    let!(:budget){ create(:budget, rent: 12345, expense: Expense.last) }
-    subject { patch budget_path(budget), params: params }
+  describe 'PATCH #update' do
+    let!(:budget) { create(:budget, rent: 12_345, expense: Expense.last) }
+    subject { patch budget_path(budget), params: }
     let(:params) do
       {
         budget: {
-            rent: 11111
+          rent: 11_111
         }
       }
     end
 
     it '値が更新されていること' do
-      expect{ subject }.to change { budget.reload.rent }.to eq 11111
+      expect { subject }.to change { budget.reload.rent }.to eq 11_111
     end
 
     context '不正な値の場合' do
       let(:params) do
         {
           budget: {
-              rent: nil
+            rent: nil
           }
         }
       end
 
       it '値が変更されていないこと' do
-        expect{ subject }.not_to change{ budget.reload.rent }.from(12345)
+        expect { subject }.not_to change { budget.reload.rent }.from(12_345)
       end
     end
   end

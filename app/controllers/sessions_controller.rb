@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :login_required
-  before_action :logined_skip, only: [:create,:index]
+  before_action :logined_skip, only: [:create, :index]
   def index
   end
 
@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     else
       flash[:danger] = 'ログインできませんでした'
       redirect_to sessions_path
-    end  
+    end
   end
 
   def demo
@@ -33,11 +33,10 @@ class SessionsController < ApplicationController
     end
   end
 
-
   private
 
   def session_params
-    params.require(:session).permit(:email,:password)
+    params.require(:session).permit(:email, :password)
   end
 
   def logined_skip
