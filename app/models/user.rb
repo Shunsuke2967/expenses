@@ -61,8 +61,8 @@ class User < ApplicationRecord
   # 家計簿作成
   def create_demo_expenses(month_at)
     # 6桁で最初の値が1... になるよう修正
-    salary_1 = ''.rjust(6, '1' + SecureRandom.random_number(1000).to_s).to_i
-    salary_2 = ''.rjust(6, '1' + SecureRandom.random_number(1000).to_s).to_i
+    salary_1 = ''.rjust(6, "1#{SecureRandom.random_number(1000)}").to_i
+    salary_2 = ''.rjust(6, "1#{SecureRandom.random_number(1000)}").to_i
     expense = expenses.create(
       date_at: month_at,
       salary: salary_1,
@@ -132,7 +132,7 @@ class User < ApplicationRecord
     )
 
     # 入金はランダムに作成したり、しなかったりする
-    if SecureRandom.random_number(2) == 0
+    if SecureRandom.random_number(2).zero?
       expense.days.create(
         icon: Day.icons[:payment],
         day_at: month_at.since(12.day),
@@ -178,7 +178,7 @@ class User < ApplicationRecord
           money = SecureRandom.random_number(4001)
           index = SecureRandom.random_number(memo[icon].length + 2)
           day = SecureRandom.random_number(month_at.end_of_month.day)
-          next if money == 0
+          next if money.zero?
 
           day = expense.days.create(
             icon: Day.icons[:food_expenses],
@@ -194,7 +194,7 @@ class User < ApplicationRecord
           money = SecureRandom.random_number(8001)
           index = SecureRandom.random_number(memo[icon].length + 2)
           day = SecureRandom.random_number(month_at.end_of_month.day)
-          next if money == 0
+          next if money.zero?
 
           day = expense.days.create(
             icon: Day.icons[:entertainment],
@@ -209,7 +209,7 @@ class User < ApplicationRecord
         money = [7000, 3000, 6000][SecureRandom.random_number(3)]
         index = SecureRandom.random_number(memo[icon].length + 1)
         day = SecureRandom.random_number(month_at.end_of_month.day)
-        day = expense.days.create(
+        expense.days.create(
           icon: Day.icons[:other],
           day_at: month_at.since(day.day),
           memo: memo[icon][index],

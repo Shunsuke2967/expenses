@@ -1,8 +1,8 @@
 module ApplicationHelper
   # オプション引数にハッシュ{}形式で渡せないため、メソッド内で円グラフを生成
   def generate_chart(chart_date, color_options)
-    chart_date = chart_date.reject { |_key, value| value == 0 }
-    chart_date_to_s = chart_date.map { |key, value| [Day.parse_icon_to_s(key), value] }.to_h
+    chart_date = chart_date.reject { |_key, value| value.zero? }
+    chart_date_to_s = chart_date.transform_keys { |key| Day.parse_icon_to_s(key) }
 
     pie_chart chart_date_to_s,
               donut: true, # ドーナツグラフ
@@ -90,7 +90,6 @@ module ApplicationHelper
   end
 
   def bar_color_attribute(type)
-    set_color = {}
     case type
     when :rent
       'bg-danger'
@@ -118,7 +117,7 @@ module ApplicationHelper
   end
 
   def parse_percent(progress = 0, spending = 0)
-    if progress == 0
+    if progress.zero?
       100
     else
       ((spending / progress.to_f) * 100).ceil

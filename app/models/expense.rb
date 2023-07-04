@@ -89,7 +89,7 @@ class Expense < ApplicationRecord
     select_menu
   end
 
-  def set_budget(budget)
+  def create_budget(budget)
     return if budget.blank?
 
     new_budget = budget.dup

@@ -18,7 +18,7 @@ module UserHelper
 
     month_hash_average['data'] = month_money_average
     month_hash['data'] = month_money
-    line_chart_date = [month_hash, month_hash_average]
+    [month_hash, month_hash_average]
   end
 
   def area_chart_date_hash(user)
@@ -32,6 +32,6 @@ module UserHelper
     end
 
     month_hash['data'] = month_money
-    line_chart_date = [month_hash]
+    [month_hash]
   end
 end

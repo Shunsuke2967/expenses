@@ -15,7 +15,7 @@ class ExpensesController < ApplicationController
     return unless params[:q].present?
 
     result = current_expense.days.ransack(params[:q]).result
-    render json: result.map { |day| day.id }.to_json
+    render json: result.map(&:id).to_json
   end
 
   def new
@@ -35,7 +35,7 @@ class ExpensesController < ApplicationController
     return unless @expense.save
 
     session[:expense_id] = @expense.id
-    @expense.set_budget(budget)
+    @expense.create_budget(budget)
     redirect_to root_url, notice: '新しい家計簿を作成しました'
   end
 
