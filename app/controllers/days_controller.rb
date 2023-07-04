@@ -5,14 +5,14 @@ class DaysController < ApplicationController
   end
 
   def create
-   @day = current_expense.days.new(day_params)
+    @day = current_expense.days.new(day_params)
     if @day.save
       redirect_to root_path, notice: '追加しました'
     else
       render :new
     end
   end
-  
+
   def edit
   end
 

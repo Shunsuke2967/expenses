@@ -3,51 +3,51 @@ class Expense < ApplicationRecord
   has_many :days, dependent: :destroy
   has_one :budget, dependent: :destroy
   validates :date_at, presence: true
-  validates :salary, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
-  validates :salary_2, numericality: {only_integer: true, greater_than_or_equal_to: 0,allow_blank: true}
-  validates :salary_3, numericality: {only_integer: true, greater_than_or_equal_to: 0,allow_blank: true}
-  validates :salary_4, numericality: {only_integer: true, greater_than_or_equal_to: 0,allow_blank: true}
+  validates :salary, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :salary_2, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_blank: true }
+  validates :salary_3, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_blank: true }
+  validates :salary_4, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_blank: true }
   validate :validate_exist, on: :create
 
   # すべての支出を項目別に合計したハッシュとすべての項目の合計値を返す(入金は外す)
   def days_total_spending
-    spending = self.days.where(spending: true).group(:icon).sum(:money).sort_by { |_, v| -v }.to_h.symbolize_keys
+    spending = days.where(spending: true).group(:icon).sum(:money).sort_by { |_, v| -v }.to_h.symbolize_keys
     spending.delete(:payment)
-    return spending
+    spending
   end
 
-  #引数によってどれを含めた総額にするかを分けている
-  #処理自体は別のメソッドに任せている
+  # 引数によってどれを含めた総額にするかを分けている
+  # 処理自体は別のメソッドに任せている
   def total(salary: false, income: false, spending: false)
-    income_int = self.total_income if income
-    salary_int = self.total_salary if salary
-    spending_int = self.total_spending if spending
+    income_int = total_income if income
+    salary_int = total_salary if salary
+    spending_int = total_spending if spending
 
-    return (income_int.to_i + salary_int.to_i) - spending_int.to_i
+    (income_int.to_i + salary_int.to_i) - spending_int.to_i
   end
 
   # 収入の総額
   def total_income
-    self.days.where(spending: false).sum(:money).to_i
+    days.where(spending: false).sum(:money).to_i
   end
 
   # 給与設定してある総額
   def total_salary
-    self.salary.to_i + self.salary_2.to_i + self.salary_3.to_i + self.salary_4.to_i
+    salary.to_i + salary_2.to_i + salary_3.to_i + salary_4.to_i
   end
 
   # 支払いの総額
   def total_spending
-    self.days.where(spending: true).sum(:money).to_i
+    days.where(spending: true).sum(:money).to_i
   end
 
   # 設定してある給与のハッシュを返す
   def salary_list
     {
-      salary: salary,
-      salary_2: salary_2,
-      salary_3: salary_3,
-      salary_4: salary_4
+      salary:,
+      salary_2:,
+      salary_3:,
+      salary_4:
     }.compact
   end
 
@@ -56,36 +56,42 @@ class Expense < ApplicationRecord
   # その日が31日でログイン中の月にない場合はその月の月末日を設定して返す
   def date_to_s(day)
     return unless day.respond_to?(:day_at)
-    return day.day_at.strftime("%Y-%m-%d") if day.day_at.present?
-    return Time.parse("#{self.date_at.year}-#{self.date_at.month}-#{Time.zone.now.day}").strftime("%Y-%m-%d") \
-      rescue return Time.parse("#{self.date_at.year}-#{self.date_at.month}-1").end_of_month.strftime("%Y-%m-%d")
+    return day.day_at.strftime('%Y-%m-%d') if day.day_at.present?
+
+    begin
+      Time.parse("#{date_at.year}-#{date_at.month}-#{Time.zone.now.day}").strftime('%Y-%m-%d')
+    rescue StandardError
+      Time.parse("#{date_at.year}-#{date_at.month}-1").end_of_month.strftime('%Y-%m-%d')
+    end
   end
 
   def days_create(templates)
     return false unless templates.present?
+
     error_blank = true
     ActiveRecord::Base.transaction do
       templates.each do |id, date_at|
-        template = self.user.templates.find(id)
-        unless self.days.build.transfer(template,date_at).save
+        template = user.templates.find(id)
+        unless days.build.transfer(template, date_at).save
           error_blank = false
           raise ActiveRecord::Rollback
         end
       end
     end
-    return error_blank
+    error_blank
   end
 
   def day_select_data
     select_menu = []
-    (1..self.date_at.end_of_month.day).each do |day|
-      select_menu << ["#{day}日",day]
+    (1..date_at.end_of_month.day).each do |day|
+      select_menu << ["#{day}日", day]
     end
-    return select_menu
+    select_menu
   end
 
-  def set_budget(budget)
+  def create_budget(budget)
     return if budget.blank?
+
     new_budget = budget.dup
     new_budget.expense = self
     new_budget.save
@@ -94,10 +100,11 @@ class Expense < ApplicationRecord
   private
 
   def validate_exist
-    return if self.date_at.blank?
-    User.find(self.user.id).expenses.each do |self_date|
-      if (self_date.date_at.year == self.date_at.year) && (self_date.date_at.month == self.date_at.month)
-        errors.add(:date_at, "はすでに存在しています")
+    return if date_at.blank?
+
+    User.find(user.id).expenses.each do |self_date|
+      if (self_date.date_at.year == date_at.year) && (self_date.date_at.month == date_at.month)
+        errors.add(:date_at, 'はすでに存在しています')
       end
     end
   end
