@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_demo
-    @current_demo ||= session[:demo]
+    @current ||= session[:demo]
   end
 
   def current_expense_set
