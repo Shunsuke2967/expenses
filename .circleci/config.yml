@@ -42,8 +42,14 @@ jobs:
           name: Database setup
           command: |
             bundle exec rails db:create db:migrate
-      - ruby/rspec-test
-      - ruby/rubocop-check
+      - run:
+          name: rubocop
+          command: |
+            bundle exec rubocop
+      - run:
+          name: rspec
+          command: |
+            bundle exec rspec
 
 workflows:
   build_and_test:
