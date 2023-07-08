@@ -1,11 +1,10 @@
 # 環境構築手順
 
 ## Docker Compose
-
 ```
 docker-compose up -d
 docker-compose exec web yarn install
-docker-compose exec web webpack:install
+docker-compose exec web rails webpacker:install
 docker-compose exec web rails db:create db:schema:load
 ```
 
