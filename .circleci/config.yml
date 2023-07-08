@@ -37,7 +37,7 @@ jobs:
           name: Watting stand up database
           command: |
             dockerize -wait \
-            tcp://127.0.0.1:5432 -timeout 1m
+            tcp://local:5432 -timeout 1m
       - run: mv ./config/database.yml.ci ./config/database.yml
       - run:
           name: Database setup
