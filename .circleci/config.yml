@@ -17,7 +17,7 @@ commands:
 jobs:
   build:
     docker:
-      - image: circleci/3.1.2-node
+      - image: circleci/ruby@3.1.2-node
     steps:
       - setup
   test:
