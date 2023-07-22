@@ -26,7 +26,7 @@ class TemplatesController < ApplicationController
 
   def destroy
     @template.destroy!
-    redirect_to root_url, notice: "テンプレートを削除しました"
+    redirect_to root_url, notice: 'テンプレートを削除しました'
   end
 
   def day_select

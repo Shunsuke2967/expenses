@@ -15,7 +15,7 @@ div#modal-options data-izimodal-group="group1" data-izimodal-loop="" data-izimod
         .text-c
           = image_tag "logo.png", class: "w-75"
         .mb-4
-        - if current_user.demo?
+        - if current_user&.demo?
           h5.text-c デモ画面へようこそ！
         - else 
           h5.text-c 登録ありがとう！

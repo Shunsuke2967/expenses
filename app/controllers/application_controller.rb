@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user,:current_expense,:current_expense_set,:donut_chart_color_set,:budget_set,:template_html
+  helper_method :current_user, :current_expense, :current_expense_set, :donut_chart_color_set, :budget_set, :template_html
   before_action :login_required
 
   if Rails.env.prodction?
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def render_500(e = nil)
-    logger.info "Rendering 500 with exception: #{e.message}" if e 
+    logger.info "Rendering 500 with exception: #{e.message}" if e
 
     if request.xhr?
       render json: { error: '500 error' }, status: 500

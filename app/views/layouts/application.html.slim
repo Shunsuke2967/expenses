@@ -79,6 +79,7 @@ html
       - if flash[:danger].present?
         #hidden.alert.alert-danger= flash[:danger]
       #first-contact.display-none data-first-user="#{@first_user}" = render partial: "shared/first_modal"
+      = render partial: 'shared/flash_alert'
       = yield
 
 

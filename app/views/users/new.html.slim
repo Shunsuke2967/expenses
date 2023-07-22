@@ -4,10 +4,10 @@ h1 ユーザー登録
 = form_with model: @user do |f|
   .form-group
     = f.label :name, '名前'
-    = f.text_field :name, class: 'form-control'
+    = f.text_field :name, value: params[:name], class: 'form-control'
   .form-group
     = f.label :email, 'メールアドレス'
-    = f.text_field :email, class: 'form-control'
+    = f.text_field :email, value: params[:email], class: 'form-control'
   .form-group
     = f.label :password, 'パスワード'
     = f.password_field :password, class: 'form-control'

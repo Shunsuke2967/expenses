@@ -56,9 +56,13 @@ class Expense < ApplicationRecord
   # その日が31日でログイン中の月にない場合はその月の月末日を設定して返す
   def date_to_s(day)
     return unless day.respond_to?(:day_at)
-    return day.day_at.strftime("%Y-%m-%d") if day.day_at.present?
-    return Time.parse("#{self.date_at.year}-#{self.date_at.month}-#{Time.current.day}").strftime("%Y-%m-%d") \
-      rescue return Time.parse("#{self.date_at.year}-#{self.date_at.month}-1").end_of_month.strftime("%Y-%m-%d")
+    return day.day_at.strftime('%Y-%m-%d') if day.day_at.present?
+
+    begin
+      Time.parse("#{date_at.year}-#{date_at.month}-#{Time.current.day}").strftime('%Y-%m-%d')
+    rescue StandardError
+      Time.parse("#{date_at.year}-#{date_at.month}-1").end_of_month.strftime('%Y-%m-%d')
+    end
   end
 
   def days_create(templates)

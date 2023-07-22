@@ -16,6 +16,8 @@ class UsersController < ApplicationController
       # 新規の最初のユーザーに見せるモーダルのための変数
       session[:first_user] = true
       redirect_to root_url, notice: '新規登録に成功しました'
+    else
+      redirect_to new_user_path(user_params), alert: @user.errors.full_messages
     end
   end
 
