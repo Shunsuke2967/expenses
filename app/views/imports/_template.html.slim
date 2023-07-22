@@ -8,7 +8,7 @@
             = f.submit '家計簿に反映する', class:"btn btn-outline-secondary btn-sm radius"
           .mb-3
       - current_user.templates.each do |template|
-        - t_class_name = template.set_class
+        - t_class_name = template.decorate.set_class
         tr.template-tr.color-none
           = tag.send("td", class: t_class_name[0], width: "12%", align: "center")
             = tag.send("i", class: t_class_name[1])

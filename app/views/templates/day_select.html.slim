@@ -10,7 +10,7 @@
       - @templates.each do |template|
         table.shadow.p-3.mb-3.bg-white.rounded.Regular.shadow.table.table-hover.text-left.stay
           tbody
-            - t_class_name = template.set_class
+            - t_class_name = template.decorate.set_class
             tr.color-none
               = tag.send("td", class: t_class_name[0], width: "12%", align: "center")
                 = tag.send("i", class: t_class_name[1])
