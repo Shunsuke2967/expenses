@@ -50,7 +50,7 @@ class ExpensesController < ApplicationController
 
   def destroy
     expense = current_user.expenses.find(params[:id])
-    expense.destroy
+    expense.destroy!
     current_expense_set
 
     redirect_to root_url, notice: "#{expense.date_at.year}年#{expense.date_at.month}月の家計簿を削除しました"

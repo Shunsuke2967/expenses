@@ -25,7 +25,7 @@ class DaysController < ApplicationController
   end
 
   def destroy
-    @day.destroy
+    @day.destroy!
     redirect_to root_url, notice: '削除しました'
   end
 

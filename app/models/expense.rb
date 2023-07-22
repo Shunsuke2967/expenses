@@ -59,7 +59,7 @@ class Expense < ApplicationRecord
     return day.day_at.strftime('%Y-%m-%d') if day.day_at.present?
 
     begin
-      Time.parse("#{date_at.year}-#{date_at.month}-#{Time.zone.now.day}").strftime('%Y-%m-%d')
+      Time.parse("#{date_at.year}-#{date_at.month}-#{Time.current.day}").strftime('%Y-%m-%d')
     rescue StandardError
       Time.parse("#{date_at.year}-#{date_at.month}-1").end_of_month.strftime('%Y-%m-%d')
     end
