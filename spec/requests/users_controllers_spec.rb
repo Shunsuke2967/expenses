@@ -56,9 +56,9 @@ RSpec.describe 'UsersControllers', type: :request do
         expect { subject }.not_to change(User, :count)
       end
 
-      it 'エラーメッセージが表示されること' do
+      it 'flashメッセージが格納されること' do
         subject
-        expect(response.body).to include '名前を入力してください'
+        expect(flash[:alert]).to include '名前を入力してください'
       end
     end
   end

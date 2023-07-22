@@ -23,7 +23,7 @@ class ExpensesController < ApplicationController
   end
 
   def create
-    date = Time.current.parse("#{expense_params[:year]}/#{expense_params[:month]}")
+    date = Time.zone.parse("#{expense_params[:year]}/#{expense_params[:month]}")
     @expense = current_user.expenses.new(
       salary: expense_params[:salary],
       salary_2: expense_params[:salary_2],
