@@ -16,7 +16,6 @@ class ApplicationController < ActionController::Base
     if request.xhr?
       render json: { error: '404 error' }, status: 404
     else
-      format = params[:format] == :json ? :json : :html
       render file: Rails.root.join('public/404.html'), status: 404, layout: false, content_type: 'text/html'
     end
   end
@@ -27,7 +26,6 @@ class ApplicationController < ActionController::Base
     if request.xhr?
       render json: { error: '500 error' }, status: 500
     else
-      format = params[:format] == :json ? :json : :html
       render file: Rails.root.join('public/500.html'), status: 500, layout: false, content_type: 'text/html'
     end
   end
@@ -41,14 +39,8 @@ class ApplicationController < ActionController::Base
   end
 
   def current_expense_set
-    expense = current_user.expenses.order(date_at: 'DESC').first
-
-    if expense.present?
-      session[:expense_id] = expense.id
-    else
-      expense = current_user.expenses.create(date_at: Time.current)
-      session[:expense_id] = expense.id
-    end
+    expense = current_user.expenses.order(date_at: 'DESC').first || current_user.expenses.create(date_at: Time.current)
+    session[:expense_id] = expense.id
   end
 
   def login_required
