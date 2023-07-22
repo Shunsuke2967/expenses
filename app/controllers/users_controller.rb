@@ -6,18 +6,17 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+   @user = User.new(user_params)
 
-    return unless @user.save
-
-    date = Time.zone.now
-    @expense = @user.expenses.create(date_at: Time.parse("#{date.year}/#{date.month}"))
-    session[:user_id] = @user.id
-    session[:expense_id] = @expense.id
-    session[:demo] = nil
-    # 新規の最初のユーザーに見せるモーダルのための変数
-    session[:first_user] = true
-    redirect_to root_url, notice: '新規登録に成功しました'
+    if @user.save
+      date = Time.current
+      @expense = @user.expenses.create(date_at: Time.parse("#{date.year}/#{date.month}"))
+      session[:user_id] = @user.id
+      session[:expense_id] = @expense.id
+      # 新規の最初のユーザーに見せるモーダルのための変数
+      session[:first_user] = true
+      redirect_to root_url, notice: '新規登録に成功しました'
+    end
   end
 
   def destroy

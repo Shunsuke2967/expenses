@@ -72,11 +72,6 @@ RSpec.describe 'SessionsControllers', type: :request do
       expect(session[:user_id]).to eq User.last.id
     end
 
-    it 'session[:demo]がセットされていること' do
-      subject
-      expect(session[:demo]).to eq true
-    end
-
     context 'デモデータの作成に失敗した場合' do
       before { allow(User).to receive(:demo_data_create).and_return(nil) }
 

@@ -1,4 +1,5 @@
 class TemplatesController < ApplicationController
+  before_action :set_template, only: [:edit, :update, :destroy]
   def new
     @template = current_user.templates.new
   end
@@ -13,12 +14,9 @@ class TemplatesController < ApplicationController
   end
 
   def edit
-    @template = current_user.templates.find(params[:id])
   end
 
   def update
-    @template = current_user.templates.find(params[:id])
-
     if @template.update(template_params)
       redirect_to imports_path, notice: 'テンプレートを変更しました'
     else
@@ -26,18 +24,9 @@ class TemplatesController < ApplicationController
     end
   end
 
-  def create_add
-    @day = current_user.expenses.find(current_expense.id).days.new(template_day_params)
-    return unless @day.save
-
-    redirect_to imports_path, notice: '追加しました'
-  end
-
   def destroy
-    @template = current_user.templates.find(params[:id])
-    @template.destroy
-
-    redirect_to root_url, notice: 'テンプレートを削除しました'
+    @template.destroy!
+    redirect_to root_url, notice: "テンプレートを削除しました"
   end
 
   def day_select
@@ -71,5 +60,9 @@ class TemplatesController < ApplicationController
 
   def template_day_params
     params.require(:template).permit(:day_at, :icon, :memo, :spending, :money)
+  end
+
+  def set_template
+    @template = current_user.templates.find(params[:id])
   end
 end

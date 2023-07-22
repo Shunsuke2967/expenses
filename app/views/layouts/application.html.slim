@@ -36,7 +36,7 @@ html
             span.t-s の
             span.ore か
             | けいぼ
-            -if current_demo.present?
+            -if current_user.demo?
               | (デモ環境)
         - else 
           = link_to root_path, class: "logotype"

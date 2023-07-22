@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
     if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
       current_expense_set
-      session[:demo] = nil
       redirect_to root_url, notice: 'ログインしました'
     else
       flash[:danger] = 'ログインできませんでした'
@@ -23,7 +22,6 @@ class SessionsController < ApplicationController
     if user.present?
       session[:user_id] = user.id
       current_expense_set
-      session[:demo] = true
       # 新規の最初のユーザーに見せるモーダルのための変数
       session[:first_user] = true
       redirect_to root_url, notice: 'デモ画面にログインしました'
